@@ -37,7 +37,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "resource_set")
-@NamedQueries ({
+@NamedQueries({
 	@NamedQuery(name = ResourceSet.QUERY_BY_OWNER, query = "select r from ResourceSet r where r.owner = :" + ResourceSet.PARAM_OWNER),
 	@NamedQuery(name = ResourceSet.QUERY_BY_OWNER_AND_CLIENT, query = "select r from ResourceSet r where r.owner = :" + ResourceSet.PARAM_OWNER + " and r.clientId = :" + ResourceSet.PARAM_CLIENTID),
 	@NamedQuery(name = ResourceSet.QUERY_BY_CLIENT, query = "select r from ResourceSet r where r.clientId = :" + ResourceSet.PARAM_CLIENTID),
@@ -136,9 +136,9 @@ public class ResourceSet {
 	@ElementCollection(fetch = FetchType.EAGER)
 	@Column(name = "scope")
 	@CollectionTable(
-			name = "resource_set_scope",
-			joinColumns = @JoinColumn(name = "owner_id")
-			)
+		name = "resource_set_scope",
+		joinColumns = @JoinColumn(name = "owner_id")
+	)
 	public Set<String> getScopes() {
 		return scopes;
 	}
@@ -321,9 +321,6 @@ public class ResourceSet {
 		}
 		return true;
 	}
-
-
-
 
 
 }

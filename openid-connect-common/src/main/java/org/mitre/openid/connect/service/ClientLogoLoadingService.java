@@ -21,7 +21,6 @@ import org.mitre.openid.connect.model.CachedImage;
 
 /**
  * @author jricher
- *
  */
 public interface ClientLogoLoadingService {
 

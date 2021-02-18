@@ -29,7 +29,6 @@ import com.nimbusds.jwt.JWTParser;
 
 /**
  * @author jricher
- *
  */
 @Converter
 public class JWTStringConverter implements AttributeConverter<JWT, String> {

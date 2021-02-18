@@ -16,19 +16,23 @@
 <!-- blacklist -->
 <script type="text/html" id="tmpl-blacklist-table">
 
-    <div class="well well-small">
-		<button class="btn btn-small refresh-table"><i class="icon-refresh"></i> <span data-i18n="common.refresh">Refresh</span></button> &nbsp;
-    </div>
+	<div class="well well-small">
+		<button class="btn btn-small refresh-table"><i class="icon-refresh"></i> <span data-i18n="common.refresh">Refresh</span>
+		</button> &nbsp;
+	</div>
 
 	<div class="alert alert-danger" data-i18n="blacklist.text">
-		Blacklisted URIs cannot be used as redirect URIs by any registered clients, whether in the admin interface or in dynamic registration.
+		Blacklisted URIs cannot be used as redirect URIs by any registered clients, whether in the admin interface or in
+		dynamic registration.
 	</div>
 
 	<div id="add-blacklist">
 		<form class="form-horizontal">
 			<fieldset>
-				<input type="text" id="blacklist-uri" placeholder="blacklist uri" data-i18n="[placeholder]blacklist.blacklist-uri-placeholder" />
-				<button class="btn btn-success btn-add"><i class="icon-plus icon-white"></i> <span data-i18n="blacklist.add">Add URI to blacklist</span></button>
+				<input type="text" id="blacklist-uri" placeholder="blacklist uri"
+					   data-i18n="[placeholder]blacklist.blacklist-uri-placeholder"/>
+				<button class="btn btn-success btn-add"><i class="icon-plus icon-white"></i> <span
+					data-i18n="blacklist.add">Add URI to blacklist</span></button>
 			</fieldset>
 		</form>
 	</div>
@@ -37,20 +41,21 @@
 		There are no blacklisted URIs on this server.
 	</div>
 
-    <table id="blacklist-table" class="table table-hover table-striped">
-        <thead>
-        <tr>
-            <th data-i18n="blacklist.uri">URI</th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
+	<table id="blacklist-table" class="table table-hover table-striped">
+		<thead>
+		<tr>
+			<th data-i18n="blacklist.uri">URI</th>
+			<th></th>
+		</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
 
-    <div class="well well-small">
-		<button class="btn btn-small refresh-table"><i class="icon-refresh"></i> <span data-i18n="common.refresh">Refresh</span></button> &nbsp; 
-    </div>
+	<div class="well well-small">
+		<button class="btn btn-small refresh-table"><i class="icon-refresh"></i> <span data-i18n="common.refresh">Refresh</span>
+		</button> &nbsp;
+	</div>
 
 </script>
 
@@ -59,10 +64,11 @@
 		<span class="label label-important"><%- uri %></span>
 	</td>
 
-    <td>
+	<td>
 		<div class="btn-group pull-right">
-    	    <button class="btn btn-danger btn-delete"><i class="icon-trash icon-white"></i> <span data-i18n="common.delete">Delete</span></button>
+			<button class="btn btn-danger btn-delete"><i class="icon-trash icon-white"></i> <span
+				data-i18n="common.delete">Delete</span></button>
 		</div>
-    </td>
+	</td>
 
 </script>

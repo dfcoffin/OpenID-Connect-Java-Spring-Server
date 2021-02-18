@@ -26,10 +26,9 @@ import com.google.common.base.Strings;
 
 /**
  * @author jricher
- *
  */
 @Converter
-public class RegisteredClientStringConverter implements AttributeConverter<RegisteredClient, String>{
+public class RegisteredClientStringConverter implements AttributeConverter<RegisteredClient, String> {
 
 	/* (non-Javadoc)
 	 * @see javax.persistence.AttributeConverter#convertToDatabaseColumn(java.lang.Object)

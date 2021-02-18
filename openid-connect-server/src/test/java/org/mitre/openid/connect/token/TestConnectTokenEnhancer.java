@@ -66,7 +66,8 @@ public class TestConnectTokenEnhancer {
 	@Mock
 	private OAuth2Authentication authentication;
 
-	private OAuth2Request request = new OAuth2Request(CLIENT_ID) { };
+	private OAuth2Request request = new OAuth2Request(CLIENT_ID) {
+	};
 
 	@InjectMocks
 	private ConnectTokenEnhancer enhancer = new ConnectTokenEnhancer();
@@ -87,12 +88,12 @@ public class TestConnectTokenEnhancer {
 	@Test
 	public void invokesCustomClaimsHook() throws ParseException {
 		configure(enhancer = new ConnectTokenEnhancer() {
-				@Override
-				protected void addCustomAccessTokenClaims(Builder builder, OAuth2AccessTokenEntity token,
-				    OAuth2Authentication authentication) {
-					builder.claim("test", "foo");
-				}
-			});
+			@Override
+			protected void addCustomAccessTokenClaims(Builder builder, OAuth2AccessTokenEntity token,
+													  OAuth2Authentication authentication) {
+				builder.claim("test", "foo");
+			}
+		});
 
 		OAuth2AccessTokenEntity token = new OAuth2AccessTokenEntity();
 

@@ -50,7 +50,6 @@ import com.google.gson.JsonParser;
 
 /**
  * @author jricher
- *
  */
 @Controller
 @RequestMapping("/" + PermissionRegistrationEndpoint.URL)
@@ -88,7 +87,7 @@ public class PermissionRegistrationEndpoint {
 				Long rsid = getAsLong(o, "resource_set_id");
 				Set<String> scopes = getAsStringSet(o, "scopes");
 
-				if (rsid == null || scopes == null || scopes.isEmpty()){
+				if (rsid == null || scopes == null || scopes.isEmpty()) {
 					// missing information
 					m.addAttribute("code", HttpStatus.BAD_REQUEST);
 					m.addAttribute("errorMessage", "Missing required component of permission registration request.");

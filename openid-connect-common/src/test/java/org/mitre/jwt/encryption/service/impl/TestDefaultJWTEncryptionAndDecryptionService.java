@@ -62,7 +62,6 @@ import static org.junit.Assert.assertTrue;
 /**
  * @author wkim
  * @author tsitkov
- *
  */
 
 public class TestDefaultJWTEncryptionAndDecryptionService {
@@ -80,72 +79,72 @@ public class TestDefaultJWTEncryptionAndDecryptionService {
 
 	// Example data taken from rfc7516 appendix A
 	private String compactSerializedJwe = "eyJhbGciOiJSU0EtT0FFUCIsImVuYyI6IkEyNTZHQ00ifQ." +
-			"OKOawDo13gRp2ojaHV7LFpZcgV7T6DVZKTyKOMTYUmKoTCVJRgckCL9kiMT03JGe" +
-			"ipsEdY3mx_etLbbWSrFr05kLzcSr4qKAq7YN7e9jwQRb23nfa6c9d-StnImGyFDb" +
-			"Sv04uVuxIp5Zms1gNxKKK2Da14B8S4rzVRltdYwam_lDp5XnZAYpQdb76FdIKLaV" +
-			"mqgfwX7XWRxv2322i-vDxRfqNzo_tETKzpVLzfiwQyeyPGLBIO56YJ7eObdv0je8" +
-			"1860ppamavo35UgoRdbYaBcoh9QcfylQr66oc6vFWXRcZ_ZT2LawVCWTIy3brGPi" +
-			"6UklfCpIMfIjf7iGdXKHzg." +
-			"48V1_ALb6US04U3b." +
-			"5eym8TW_c8SuK0ltJ3rpYIzOeDQz7TALvtu6UG9oMo4vpzs9tX_EFShS8iB7j6ji" +
-			"SdiwkIr3ajwQzaBtQD_A." +
-			"XFBoMYUZodetZdvTiFvSkQ";
+		"OKOawDo13gRp2ojaHV7LFpZcgV7T6DVZKTyKOMTYUmKoTCVJRgckCL9kiMT03JGe" +
+		"ipsEdY3mx_etLbbWSrFr05kLzcSr4qKAq7YN7e9jwQRb23nfa6c9d-StnImGyFDb" +
+		"Sv04uVuxIp5Zms1gNxKKK2Da14B8S4rzVRltdYwam_lDp5XnZAYpQdb76FdIKLaV" +
+		"mqgfwX7XWRxv2322i-vDxRfqNzo_tETKzpVLzfiwQyeyPGLBIO56YJ7eObdv0je8" +
+		"1860ppamavo35UgoRdbYaBcoh9QcfylQr66oc6vFWXRcZ_ZT2LawVCWTIy3brGPi" +
+		"6UklfCpIMfIjf7iGdXKHzg." +
+		"48V1_ALb6US04U3b." +
+		"5eym8TW_c8SuK0ltJ3rpYIzOeDQz7TALvtu6UG9oMo4vpzs9tX_EFShS8iB7j6ji" +
+		"SdiwkIr3ajwQzaBtQD_A." +
+		"XFBoMYUZodetZdvTiFvSkQ";
 
 	private String RSAkid = "rsa321";
 	private JWK RSAjwk = new RSAKey(
-			new Base64URL("oahUIoWw0K0usKNuOR6H4wkf4oBUXHTxRvgb48E-BVvxkeDNjbC4he8rUW" +
-					"cJoZmds2h7M70imEVhRU5djINXtqllXI4DFqcI1DgjT9LewND8MW2Krf3S" +
-					"psk_ZkoFnilakGygTwpZ3uesH-PFABNIUYpOiN15dsQRkgr0vEhxN92i2a" +
-					"sbOenSZeyaxziK72UwxrrKoExv6kc5twXTq4h-QChLOln0_mtUZwfsRaMS" +
-					"tPs6mS6XrgxnxbWhojf663tuEQueGC-FCMfra36C9knDFGzKsNa7LZK2dj" +
-					"YgyD3JR_MB_4NUJW_TqOQtwHYbxevoJArm-L5StowjzGy-_bq6Gw"), // n
-			new Base64URL("AQAB"), // e
-			new Base64URL("kLdtIj6GbDks_ApCSTYQtelcNttlKiOyPzMrXHeI-yk1F7-kpDxY4-WY5N" +
-					"WV5KntaEeXS1j82E375xxhWMHXyvjYecPT9fpwR_M9gV8n9Hrh2anTpTD9" +
-					"3Dt62ypW3yDsJzBnTnrYu1iwWRgBKrEYY46qAZIrA2xAwnm2X7uGR1hghk" +
-					"qDp0Vqj3kbSCz1XyfCs6_LehBwtxHIyh8Ripy40p24moOAbgxVw3rxT_vl" +
-					"t3UVe4WO3JkJOzlpUf-KTVI2Ptgm-dARxTEtE-id-4OJr0h-K-VFs3VSnd" +
-					"VTIznSxfyrj8ILL6MG_Uv8YAu7VILSB3lOW085-4qE3DzgrTjgyQ"), // d
-			KeyUse.ENCRYPTION, null, JWEAlgorithm.RSA_OAEP, RSAkid, null, null, null, null, null);
+		new Base64URL("oahUIoWw0K0usKNuOR6H4wkf4oBUXHTxRvgb48E-BVvxkeDNjbC4he8rUW" +
+			"cJoZmds2h7M70imEVhRU5djINXtqllXI4DFqcI1DgjT9LewND8MW2Krf3S" +
+			"psk_ZkoFnilakGygTwpZ3uesH-PFABNIUYpOiN15dsQRkgr0vEhxN92i2a" +
+			"sbOenSZeyaxziK72UwxrrKoExv6kc5twXTq4h-QChLOln0_mtUZwfsRaMS" +
+			"tPs6mS6XrgxnxbWhojf663tuEQueGC-FCMfra36C9knDFGzKsNa7LZK2dj" +
+			"YgyD3JR_MB_4NUJW_TqOQtwHYbxevoJArm-L5StowjzGy-_bq6Gw"), // n
+		new Base64URL("AQAB"), // e
+		new Base64URL("kLdtIj6GbDks_ApCSTYQtelcNttlKiOyPzMrXHeI-yk1F7-kpDxY4-WY5N" +
+			"WV5KntaEeXS1j82E375xxhWMHXyvjYecPT9fpwR_M9gV8n9Hrh2anTpTD9" +
+			"3Dt62ypW3yDsJzBnTnrYu1iwWRgBKrEYY46qAZIrA2xAwnm2X7uGR1hghk" +
+			"qDp0Vqj3kbSCz1XyfCs6_LehBwtxHIyh8Ripy40p24moOAbgxVw3rxT_vl" +
+			"t3UVe4WO3JkJOzlpUf-KTVI2Ptgm-dARxTEtE-id-4OJr0h-K-VFs3VSnd" +
+			"VTIznSxfyrj8ILL6MG_Uv8YAu7VILSB3lOW085-4qE3DzgrTjgyQ"), // d
+		KeyUse.ENCRYPTION, null, JWEAlgorithm.RSA_OAEP, RSAkid, null, null, null, null, null);
 
 	private String RSAkid_2 = "rsa3210";
 	private JWK RSAjwk_2 = new RSAKey(
-			new Base64URL("oahUIoWw0K0usKNuOR6H4wkf4oBUXHTxRvgb48E-BVvxkeDNjbC4he8rUW" +
-					"cJoZmds2h7M70imEVhRU5djINXtqllXI4DFqcI1DgjT9LewND8MW2Krf3S" +
-					"psk_ZkoFnilakGygTwpZ3uesH-PFABNIUYpOiN15dsQRkgr0vEhxN92i2a" +
-					"sbOenSZeyaxziK72UwxrrKoExv6kc5twXTq4h-QChLOln0_mtUZwfsRaMS" +
-					"tPs6mS6XrgxnxbWhojf663tuEQueGC-FCMfra36C9knDFGzKsNa7LZK2dj" +
-					"YgyD3JR_MB_4NUJW_TqOQtwHYbxevoJArm-L5StowjzGy-_bq6Gw"), // n
-			new Base64URL("AQAB"), // e
-			new Base64URL("kLdtIj6GbDks_ApCSTYQtelcNttlKiOyPzMrXHeI-yk1F7-kpDxY4-WY5N" +
-					"WV5KntaEeXS1j82E375xxhWMHXyvjYecPT9fpwR_M9gV8n9Hrh2anTpTD9" +
-					"3Dt62ypW3yDsJzBnTnrYu1iwWRgBKrEYY46qAZIrA2xAwnm2X7uGR1hghk" +
-					"qDp0Vqj3kbSCz1XyfCs6_LehBwtxHIyh8Ripy40p24moOAbgxVw3rxT_vl" +
-					"t3UVe4WO3JkJOzlpUf-KTVI2Ptgm-dARxTEtE-id-4OJr0h-K-VFs3VSnd" +
-					"VTIznSxfyrj8ILL6MG_Uv8YAu7VILSB3lOW085-4qE3DzgrTjgyQ"), // d
-			KeyUse.ENCRYPTION, null, JWEAlgorithm.RSA1_5, RSAkid_2, null, null, null, null, null);
+		new Base64URL("oahUIoWw0K0usKNuOR6H4wkf4oBUXHTxRvgb48E-BVvxkeDNjbC4he8rUW" +
+			"cJoZmds2h7M70imEVhRU5djINXtqllXI4DFqcI1DgjT9LewND8MW2Krf3S" +
+			"psk_ZkoFnilakGygTwpZ3uesH-PFABNIUYpOiN15dsQRkgr0vEhxN92i2a" +
+			"sbOenSZeyaxziK72UwxrrKoExv6kc5twXTq4h-QChLOln0_mtUZwfsRaMS" +
+			"tPs6mS6XrgxnxbWhojf663tuEQueGC-FCMfra36C9knDFGzKsNa7LZK2dj" +
+			"YgyD3JR_MB_4NUJW_TqOQtwHYbxevoJArm-L5StowjzGy-_bq6Gw"), // n
+		new Base64URL("AQAB"), // e
+		new Base64URL("kLdtIj6GbDks_ApCSTYQtelcNttlKiOyPzMrXHeI-yk1F7-kpDxY4-WY5N" +
+			"WV5KntaEeXS1j82E375xxhWMHXyvjYecPT9fpwR_M9gV8n9Hrh2anTpTD9" +
+			"3Dt62ypW3yDsJzBnTnrYu1iwWRgBKrEYY46qAZIrA2xAwnm2X7uGR1hghk" +
+			"qDp0Vqj3kbSCz1XyfCs6_LehBwtxHIyh8Ripy40p24moOAbgxVw3rxT_vl" +
+			"t3UVe4WO3JkJOzlpUf-KTVI2Ptgm-dARxTEtE-id-4OJr0h-K-VFs3VSnd" +
+			"VTIznSxfyrj8ILL6MG_Uv8YAu7VILSB3lOW085-4qE3DzgrTjgyQ"), // d
+		KeyUse.ENCRYPTION, null, JWEAlgorithm.RSA1_5, RSAkid_2, null, null, null, null, null);
 
 	private String AESkid = "aes123";
 	private JWK AESjwk = new OctetSequenceKey(new Base64URL("GawgguFyGrWKav7AX4VKUg"),
-			KeyUse.ENCRYPTION, null, JWEAlgorithm.A128KW,
-			AESkid, null, null, null, null, null);
+		KeyUse.ENCRYPTION, null, JWEAlgorithm.A128KW,
+		AESkid, null, null, null, null, null);
 
 
 	private Map<String, JWK> keys = new ImmutableMap.Builder<String, JWK>()
-			.put(RSAkid, RSAjwk)
-			.build();
+		.put(RSAkid, RSAjwk)
+		.build();
 	private Map<String, JWK> keys_2 = new ImmutableMap.Builder<String, JWK>()
-			.put(RSAkid, RSAjwk)
-			.put(RSAkid_2, RSAjwk_2)
-			.build();
+		.put(RSAkid, RSAjwk)
+		.put(RSAkid_2, RSAjwk_2)
+		.build();
 	private Map<String, JWK> keys_3 = new ImmutableMap.Builder<String, JWK>()
-			.put(AESkid, AESjwk)
-			.build();
-	private Map<String, JWK> keys_4= new ImmutableMap.Builder<String, JWK>()
-			.put(RSAkid, RSAjwk)
-			.put(RSAkid_2, RSAjwk_2)
-			.put(AESkid, AESjwk)
-			.build();
+		.put(AESkid, AESjwk)
+		.build();
+	private Map<String, JWK> keys_4 = new ImmutableMap.Builder<String, JWK>()
+		.put(RSAkid, RSAjwk)
+		.put(RSAkid_2, RSAjwk_2)
+		.put(AESkid, AESjwk)
+		.build();
 
 
 	private List<JWK> keys_list = new LinkedList<>();
@@ -166,9 +165,9 @@ public class TestDefaultJWTEncryptionAndDecryptionService {
 		service_4 = new DefaultJWTEncryptionAndDecryptionService(keys_4);
 
 		claimsSet = new JWTClaimsSet.Builder()
-				.issuer(issuer)
-				.subject(subject)
-				.build();
+			.issuer(issuer)
+			.subject(subject)
+			.build();
 
 		// Key Store
 
@@ -185,8 +184,8 @@ public class TestDefaultJWTEncryptionAndDecryptionService {
 	public void decrypt_RSA() throws ParseException, NoSuchAlgorithmException {
 
 		Assume.assumeTrue(JCASupport.isSupported(JWEAlgorithm.RSA_OAEP) // check for algorithm support
-				&& JCASupport.isSupported(EncryptionMethod.A256GCM)
-				&& Cipher.getMaxAllowedKeyLength("RC5") >= 256); // check for unlimited crypto strength
+			&& JCASupport.isSupported(EncryptionMethod.A256GCM)
+			&& Cipher.getMaxAllowedKeyLength("RC5") >= 256); // check for unlimited crypto strength
 
 		service.setDefaultDecryptionKeyId(RSAkid);
 		service.setDefaultEncryptionKeyId(RSAkid);
@@ -206,14 +205,14 @@ public class TestDefaultJWTEncryptionAndDecryptionService {
 	public void encryptThenDecrypt_RSA() throws ParseException, NoSuchAlgorithmException {
 
 		Assume.assumeTrue(JCASupport.isSupported(JWEAlgorithm.RSA_OAEP) // check for algorithm support
-				&& JCASupport.isSupported(EncryptionMethod.A256GCM)
-				&& Cipher.getMaxAllowedKeyLength("RC5") >= 256); // check for unlimited crypto strength
+			&& JCASupport.isSupported(EncryptionMethod.A256GCM)
+			&& Cipher.getMaxAllowedKeyLength("RC5") >= 256); // check for unlimited crypto strength
 
 		service.setDefaultDecryptionKeyId(RSAkid);
 		service.setDefaultEncryptionKeyId(RSAkid);
 
-		assertEquals(RSAkid,service.getDefaultEncryptionKeyId());
-		assertEquals(RSAkid,service.getDefaultDecryptionKeyId());
+		assertEquals(RSAkid, service.getDefaultEncryptionKeyId());
+		assertEquals(RSAkid, service.getDefaultDecryptionKeyId());
 
 		JWEHeader header = new JWEHeader(JWEAlgorithm.RSA_OAEP, EncryptionMethod.A256GCM);
 
@@ -238,14 +237,14 @@ public class TestDefaultJWTEncryptionAndDecryptionService {
 	public void encryptThenDecrypt_nullID() throws ParseException, NoSuchAlgorithmException {
 
 		Assume.assumeTrue(JCASupport.isSupported(JWEAlgorithm.RSA_OAEP) // check for algorithm support
-				&& JCASupport.isSupported(EncryptionMethod.A256GCM)
-				&& Cipher.getMaxAllowedKeyLength("RC5") >= 256); // check for unlimited crypto strength
+			&& JCASupport.isSupported(EncryptionMethod.A256GCM)
+			&& Cipher.getMaxAllowedKeyLength("RC5") >= 256); // check for unlimited crypto strength
 
 		service.setDefaultDecryptionKeyId(null);
 		service.setDefaultEncryptionKeyId(null);
 
-		assertEquals(RSAkid,service.getDefaultEncryptionKeyId());
-		assertEquals(RSAkid,service.getDefaultDecryptionKeyId());
+		assertEquals(RSAkid, service.getDefaultEncryptionKeyId());
+		assertEquals(RSAkid, service.getDefaultDecryptionKeyId());
 
 		JWEHeader header = new JWEHeader(JWEAlgorithm.RSA_OAEP, EncryptionMethod.A256GCM);
 
@@ -269,8 +268,8 @@ public class TestDefaultJWTEncryptionAndDecryptionService {
 	public void encrypt_nullID_oneKey() throws NoSuchAlgorithmException {
 
 		Assume.assumeTrue(JCASupport.isSupported(JWEAlgorithm.RSA_OAEP) // check for algorithm support
-				&& JCASupport.isSupported(EncryptionMethod.A256GCM)
-				&& Cipher.getMaxAllowedKeyLength("RC5") >= 256); // check for unlimited crypto strength
+			&& JCASupport.isSupported(EncryptionMethod.A256GCM)
+			&& Cipher.getMaxAllowedKeyLength("RC5") >= 256); // check for unlimited crypto strength
 
 		exception.expect(IllegalStateException.class);
 
@@ -290,8 +289,8 @@ public class TestDefaultJWTEncryptionAndDecryptionService {
 	public void decrypt_nullID() throws ParseException, NoSuchAlgorithmException {
 
 		Assume.assumeTrue(JCASupport.isSupported(JWEAlgorithm.RSA_OAEP) // check for algorithm support
-				&& JCASupport.isSupported(EncryptionMethod.A256GCM)
-				&& Cipher.getMaxAllowedKeyLength("RC5") >= 256); // check for unlimited crypto strength
+			&& JCASupport.isSupported(EncryptionMethod.A256GCM)
+			&& Cipher.getMaxAllowedKeyLength("RC5") >= 256); // check for unlimited crypto strength
 
 
 		exception.expect(IllegalStateException.class);
@@ -330,15 +329,15 @@ public class TestDefaultJWTEncryptionAndDecryptionService {
 	@Test
 	public void getAllPubKeys() throws ParseException {
 
-		Map<String,JWK> keys2check = service_2.getAllPublicKeys();
+		Map<String, JWK> keys2check = service_2.getAllPublicKeys();
 		assertEquals(
-				JSONObjectUtils.getString(RSAjwk.toPublicJWK().toJSONObject(), "e"),
-				JSONObjectUtils.getString(keys2check.get(RSAkid).toJSONObject(), "e")
-				);
+			JSONObjectUtils.getString(RSAjwk.toPublicJWK().toJSONObject(), "e"),
+			JSONObjectUtils.getString(keys2check.get(RSAkid).toJSONObject(), "e")
+		);
 		assertEquals(
-				JSONObjectUtils.getString(RSAjwk_2.toPublicJWK().toJSONObject(), "e"),
-				JSONObjectUtils.getString(keys2check.get(RSAkid_2).toJSONObject(), "e")
-				);
+			JSONObjectUtils.getString(RSAjwk_2.toPublicJWK().toJSONObject(), "e"),
+			JSONObjectUtils.getString(keys2check.get(RSAkid_2).toJSONObject(), "e")
+		);
 
 		assertTrue(service_3.getAllPublicKeys().isEmpty());
 	}
@@ -385,7 +384,7 @@ public class TestDefaultJWTEncryptionAndDecryptionService {
 		assertEquals(null, service_ks.getDefaultDecryptionKeyId());
 		service_ks.setDefaultEncryptionKeyId(RSAkid);
 		service_ks.setDefaultDecryptionKeyId(AESkid);
-		assertEquals( RSAkid, service_ks.getDefaultEncryptionKeyId()) ;
+		assertEquals(RSAkid, service_ks.getDefaultEncryptionKeyId());
 		assertEquals(AESkid, service_ks.getDefaultDecryptionKeyId());
 	}
 }

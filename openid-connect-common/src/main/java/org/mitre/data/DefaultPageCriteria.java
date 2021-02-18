@@ -29,7 +29,7 @@ public class DefaultPageCriteria implements PageCriteria {
 	private int pageNumber;
 	private int pageSize;
 
-	public DefaultPageCriteria(){
+	public DefaultPageCriteria() {
 		this(DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE);
 	}
 

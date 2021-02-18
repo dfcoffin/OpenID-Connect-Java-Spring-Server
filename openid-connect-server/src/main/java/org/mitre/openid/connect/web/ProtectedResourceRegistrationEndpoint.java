@@ -86,6 +86,7 @@ public class ProtectedResourceRegistrationEndpoint {
 
 	/**
 	 * Create a new Client, issue a client ID, and create a registration access token.
+	 *
 	 * @param jsonString
 	 * @param m
 	 * @param p
@@ -219,6 +220,7 @@ public class ProtectedResourceRegistrationEndpoint {
 
 	/**
 	 * Get the meta information for a client.
+	 *
 	 * @param clientId
 	 * @param m
 	 * @param auth
@@ -233,12 +235,11 @@ public class ProtectedResourceRegistrationEndpoint {
 		if (client != null && client.getClientId().equals(auth.getOAuth2Request().getClientId())) {
 
 
-
 			try {
 				// possibly update the token
 				OAuth2AccessTokenEntity token = fetchValidRegistrationToken(auth, client);
 
-				RegisteredClient registered = new RegisteredClient(client, token.getValue(), config.getIssuer() + "resource/" +  UriUtils.encodePathSegment(client.getClientId(), "UTF-8"));
+				RegisteredClient registered = new RegisteredClient(client, token.getValue(), config.getIssuer() + "resource/" + UriUtils.encodePathSegment(client.getClientId(), "UTF-8"));
 
 				// send it all out to the view
 				m.addAttribute("client", registered);
@@ -253,7 +254,7 @@ public class ProtectedResourceRegistrationEndpoint {
 		} else {
 			// client mismatch
 			logger.error("readResourceConfiguration failed, client ID mismatch: "
-					+ clientId + " and " + auth.getOAuth2Request().getClientId() + " do not match.");
+				+ clientId + " and " + auth.getOAuth2Request().getClientId() + " do not match.");
 			m.addAttribute(HttpCodeView.CODE, HttpStatus.FORBIDDEN); // http 403
 
 			return HttpCodeView.VIEWNAME;
@@ -262,6 +263,7 @@ public class ProtectedResourceRegistrationEndpoint {
 
 	/**
 	 * Update the metainformation for a given client.
+	 *
 	 * @param clientId
 	 * @param jsonString
 	 * @param m
@@ -287,9 +289,9 @@ public class ProtectedResourceRegistrationEndpoint {
 		ClientDetailsEntity oldClient = clientService.loadClientByClientId(clientId);
 
 		if (newClient != null && oldClient != null  // we have an existing client and the new one parsed
-				&& oldClient.getClientId().equals(auth.getOAuth2Request().getClientId()) // the client passed in the URI matches the one in the auth
-				&& oldClient.getClientId().equals(newClient.getClientId()) // the client passed in the body matches the one in the URI
-				) {
+			&& oldClient.getClientId().equals(auth.getOAuth2Request().getClientId()) // the client passed in the URI matches the one in the auth
+			&& oldClient.getClientId().equals(newClient.getClientId()) // the client passed in the body matches the one in the URI
+		) {
 
 			// a client can't ask to update its own client secret to any particular value
 			newClient.setClientSecret(oldClient.getClientSecret());
@@ -372,8 +374,8 @@ public class ProtectedResourceRegistrationEndpoint {
 		} else {
 			// client mismatch
 			logger.error("updateProtectedResource" +
-					" failed, client ID mismatch: "
-					+ clientId + " and " + auth.getOAuth2Request().getClientId() + " do not match.");
+				" failed, client ID mismatch: "
+				+ clientId + " and " + auth.getOAuth2Request().getClientId() + " do not match.");
 			m.addAttribute(HttpCodeView.CODE, HttpStatus.FORBIDDEN); // http 403
 
 			return HttpCodeView.VIEWNAME;
@@ -382,6 +384,7 @@ public class ProtectedResourceRegistrationEndpoint {
 
 	/**
 	 * Delete the indicated client from the system.
+	 *
 	 * @param clientId
 	 * @param m
 	 * @param auth
@@ -403,7 +406,7 @@ public class ProtectedResourceRegistrationEndpoint {
 		} else {
 			// client mismatch
 			logger.error("readClientConfiguration failed, client ID mismatch: "
-					+ clientId + " and " + auth.getOAuth2Request().getClientId() + " do not match.");
+				+ clientId + " and " + auth.getOAuth2Request().getClientId() + " do not match.");
 			m.addAttribute(HttpCodeView.CODE, HttpStatus.FORBIDDEN); // http 403
 
 			return HttpCodeView.VIEWNAME;
@@ -416,8 +419,8 @@ public class ProtectedResourceRegistrationEndpoint {
 		}
 
 		if (newClient.getTokenEndpointAuthMethod() == AuthMethod.SECRET_BASIC ||
-				newClient.getTokenEndpointAuthMethod() == AuthMethod.SECRET_JWT ||
-				newClient.getTokenEndpointAuthMethod() == AuthMethod.SECRET_POST) {
+			newClient.getTokenEndpointAuthMethod() == AuthMethod.SECRET_JWT ||
+			newClient.getTokenEndpointAuthMethod() == AuthMethod.SECRET_POST) {
 
 			if (Strings.isNullOrEmpty(newClient.getClientSecret())) {
 				// no secret yet, we need to generate a secret
@@ -447,7 +450,7 @@ public class ProtectedResourceRegistrationEndpoint {
 			try {
 				// Re-issue the token if it has been issued before [currentTime - validity]
 				Date validToDate = new Date(System.currentTimeMillis() - config.getRegTokenLifeTime() * 1000);
-				if(token.getJwt().getJWTClaimsSet().getIssueTime().before(validToDate)) {
+				if (token.getJwt().getJWTClaimsSet().getIssueTime().before(validToDate)) {
 					logger.info("Rotating the registration access token for " + client.getClientId());
 					tokenService.revokeAccessToken(token);
 					OAuth2AccessTokenEntity newToken = connectTokenService.createResourceAccessToken(client);

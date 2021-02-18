@@ -39,7 +39,6 @@ import com.google.common.util.concurrent.UncheckedExecutionException;
 
 /**
  * @author jricher
- *
  */
 @Service("inMemoryClientLogoLoadingService")
 public class InMemoryClientLogoLoadingService implements ClientLogoLoadingService {
@@ -56,9 +55,9 @@ public class InMemoryClientLogoLoadingService implements ClientLogoLoadingServic
 	public InMemoryClientLogoLoadingService(HttpClient httpClient) {
 
 		cache = CacheBuilder.newBuilder()
-				.maximumSize(100)
-				.expireAfterAccess(14, TimeUnit.DAYS)
-				.build(new ClientLogoFetcher(httpClient));
+			.maximumSize(100)
+			.expireAfterAccess(14, TimeUnit.DAYS)
+			.build(new ClientLogoFetcher(httpClient));
 
 	}
 
@@ -81,7 +80,6 @@ public class InMemoryClientLogoLoadingService implements ClientLogoLoadingServic
 
 	/**
 	 * @author jricher
-	 *
 	 */
 	public class ClientLogoFetcher extends CacheLoader<ClientDetailsEntity, CachedImage> {
 		private HttpClient httpClient;

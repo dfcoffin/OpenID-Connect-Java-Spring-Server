@@ -69,7 +69,6 @@ import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jwt.JWTParser;
 
 /**
- *
  * Data service to import and export MITREid 1.3 configuration.
  *
  * @author jricher
@@ -252,9 +251,9 @@ public class MITREidDataService_1_3 extends MITREidDataServiceSupport implements
 			writer.name(ID).value(token.getId());
 			writer.name(EXPIRATION).value(toUTCString(token.getExpiration()));
 			writer.name(CLIENT_ID)
-			.value((token.getClient() != null) ? token.getClient().getClientId() : null);
+				.value((token.getClient() != null) ? token.getClient().getClientId() : null);
 			writer.name(AUTHENTICATION_HOLDER_ID)
-			.value((token.getAuthenticationHolder() != null) ? token.getAuthenticationHolder().getId() : null);
+				.value((token.getAuthenticationHolder() != null) ? token.getAuthenticationHolder().getId() : null);
 			writer.name(VALUE).value(token.getValue());
 			writer.endObject();
 			logger.debug("Wrote refresh token {}", token.getId());
@@ -271,11 +270,11 @@ public class MITREidDataService_1_3 extends MITREidDataServiceSupport implements
 			writer.name(ID).value(token.getId());
 			writer.name(EXPIRATION).value(toUTCString(token.getExpiration()));
 			writer.name(CLIENT_ID)
-			.value((token.getClient() != null) ? token.getClient().getClientId() : null);
+				.value((token.getClient() != null) ? token.getClient().getClientId() : null);
 			writer.name(AUTHENTICATION_HOLDER_ID)
-			.value((token.getAuthenticationHolder() != null) ? token.getAuthenticationHolder().getId() : null);
+				.value((token.getAuthenticationHolder() != null) ? token.getAuthenticationHolder().getId() : null);
 			writer.name(REFRESH_TOKEN_ID)
-			.value((token.getRefreshToken() != null) ? token.getRefreshToken().getId() : null);
+				.value((token.getRefreshToken() != null) ? token.getRefreshToken().getId() : null);
 			writer.name(SCOPE);
 			writer.beginArray();
 			for (String s : token.getScope()) {
@@ -466,7 +465,7 @@ public class MITREidDataService_1_3 extends MITREidDataServiceSupport implements
 				writeNullSafeArray(writer, client.getContacts());
 				writer.name(TOS_URI).value(client.getTosUri());
 				writer.name(TOKEN_ENDPOINT_AUTH_METHOD)
-				.value((client.getTokenEndpointAuthMethod() != null) ? client.getTokenEndpointAuthMethod().getValue() : null);
+					.value((client.getTokenEndpointAuthMethod() != null) ? client.getTokenEndpointAuthMethod().getValue() : null);
 				writer.name(GRANT_TYPES);
 				writer.beginArray();
 				for (String s : client.getGrantTypes()) {
@@ -483,26 +482,26 @@ public class MITREidDataService_1_3 extends MITREidDataServiceSupport implements
 				writer.name(JWKS_URI).value(client.getJwksUri());
 				writer.name(JWKS).value((client.getJwks() != null) ? client.getJwks().toString() : null);
 				writer.name(APPLICATION_TYPE)
-				.value((client.getApplicationType() != null) ? client.getApplicationType().getValue() : null);
+					.value((client.getApplicationType() != null) ? client.getApplicationType().getValue() : null);
 				writer.name(SECTOR_IDENTIFIER_URI).value(client.getSectorIdentifierUri());
 				writer.name(SUBJECT_TYPE)
-				.value((client.getSubjectType() != null) ? client.getSubjectType().getValue() : null);
+					.value((client.getSubjectType() != null) ? client.getSubjectType().getValue() : null);
 				writer.name(REQUEST_OBJECT_SIGNING_ALG)
-				.value((client.getRequestObjectSigningAlg() != null) ? client.getRequestObjectSigningAlg().getName() : null);
+					.value((client.getRequestObjectSigningAlg() != null) ? client.getRequestObjectSigningAlg().getName() : null);
 				writer.name(ID_TOKEN_SIGNED_RESPONSE_ALG)
-				.value((client.getIdTokenSignedResponseAlg() != null) ? client.getIdTokenSignedResponseAlg().getName() : null);
+					.value((client.getIdTokenSignedResponseAlg() != null) ? client.getIdTokenSignedResponseAlg().getName() : null);
 				writer.name(ID_TOKEN_ENCRYPTED_RESPONSE_ALG)
-				.value((client.getIdTokenEncryptedResponseAlg() != null) ? client.getIdTokenEncryptedResponseAlg().getName() : null);
+					.value((client.getIdTokenEncryptedResponseAlg() != null) ? client.getIdTokenEncryptedResponseAlg().getName() : null);
 				writer.name(ID_TOKEN_ENCRYPTED_RESPONSE_ENC)
-				.value((client.getIdTokenEncryptedResponseEnc() != null) ? client.getIdTokenEncryptedResponseEnc().getName() : null);
+					.value((client.getIdTokenEncryptedResponseEnc() != null) ? client.getIdTokenEncryptedResponseEnc().getName() : null);
 				writer.name(USER_INFO_SIGNED_RESPONSE_ALG)
-				.value((client.getUserInfoSignedResponseAlg() != null) ? client.getUserInfoSignedResponseAlg().getName() : null);
+					.value((client.getUserInfoSignedResponseAlg() != null) ? client.getUserInfoSignedResponseAlg().getName() : null);
 				writer.name(USER_INFO_ENCRYPTED_RESPONSE_ALG)
-				.value((client.getUserInfoEncryptedResponseAlg() != null) ? client.getUserInfoEncryptedResponseAlg().getName() : null);
+					.value((client.getUserInfoEncryptedResponseAlg() != null) ? client.getUserInfoEncryptedResponseAlg().getName() : null);
 				writer.name(USER_INFO_ENCRYPTED_RESPONSE_ENC)
-				.value((client.getUserInfoEncryptedResponseEnc() != null) ? client.getUserInfoEncryptedResponseEnc().getName() : null);
+					.value((client.getUserInfoEncryptedResponseEnc() != null) ? client.getUserInfoEncryptedResponseEnc().getName() : null);
 				writer.name(TOKEN_ENDPOINT_AUTH_SIGNING_ALG)
-				.value((client.getTokenEndpointAuthSigningAlg() != null) ? client.getTokenEndpointAuthSigningAlg().getName() : null);
+					.value((client.getTokenEndpointAuthSigningAlg() != null) ? client.getTokenEndpointAuthSigningAlg().getName() : null);
 				writer.name(DEFAULT_MAX_AGE).value(client.getDefaultMaxAge());
 				Boolean requireAuthTime = null;
 				try {
@@ -765,6 +764,7 @@ public class MITREidDataService_1_3 extends MITREidDataServiceSupport implements
 		reader.endArray();
 		logger.info("Done reading access tokens");
 	}
+
 	/**
 	 * @param reader
 	 * @throws IOException
@@ -841,7 +841,7 @@ public class MITREidDataService_1_3 extends MITREidDataServiceSupport implements
 		reader.beginObject();
 
 		while (reader.hasNext()) {
-			switch(reader.peek()) {
+			switch (reader.peek()) {
 				case END_OBJECT:
 					continue;
 				case NAME:
@@ -1289,7 +1289,7 @@ public class MITREidDataService_1_3 extends MITREidDataServiceSupport implements
 			Long newGrantId = maps.getGrantOldToNewIdMap().get(oldGrantId);
 			ApprovedSite site = approvedSiteRepository.getById(newGrantId);
 
-			for(Long oldTokenId : oldAccessTokenIds) {
+			for (Long oldTokenId : oldAccessTokenIds) {
 				Long newTokenId = maps.getAccessTokenOldToNewIdMap().get(oldTokenId);
 				OAuth2AccessTokenEntity token = tokenRepository.getAccessTokenById(newTokenId);
 				token.setApprovedSite(site);

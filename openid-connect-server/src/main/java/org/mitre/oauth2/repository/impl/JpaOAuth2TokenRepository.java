@@ -57,7 +57,7 @@ public class JpaOAuth2TokenRepository implements OAuth2TokenRepository {
 
 	private static final Logger logger = LoggerFactory.getLogger(JpaOAuth2TokenRepository.class);
 
-	@PersistenceContext(unitName="defaultPersistenceUnit")
+	@PersistenceContext(unitName = "defaultPersistenceUnit")
 	private EntityManager manager;
 
 	@Override
@@ -91,13 +91,13 @@ public class JpaOAuth2TokenRepository implements OAuth2TokenRepository {
 	}
 
 	@Override
-	@Transactional(value="defaultTransactionManager")
+	@Transactional(value = "defaultTransactionManager")
 	public OAuth2AccessTokenEntity saveAccessToken(OAuth2AccessTokenEntity token) {
 		return JpaUtil.saveOrUpdate(token.getId(), manager, token);
 	}
 
 	@Override
-	@Transactional(value="defaultTransactionManager")
+	@Transactional(value = "defaultTransactionManager")
 	public void removeAccessToken(OAuth2AccessTokenEntity accessToken) {
 		OAuth2AccessTokenEntity found = getAccessTokenById(accessToken.getId());
 		if (found != null) {
@@ -108,7 +108,7 @@ public class JpaOAuth2TokenRepository implements OAuth2TokenRepository {
 	}
 
 	@Override
-	@Transactional(value="defaultTransactionManager")
+	@Transactional(value = "defaultTransactionManager")
 	public void clearAccessTokensForRefreshToken(OAuth2RefreshTokenEntity refreshToken) {
 		TypedQuery<OAuth2AccessTokenEntity> query = manager.createNamedQuery(OAuth2AccessTokenEntity.QUERY_BY_REFRESH_TOKEN, OAuth2AccessTokenEntity.class);
 		query.setParameter(OAuth2AccessTokenEntity.PARAM_REFERSH_TOKEN, refreshToken);
@@ -136,13 +136,13 @@ public class JpaOAuth2TokenRepository implements OAuth2TokenRepository {
 	}
 
 	@Override
-	@Transactional(value="defaultTransactionManager")
+	@Transactional(value = "defaultTransactionManager")
 	public OAuth2RefreshTokenEntity saveRefreshToken(OAuth2RefreshTokenEntity refreshToken) {
 		return JpaUtil.saveOrUpdate(refreshToken.getId(), manager, refreshToken);
 	}
 
 	@Override
-	@Transactional(value="defaultTransactionManager")
+	@Transactional(value = "defaultTransactionManager")
 	public void removeRefreshToken(OAuth2RefreshTokenEntity refreshToken) {
 		OAuth2RefreshTokenEntity found = getRefreshTokenById(refreshToken.getId());
 		if (found != null) {
@@ -153,7 +153,7 @@ public class JpaOAuth2TokenRepository implements OAuth2TokenRepository {
 	}
 
 	@Override
-	@Transactional(value="defaultTransactionManager")
+	@Transactional(value = "defaultTransactionManager")
 	public void clearTokensForClient(ClientDetailsEntity client) {
 		TypedQuery<OAuth2AccessTokenEntity> queryA = manager.createNamedQuery(OAuth2AccessTokenEntity.QUERY_BY_CLIENT, OAuth2AccessTokenEntity.class);
 		queryA.setParameter(OAuth2AccessTokenEntity.PARAM_CLIENT, client);
@@ -184,21 +184,21 @@ public class JpaOAuth2TokenRepository implements OAuth2TokenRepository {
 		List<OAuth2RefreshTokenEntity> refreshTokens = queryR.getResultList();
 		return refreshTokens;
 	}
-	
+
 	@Override
 	public Set<OAuth2AccessTokenEntity> getAccessTokensByUserName(String name) {
 		TypedQuery<OAuth2AccessTokenEntity> query = manager.createNamedQuery(OAuth2AccessTokenEntity.QUERY_BY_NAME, OAuth2AccessTokenEntity.class);
-	    query.setParameter(OAuth2AccessTokenEntity.PARAM_NAME, name);
-	    List<OAuth2AccessTokenEntity> results = query.getResultList();
-	    return results != null ? new HashSet<>(results) : new HashSet<>();
+		query.setParameter(OAuth2AccessTokenEntity.PARAM_NAME, name);
+		List<OAuth2AccessTokenEntity> results = query.getResultList();
+		return results != null ? new HashSet<>(results) : new HashSet<>();
 	}
-	
+
 	@Override
 	public Set<OAuth2RefreshTokenEntity> getRefreshTokensByUserName(String name) {
 		TypedQuery<OAuth2RefreshTokenEntity> query = manager.createNamedQuery(OAuth2RefreshTokenEntity.QUERY_BY_NAME, OAuth2RefreshTokenEntity.class);
-	    query.setParameter(OAuth2RefreshTokenEntity.PARAM_NAME, name);
-	    List<OAuth2RefreshTokenEntity> results = query.getResultList();
-	    return results != null ? new HashSet<>(results) : new HashSet<>();
+		query.setParameter(OAuth2RefreshTokenEntity.PARAM_NAME, name);
+		List<OAuth2RefreshTokenEntity> results = query.getResultList();
+		return results != null ? new HashSet<>(results) : new HashSet<>();
 	}
 
 	@Override
@@ -224,7 +224,7 @@ public class JpaOAuth2TokenRepository implements OAuth2TokenRepository {
 	public Set<OAuth2RefreshTokenEntity> getAllExpiredRefreshTokens(PageCriteria pageCriteria) {
 		TypedQuery<OAuth2RefreshTokenEntity> query = manager.createNamedQuery(OAuth2RefreshTokenEntity.QUERY_EXPIRED_BY_DATE, OAuth2RefreshTokenEntity.class);
 		query.setParameter(OAuth2AccessTokenEntity.PARAM_DATE, new Date());
-		return new LinkedHashSet<>(JpaUtil.getResultPage(query,pageCriteria));
+		return new LinkedHashSet<>(JpaUtil.getResultPage(query, pageCriteria));
 	}
 
 	@Override
@@ -235,14 +235,14 @@ public class JpaOAuth2TokenRepository implements OAuth2TokenRepository {
 	}
 
 	@Override
-	@Transactional(value="defaultTransactionManager")
+	@Transactional(value = "defaultTransactionManager")
 	public void clearDuplicateAccessTokens() {
 		Query query = manager.createQuery("select a.jwt, count(1) as c from OAuth2AccessTokenEntity a GROUP BY a.jwt HAVING count(1) > 1");
 		@SuppressWarnings("unchecked")
 		List<Object[]> resultList = query.getResultList();
 		List<JWT> values = new ArrayList<>();
 		for (Object[] r : resultList) {
-			logger.warn("Found duplicate access tokens: {}, {}", ((JWT)r[0]).serialize(), r[1]);
+			logger.warn("Found duplicate access tokens: {}, {}", ((JWT) r[0]).serialize(), r[1]);
 			values.add((JWT) r[0]);
 		}
 		if (values.size() > 0) {
@@ -256,14 +256,14 @@ public class JpaOAuth2TokenRepository implements OAuth2TokenRepository {
 	}
 
 	@Override
-	@Transactional(value="defaultTransactionManager")
+	@Transactional(value = "defaultTransactionManager")
 	public void clearDuplicateRefreshTokens() {
 		Query query = manager.createQuery("select a.jwt, count(1) as c from OAuth2RefreshTokenEntity a GROUP BY a.jwt HAVING count(1) > 1");
 		@SuppressWarnings("unchecked")
 		List<Object[]> resultList = query.getResultList();
 		List<JWT> values = new ArrayList<>();
 		for (Object[] r : resultList) {
-			logger.warn("Found duplicate refresh tokens: {}, {}", ((JWT)r[0]).serialize(), r[1]);
+			logger.warn("Found duplicate refresh tokens: {}, {}", ((JWT) r[0]).serialize(), r[1]);
 			values.add((JWT) r[0]);
 		}
 		if (values.size() > 0) {

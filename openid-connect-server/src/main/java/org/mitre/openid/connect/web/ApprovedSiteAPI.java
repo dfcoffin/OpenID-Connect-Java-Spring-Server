@@ -1,20 +1,20 @@
-/*******************************************************************************
+/**
  * Copyright 2018 The MIT Internet Trust Consortium
- *
+ * <p>
  * Portions copyright 2011-2013 The MITRE Corporation
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *******************************************************************************/
+ */
 /**
  *
  */
@@ -79,7 +79,7 @@ public class ApprovedSiteAPI {
 	 * Delete an approved site
 	 *
 	 */
-	@RequestMapping(value="/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public String deleteApprovedSite(@PathVariable("id") Long id, ModelMap m, Principal p) {
 		ApprovedSite approvedSite = approvedSiteService.getById(id);
 
@@ -90,7 +90,7 @@ public class ApprovedSiteAPI {
 			return JsonErrorView.VIEWNAME;
 		} else if (!approvedSite.getUserId().equals(p.getName())) {
 			logger.error("deleteApprovedSite failed; principal "
-					+ p.getName() + " does not own approved site" + id);
+				+ p.getName() + " does not own approved site" + id);
 			m.put(HttpCodeView.CODE, HttpStatus.FORBIDDEN);
 			m.put(JsonErrorView.ERROR_MESSAGE, "You do not have permission to delete this approved site. The approved site decision will not be deleted.");
 			return JsonErrorView.VIEWNAME;
@@ -105,7 +105,7 @@ public class ApprovedSiteAPI {
 	/**
 	 * Get a single approved site
 	 */
-	@RequestMapping(value="/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String getApprovedSite(@PathVariable("id") Long id, ModelMap m, Principal p) {
 		ApprovedSite approvedSite = approvedSiteService.getById(id);
 		if (approvedSite == null) {
@@ -115,7 +115,7 @@ public class ApprovedSiteAPI {
 			return JsonErrorView.VIEWNAME;
 		} else if (!approvedSite.getUserId().equals(p.getName())) {
 			logger.error("getApprovedSite failed; principal "
-					+ p.getName() + " does not own approved site" + id);
+				+ p.getName() + " does not own approved site" + id);
 			m.put(HttpCodeView.CODE, HttpStatus.FORBIDDEN);
 			m.put(JsonErrorView.ERROR_MESSAGE, "You do not have permission to view this approved site.");
 			return JsonErrorView.VIEWNAME;

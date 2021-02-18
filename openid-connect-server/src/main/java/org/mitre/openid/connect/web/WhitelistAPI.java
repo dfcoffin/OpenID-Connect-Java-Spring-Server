@@ -1,20 +1,20 @@
-/*******************************************************************************
+/**
  * Copyright 2018 The MIT Internet Trust Consortium
- *
+ * <p>
  * Portions copyright 2011-2013 The MITRE Corporation
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *******************************************************************************/
+ */
 /**
  *
  */
@@ -128,7 +128,7 @@ public class WhitelistAPI {
 	 * Update an existing whitelisted site
 	 */
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping(value="/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String updateWhitelistedSite(@PathVariable("id") Long id, @RequestBody String jsonString, ModelMap m, Principal p) {
 
 		JsonObject json;
@@ -172,7 +172,7 @@ public class WhitelistAPI {
 	 *
 	 */
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping(value="/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public String deleteWhitelistedSite(@PathVariable("id") Long id, ModelMap m) {
 		WhitelistedSite whitelist = whitelistService.getById(id);
 
@@ -192,7 +192,7 @@ public class WhitelistAPI {
 	/**
 	 * Get a single whitelisted site
 	 */
-	@RequestMapping(value="/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String getWhitelistedSite(@PathVariable("id") Long id, ModelMap m) {
 		WhitelistedSite whitelist = whitelistService.getById(id);
 		if (whitelist == null) {

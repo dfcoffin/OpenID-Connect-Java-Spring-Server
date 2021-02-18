@@ -53,7 +53,6 @@ import com.nimbusds.jose.jwk.RSAKey;
 
 /**
  * @author wkim
- *
  */
 public class DefaultJWTEncryptionAndDecryptionService implements JWTEncryptionAndDecryptionService {
 
@@ -213,6 +212,7 @@ public class DefaultJWTEncryptionAndDecryptionService implements JWTEncryptionAn
 
 	/**
 	 * Builds all the encrypters and decrypters for this service based on the key map.
+	 *
 	 * @throws
 	 * @throws InvalidKeySpecException
 	 * @throws NoSuchAlgorithmException

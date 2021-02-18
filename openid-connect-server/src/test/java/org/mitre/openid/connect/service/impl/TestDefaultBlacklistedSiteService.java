@@ -38,7 +38,6 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * @author wkim
- *
  */
 @RunWith(MockitoJUnitRunner.class)
 public class TestDefaultBlacklistedSiteService {

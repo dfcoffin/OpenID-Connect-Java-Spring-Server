@@ -23,7 +23,6 @@ import org.mitre.oauth2.model.PKCEAlgorithm;
 
 /**
  * @author jricher
- *
  */
 @Converter
 public class PKCEAlgorithmStringConverter implements AttributeConverter<PKCEAlgorithm, String> {

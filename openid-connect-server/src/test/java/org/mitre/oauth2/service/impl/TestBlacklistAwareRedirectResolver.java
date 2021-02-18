@@ -40,7 +40,6 @@ import static org.junit.Assert.assertThat;
 
 /**
  * @author jricher
- *
  */
 @RunWith(MockitoJUnitRunner.class)
 public class TestBlacklistAwareRedirectResolver {
@@ -86,9 +85,9 @@ public class TestBlacklistAwareRedirectResolver {
 		String res1 = resolver.resolveRedirect(goodUri, client);
 
 		assertThat(res1, is(equalTo(goodUri)));
-		
+
 		// set the resolver to non-strict and test the path-based redirect resolution
-		
+
 		resolver.setStrictMatch(false);
 
 		String res2 = resolver.resolveRedirect(pathUri, client);
@@ -126,7 +125,7 @@ public class TestBlacklistAwareRedirectResolver {
 
 		// set the resolver to non-strict match mode
 		resolver.setStrictMatch(false);
-		
+
 		// this is not an exact match (but that's OK)
 		boolean res1 = resolver.redirectMatches(pathUri, goodUri);
 

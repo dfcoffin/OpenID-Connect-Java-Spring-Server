@@ -37,7 +37,7 @@ var ResRegClient = Backbone.Model.extend({
 		registration_client_uri: null
 	},
 
-	sync: function(method, model, options) {
+	sync: function (method, model, options) {
 		if (model.get('registration_access_token')) {
 			var headers = options.headers ? options.headers : {};
 			headers['Authorization'] = 'Bearer ' + model.get('registration_access_token');
@@ -55,7 +55,7 @@ var ResRegRootView = Backbone.View.extend({
 
 	tagName: 'span',
 
-	initialize: function(options) {
+	initialize: function (options) {
 		this.options = options;
 
 	},
@@ -65,7 +65,7 @@ var ResRegRootView = Backbone.View.extend({
 		"click #editreg": "editReg"
 	},
 
-	load: function(callback) {
+	load: function (callback) {
 		if (this.options.systemScopeList.isFetched) {
 			callback();
 			return;
@@ -75,23 +75,23 @@ var ResRegRootView = Backbone.View.extend({
 		$('#loading').html('<span class="label" id="loading-scopes">' + $.t('common.scopes') + '</span> ');
 
 		$.when(this.options.systemScopeList.fetchIfNeeded({
-			success: function(e) {
+			success: function (e) {
 				$('#loading-scopes').addClass('label-success');
 			},
 			error: app.errorHandlerView.handleError()
-		})).done(function() {
+		})).done(function () {
 			$('#loadingbox').sheet('hide');
 			callback();
 		});
 	},
 
-	render: function() {
+	render: function () {
 		$(this.el).html($('#tmpl-rsreg').html());
 		$(this.el).i18n();
 		return this;
 	},
 
-	newReg: function(e) {
+	newReg: function (e) {
 		e.preventDefault();
 		this.remove();
 		app.navigate('dev/resource/new', {
@@ -99,7 +99,7 @@ var ResRegRootView = Backbone.View.extend({
 		});
 	},
 
-	editReg: function(e) {
+	editReg: function (e) {
 		e.preventDefault();
 		var clientId = $('#clientId').val();
 		var token = $('#regtoken').val();
@@ -112,7 +112,7 @@ var ResRegRootView = Backbone.View.extend({
 		var self = this;
 
 		client.fetch({
-			success: function() {
+			success: function () {
 
 				if (client.get("jwks")) {
 					client.set({
@@ -133,7 +133,7 @@ var ResRegRootView = Backbone.View.extend({
 					systemScopeList: app.systemScopeList
 				});
 
-				view.load(function() {
+				view.load(function () {
 					$('#content').html(view.render().el);
 					view.delegateEvents();
 					setPageTitle($.t('rsreg.new'));
@@ -155,7 +155,7 @@ var ResRegEditView = Backbone.View.extend({
 
 	tagName: 'span',
 
-	initialize: function(options) {
+	initialize: function (options) {
 		this.options = options;
 		if (!this.template) {
 			this.template = _.template($('#tmpl-rsreg-resource-form').html());
@@ -170,7 +170,7 @@ var ResRegEditView = Backbone.View.extend({
 		this.listWidgetViews = [];
 	},
 
-	load: function(callback) {
+	load: function (callback) {
 		if (this.options.systemScopeList.isFetched) {
 			callback();
 			return;
@@ -180,11 +180,11 @@ var ResRegEditView = Backbone.View.extend({
 		$('#loading').html('<span class="label" id="loading-scopes">' + $.t('common.scopes') + '</span> ');
 
 		$.when(this.options.systemScopeList.fetchIfNeeded({
-			success: function(e) {
+			success: function (e) {
 				$('#loading-scopes').addClass('label-success');
 			},
 			error: app.errorHandlerView.handleError()
-		})).done(function() {
+		})).done(function () {
 			$('#loadingbox').sheet('hide');
 			callback();
 		});
@@ -199,14 +199,14 @@ var ResRegEditView = Backbone.View.extend({
 		"change #jwkSelector input:radio": "toggleJWKSetType"
 	},
 
-	cancel: function(e) {
+	cancel: function (e) {
 		e.preventDefault();
 		app.navigate('dev/resource', {
 			trigger: true
 		});
 	},
 
-	deleteClient: function(e) {
+	deleteClient: function (e) {
 		e.preventDefault();
 
 		if (confirm($.t('client.client-table.confirm'))) {
@@ -215,7 +215,7 @@ var ResRegEditView = Backbone.View.extend({
 			this.model.destroy({
 				dataType: false,
 				processData: false,
-				success: function() {
+				success: function () {
 					self.remove();
 					app.navigate('dev/resource', {
 						trigger: true
@@ -229,7 +229,7 @@ var ResRegEditView = Backbone.View.extend({
 		return false;
 	},
 
-	previewLogo: function() {
+	previewLogo: function () {
 		if ($('#logoUri input', this.el).val()) {
 			$('#logoPreview', this.el).empty();
 			$('#logoPreview', this.el).attr('src', $('#logoUri input', this.el).val());
@@ -242,10 +242,10 @@ var ResRegEditView = Backbone.View.extend({
 	/**
 	 * Set up the form based on the current state of the tokenEndpointAuthMethod
 	 * parameter
-	 * 
+	 *
 	 * @param event
 	 */
-	toggleClientCredentials: function() {
+	toggleClientCredentials: function () {
 
 		var tokenEndpointAuthMethod = $('#tokenEndpointAuthMethod input', this.el).filter(':checked').val();
 
@@ -261,7 +261,7 @@ var ResRegEditView = Backbone.View.extend({
 	/**
 	 * Set up the form based on the JWK Set selector
 	 */
-	toggleJWKSetType: function() {
+	toggleJWKSetType: function () {
 		var jwkSelector = $('#jwkSelector input:radio', this.el).filter(':checked').val();
 
 		if (jwkSelector == 'URI') {
@@ -277,12 +277,12 @@ var ResRegEditView = Backbone.View.extend({
 
 	},
 
-	disableUnsupportedJOSEItems: function(serverSupported, query) {
+	disableUnsupportedJOSEItems: function (serverSupported, query) {
 		var supported = ['default'];
 		if (serverSupported) {
 			supported = _.union(supported, serverSupported);
 		}
-		$(query, this.$el).each(function(idx) {
+		$(query, this.$el).each(function (idx) {
 			if (_.contains(supported, $(this).val())) {
 				$(this).prop('disabled', false);
 			} else {
@@ -295,7 +295,7 @@ var ResRegEditView = Backbone.View.extend({
 	// returns "null" if given the value "default" as a string,
 	// otherwise returns input value. useful for parsing the JOSE
 	// algorithm dropdowns
-	defaultToNull: function(value) {
+	defaultToNull: function (value) {
 		if (value == 'default') {
 			return null;
 		} else {
@@ -303,13 +303,13 @@ var ResRegEditView = Backbone.View.extend({
 		}
 	},
 
-	saveClient: function(e) {
+	saveClient: function (e) {
 		e.preventDefault();
 
 		$('.control-group').removeClass('error');
 
 		// sync any leftover collection items
-		_.each(this.listWidgetViews, function(v) {
+		_.each(this.listWidgetViews, function (v) {
 			v.addItem($.Event('click'));
 		});
 
@@ -365,7 +365,7 @@ var ResRegEditView = Backbone.View.extend({
 		};
 
 		// set all empty strings to nulls
-		for ( var key in attrs) {
+		for (var key in attrs) {
 			if (attrs[key] === "") {
 				attrs[key] = null;
 			}
@@ -373,7 +373,7 @@ var ResRegEditView = Backbone.View.extend({
 
 		var _self = this;
 		this.model.save(attrs, {
-			success: function() {
+			success: function () {
 				// switch to an "edit" view
 				app.navigate('dev/resource/edit', {
 					trigger: true
@@ -399,7 +399,7 @@ var ResRegEditView = Backbone.View.extend({
 					systemScopeList: _self.options.systemScopeList
 				});
 
-				view.load(function() {
+				view.load(function () {
 					// reload
 					$('#content').html(view.render().el);
 					view.delegateEvents();
@@ -411,7 +411,7 @@ var ResRegEditView = Backbone.View.extend({
 		return false;
 	},
 
-	render: function() {
+	render: function () {
 		$(this.el).html(this.template({
 			client: this.model.toJSON(),
 			userInfo: getUserInfo()
@@ -424,7 +424,7 @@ var ResRegEditView = Backbone.View.extend({
 		// build and bind scopes
 		var scopes = this.model.get("scope");
 		var scopeSet = scopes ? scopes.split(" ") : [];
-		_.each(scopeSet, function(scope) {
+		_.each(scopeSet, function (scope) {
 			_self.scopeCollection.add(new Backbone.Model({
 				item: scope
 			}));
@@ -440,7 +440,7 @@ var ResRegEditView = Backbone.View.extend({
 		this.listWidgetViews.push(scopeView);
 
 		// build and bind contacts
-		_.each(this.model.get('contacts'), function(contact) {
+		_.each(this.model.get('contacts'), function (contact) {
 			_self.contactsCollection.add(new Backbone.Model({
 				item: contact
 			}));
@@ -476,7 +476,7 @@ var ResRegEditView = Backbone.View.extend({
 ui.routes.push({
 	path: "dev/resource",
 	name: "resReg",
-	callback: function() {
+	callback: function () {
 
 		this.breadCrumbView.collection.reset();
 		this.breadCrumbView.collection.add([{
@@ -492,7 +492,7 @@ ui.routes.push({
 		var view = new ResRegRootView({
 			systemScopeList: this.systemScopeList
 		});
-		view.load(function() {
+		view.load(function () {
 			$('#content').html(view.render().el);
 
 			setPageTitle($.t('admin.self-service-resource'));
@@ -504,7 +504,7 @@ ui.routes.push({
 ui.routes.push({
 	path: "dev/resource/new",
 	name: "newResReg",
-	callback: function() {
+	callback: function () {
 
 		this.breadCrumbView.collection.reset();
 		this.breadCrumbView.collection.add([{
@@ -526,7 +526,7 @@ ui.routes.push({
 			systemScopeList: this.systemScopeList
 		});
 
-		view.load(function() {
+		view.load(function () {
 
 			var userInfo = getUserInfo();
 			var contacts = [];
@@ -554,7 +554,7 @@ ui.routes.push({
 ui.routes.push({
 	path: "dev/resource/edit",
 	name: "editResReg",
-	callback: function() {
+	callback: function () {
 
 		this.breadCrumbView.collection.reset();
 		this.breadCrumbView.collection.add([{

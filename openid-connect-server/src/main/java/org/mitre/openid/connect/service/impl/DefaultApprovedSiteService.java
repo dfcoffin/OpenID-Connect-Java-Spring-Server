@@ -42,7 +42,6 @@ import com.google.common.collect.Collections2;
  * Implementation of the ApprovedSiteService
  *
  * @author Michael Joseph Walsh, aanganes
- *
  */
 @Service("defaultApprovedSiteService")
 public class DefaultApprovedSiteService implements ApprovedSiteService {
@@ -67,7 +66,7 @@ public class DefaultApprovedSiteService implements ApprovedSiteService {
 	}
 
 	@Override
-	@Transactional(value="defaultTransactionManager")
+	@Transactional(value = "defaultTransactionManager")
 	public ApprovedSite save(ApprovedSite approvedSite) {
 		ApprovedSite a = approvedSiteRepository.save(approvedSite);
 		statsService.resetCache();
@@ -80,7 +79,7 @@ public class DefaultApprovedSiteService implements ApprovedSiteService {
 	}
 
 	@Override
-	@Transactional(value="defaultTransactionManager")
+	@Transactional(value = "defaultTransactionManager")
 	public void remove(ApprovedSite approvedSite) {
 
 		//Remove any associated access and refresh tokens
@@ -99,7 +98,7 @@ public class DefaultApprovedSiteService implements ApprovedSiteService {
 	}
 
 	@Override
-	@Transactional(value="defaultTransactionManager")
+	@Transactional(value = "defaultTransactionManager")
 	public ApprovedSite createApprovedSite(String clientId, String userId, Date timeoutDate, Set<String> allowedScopes) {
 
 		ApprovedSite as = approvedSiteRepository.save(new ApprovedSite());
@@ -184,7 +183,7 @@ public class DefaultApprovedSiteService implements ApprovedSiteService {
 
 	@Override
 	public List<OAuth2AccessTokenEntity> getApprovedAccessTokens(
-			ApprovedSite approvedSite) {
+		ApprovedSite approvedSite) {
 		return tokenRepository.getAccessTokensForApprovedSite(approvedSite);
 
 	}

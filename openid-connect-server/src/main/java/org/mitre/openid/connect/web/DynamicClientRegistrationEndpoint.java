@@ -145,6 +145,7 @@ public class DynamicClientRegistrationEndpoint {
 
 	/**
 	 * Create a new Client, issue a client ID, and create a registration access token.
+	 *
 	 * @param jsonString
 	 * @param m
 	 * @param p
@@ -196,8 +197,8 @@ public class DynamicClientRegistrationEndpoint {
 			}
 
 			if (newClient.getTokenEndpointAuthMethod() == AuthMethod.SECRET_BASIC ||
-					newClient.getTokenEndpointAuthMethod() == AuthMethod.SECRET_JWT ||
-					newClient.getTokenEndpointAuthMethod() == AuthMethod.SECRET_POST) {
+				newClient.getTokenEndpointAuthMethod() == AuthMethod.SECRET_JWT ||
+				newClient.getTokenEndpointAuthMethod() == AuthMethod.SECRET_POST) {
 
 				// we need to generate a secret
 				newClient = clientService.generateClientSecret(newClient);
@@ -207,21 +208,21 @@ public class DynamicClientRegistrationEndpoint {
 			if (config.isHeartMode()) {
 				// heart mode has different defaults depending on primary grant type
 				if (newClient.getGrantTypes().contains("authorization_code")) {
-					newClient.setAccessTokenValiditySeconds((int)TimeUnit.HOURS.toSeconds(1)); // access tokens good for 1hr
-					newClient.setIdTokenValiditySeconds((int)TimeUnit.MINUTES.toSeconds(5)); // id tokens good for 5min
-					newClient.setRefreshTokenValiditySeconds((int)TimeUnit.HOURS.toSeconds(24)); // refresh tokens good for 24hr
+					newClient.setAccessTokenValiditySeconds((int) TimeUnit.HOURS.toSeconds(1)); // access tokens good for 1hr
+					newClient.setIdTokenValiditySeconds((int) TimeUnit.MINUTES.toSeconds(5)); // id tokens good for 5min
+					newClient.setRefreshTokenValiditySeconds((int) TimeUnit.HOURS.toSeconds(24)); // refresh tokens good for 24hr
 				} else if (newClient.getGrantTypes().contains("implicit")) {
-					newClient.setAccessTokenValiditySeconds((int)TimeUnit.MINUTES.toSeconds(15)); // access tokens good for 15min
-					newClient.setIdTokenValiditySeconds((int)TimeUnit.MINUTES.toSeconds(5)); // id tokens good for 5min
+					newClient.setAccessTokenValiditySeconds((int) TimeUnit.MINUTES.toSeconds(15)); // access tokens good for 15min
+					newClient.setIdTokenValiditySeconds((int) TimeUnit.MINUTES.toSeconds(5)); // id tokens good for 5min
 					newClient.setRefreshTokenValiditySeconds(0); // no refresh tokens
 				} else if (newClient.getGrantTypes().contains("client_credentials")) {
-					newClient.setAccessTokenValiditySeconds((int)TimeUnit.HOURS.toSeconds(6)); // access tokens good for 6hr
+					newClient.setAccessTokenValiditySeconds((int) TimeUnit.HOURS.toSeconds(6)); // access tokens good for 6hr
 					newClient.setIdTokenValiditySeconds(0); // no id tokens
 					newClient.setRefreshTokenValiditySeconds(0); // no refresh tokens
 				}
 			} else {
-				newClient.setAccessTokenValiditySeconds((int)TimeUnit.HOURS.toSeconds(1)); // access tokens good for 1hr
-				newClient.setIdTokenValiditySeconds((int)TimeUnit.MINUTES.toSeconds(10)); // id tokens good for 10min
+				newClient.setAccessTokenValiditySeconds((int) TimeUnit.HOURS.toSeconds(1)); // access tokens good for 1hr
+				newClient.setIdTokenValiditySeconds((int) TimeUnit.MINUTES.toSeconds(10)); // id tokens good for 10min
 				newClient.setRefreshTokenValiditySeconds(null); // refresh tokens good until revoked
 			}
 
@@ -271,6 +272,7 @@ public class DynamicClientRegistrationEndpoint {
 
 	/**
 	 * Get the meta information for a client.
+	 *
 	 * @param clientId
 	 * @param m
 	 * @param auth
@@ -286,7 +288,7 @@ public class DynamicClientRegistrationEndpoint {
 
 			try {
 				OAuth2AccessTokenEntity token = rotateRegistrationTokenIfNecessary(auth, client);
-				RegisteredClient registered = new RegisteredClient(client, token.getValue(), config.getIssuer() + "register/" +  UriUtils.encodePathSegment(client.getClientId(), "UTF-8"));
+				RegisteredClient registered = new RegisteredClient(client, token.getValue(), config.getIssuer() + "register/" + UriUtils.encodePathSegment(client.getClientId(), "UTF-8"));
 
 				// send it all out to the view
 				m.addAttribute("client", registered);
@@ -302,7 +304,7 @@ public class DynamicClientRegistrationEndpoint {
 		} else {
 			// client mismatch
 			logger.error("readClientConfiguration failed, client ID mismatch: "
-					+ clientId + " and " + auth.getOAuth2Request().getClientId() + " do not match.");
+				+ clientId + " and " + auth.getOAuth2Request().getClientId() + " do not match.");
 			m.addAttribute(HttpCodeView.CODE, HttpStatus.FORBIDDEN); // http 403
 
 			return HttpCodeView.VIEWNAME;
@@ -311,6 +313,7 @@ public class DynamicClientRegistrationEndpoint {
 
 	/**
 	 * Update the metainformation for a given client.
+	 *
 	 * @param clientId
 	 * @param jsonString
 	 * @param m
@@ -335,9 +338,9 @@ public class DynamicClientRegistrationEndpoint {
 		ClientDetailsEntity oldClient = clientService.loadClientByClientId(clientId);
 
 		if (newClient != null && oldClient != null  // we have an existing client and the new one parsed
-				&& oldClient.getClientId().equals(auth.getOAuth2Request().getClientId()) // the client passed in the URI matches the one in the auth
-				&& oldClient.getClientId().equals(newClient.getClientId()) // the client passed in the body matches the one in the URI
-				) {
+			&& oldClient.getClientId().equals(auth.getOAuth2Request().getClientId()) // the client passed in the URI matches the one in the auth
+			&& oldClient.getClientId().equals(newClient.getClientId()) // the client passed in the body matches the one in the URI
+		) {
 
 			// a client can't ask to update its own client secret to any particular value
 			newClient.setClientSecret(oldClient.getClientSecret());
@@ -398,7 +401,7 @@ public class DynamicClientRegistrationEndpoint {
 		} else {
 			// client mismatch
 			logger.error("updateClient failed, client ID mismatch: "
-					+ clientId + " and " + auth.getOAuth2Request().getClientId() + " do not match.");
+				+ clientId + " and " + auth.getOAuth2Request().getClientId() + " do not match.");
 			m.addAttribute(HttpCodeView.CODE, HttpStatus.FORBIDDEN); // http 403
 
 			return HttpCodeView.VIEWNAME;
@@ -407,6 +410,7 @@ public class DynamicClientRegistrationEndpoint {
 
 	/**
 	 * Delete the indicated client from the system.
+	 *
 	 * @param clientId
 	 * @param m
 	 * @param auth
@@ -428,7 +432,7 @@ public class DynamicClientRegistrationEndpoint {
 		} else {
 			// client mismatch
 			logger.error("readClientConfiguration failed, client ID mismatch: "
-					+ clientId + " and " + auth.getOAuth2Request().getClientId() + " do not match.");
+				+ clientId + " and " + auth.getOAuth2Request().getClientId() + " do not match.");
 			m.addAttribute(HttpCodeView.CODE, HttpStatus.FORBIDDEN); // http 403
 
 			return HttpCodeView.VIEWNAME;
@@ -478,9 +482,9 @@ public class DynamicClientRegistrationEndpoint {
 		// TODO: make this a pluggable service
 		Set<String> requestedGrantTypes = new HashSet<>(newClient.getGrantTypes());
 		requestedGrantTypes.retainAll(
-				ImmutableSet.of("authorization_code", "implicit",
-						"password", "client_credentials", "refresh_token",
-						"urn:ietf:params:oauth:grant_type:redelegate"));
+			ImmutableSet.of("authorization_code", "implicit",
+				"password", "client_credentials", "refresh_token",
+				"urn:ietf:params:oauth:grant_type:redelegate"));
 
 		// don't allow "password" grant type for dynamic registration
 		if (newClient.getGrantTypes().contains("password")) {
@@ -493,7 +497,7 @@ public class DynamicClientRegistrationEndpoint {
 
 			// check for incompatible grants
 			if (newClient.getGrantTypes().contains("implicit") ||
-					(!config.isDualClient() && newClient.getGrantTypes().contains("client_credentials"))) {
+				(!config.isDualClient() && newClient.getGrantTypes().contains("client_credentials"))) {
 				// return an error, you can't have these grant types together
 				throw new ValidationException("invalid_client_metadata", "Incompatible grant types requested: " + newClient.getGrantTypes(), HttpStatus.BAD_REQUEST);
 			}
@@ -510,7 +514,7 @@ public class DynamicClientRegistrationEndpoint {
 
 			// check for incompatible grants
 			if (newClient.getGrantTypes().contains("authorization_code") ||
-					(!config.isDualClient() && newClient.getGrantTypes().contains("client_credentials"))) {
+				(!config.isDualClient() && newClient.getGrantTypes().contains("client_credentials"))) {
 				// return an error, you can't have these grant types together
 				throw new ValidationException("invalid_client_metadata", "Incompatible grant types requested: " + newClient.getGrantTypes(), HttpStatus.BAD_REQUEST);
 			}
@@ -531,7 +535,7 @@ public class DynamicClientRegistrationEndpoint {
 
 			// check for incompatible grants
 			if (!config.isDualClient() &&
-					(newClient.getGrantTypes().contains("authorization_code") || newClient.getGrantTypes().contains("implicit"))) {
+				(newClient.getGrantTypes().contains("authorization_code") || newClient.getGrantTypes().contains("implicit"))) {
 				// return an error, you can't have these grant types together
 				throw new ValidationException("invalid_client_metadata", "Incompatible grant types requested: " + newClient.getGrantTypes(), HttpStatus.BAD_REQUEST);
 			}
@@ -584,8 +588,8 @@ public class DynamicClientRegistrationEndpoint {
 		}
 
 		if (newClient.getTokenEndpointAuthMethod() == AuthMethod.SECRET_BASIC ||
-				newClient.getTokenEndpointAuthMethod() == AuthMethod.SECRET_JWT ||
-				newClient.getTokenEndpointAuthMethod() == AuthMethod.SECRET_POST) {
+			newClient.getTokenEndpointAuthMethod() == AuthMethod.SECRET_JWT ||
+			newClient.getTokenEndpointAuthMethod() == AuthMethod.SECRET_POST) {
 
 			if (Strings.isNullOrEmpty(newClient.getClientSecret())) {
 				// no secret yet, we need to generate a secret
@@ -763,7 +767,7 @@ public class DynamicClientRegistrationEndpoint {
 			try {
 				// Re-issue the token if it has been issued before [currentTime - validity]
 				Date validToDate = new Date(System.currentTimeMillis() - config.getRegTokenLifeTime() * 1000);
-				if(token.getJwt().getJWTClaimsSet().getIssueTime().before(validToDate)) {
+				if (token.getJwt().getJWTClaimsSet().getIssueTime().before(validToDate)) {
 					logger.info("Rotating the registration access token for " + client.getClientId());
 					tokenService.revokeAccessToken(token);
 					OAuth2AccessTokenEntity newToken = connectTokenService.createRegistrationAccessToken(client);

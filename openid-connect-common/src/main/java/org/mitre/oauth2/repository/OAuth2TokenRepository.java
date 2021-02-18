@@ -52,9 +52,9 @@ public interface OAuth2TokenRepository {
 	public List<OAuth2AccessTokenEntity> getAccessTokensForClient(ClientDetailsEntity client);
 
 	public List<OAuth2RefreshTokenEntity> getRefreshTokensForClient(ClientDetailsEntity client);
-	
+
 	public Set<OAuth2AccessTokenEntity> getAccessTokensByUserName(String name);
-	
+
 	public Set<OAuth2RefreshTokenEntity> getRefreshTokensByUserName(String name);
 
 	public Set<OAuth2AccessTokenEntity> getAllAccessTokens();
@@ -78,7 +78,6 @@ public interface OAuth2TokenRepository {
 	 * so that {code removeAccessToken(OAuth2AccessTokenEntity o)} would not to fail. the
 	 * removeAccessToken method has been updated so as it will not fail in the event that an
 	 * accessToken has been duplicated, so this method is unnecessary.
-	 *
 	 */
 	@Deprecated
 	public void clearDuplicateAccessTokens();
@@ -90,7 +89,6 @@ public interface OAuth2TokenRepository {
 	 * so that {code removeRefreshToken(OAuth2RefreshTokenEntity o)} would not to fail. the
 	 * removeRefreshToken method has been updated so as it will not fail in the event that
 	 * refreshToken has been duplicated, so this method is unnecessary.
-	 *
 	 */
 	@Deprecated
 	public void clearDuplicateRefreshTokens();

@@ -46,8 +46,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * REST-ish API for managing access tokens (GET/DELETE only)
- * @author Amanda Anganes
  *
+ * @author Amanda Anganes
  */
 @Controller
 @RequestMapping("/" + TokenAPI.URL)

@@ -30,7 +30,6 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * @author jricher
- *
  */
 public class TestScopeBasedIntrospectionAuthoritiesGranter {
 

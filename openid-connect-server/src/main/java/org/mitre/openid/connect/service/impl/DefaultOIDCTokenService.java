@@ -63,11 +63,11 @@ import com.nimbusds.jwt.JWT;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.PlainJWT;
 import com.nimbusds.jwt.SignedJWT;
+
 /**
  * Default implementation of service to create specialty OpenID Connect tokens.
  *
  * @author Amanda Anganes
- *
  */
 @Service
 public class DefaultOIDCTokenService implements OIDCTokenService {
@@ -111,8 +111,8 @@ public class DefaultOIDCTokenService implements OIDCTokenService {
 
 		// if the auth time claim was explicitly requested OR if the client always wants the auth time, put it in
 		if (request.getExtensions().containsKey(MAX_AGE)
-				|| (request.getExtensions().containsKey("idtoken")) // TODO: parse the ID Token claims (#473) -- for now assume it could be in there
-				|| (client.getRequireAuthTime() != null && client.getRequireAuthTime())) {
+			|| (request.getExtensions().containsKey("idtoken")) // TODO: parse the ID Token claims (#473) -- for now assume it could be in there
+			|| (client.getRequireAuthTime() != null && client.getRequireAuthTime())) {
 
 			if (request.getExtensions().get(AuthenticationTimeStamper.AUTH_TIMESTAMP) != null) {
 
@@ -138,7 +138,7 @@ public class DefaultOIDCTokenService implements OIDCTokenService {
 		idClaims.audience(Lists.newArrayList(client.getClientId()));
 		idClaims.jwtID(UUID.randomUUID().toString()); // set a random NONCE in the middle of it
 
-		String nonce = (String)request.getExtensions().get(NONCE);
+		String nonce = (String) request.getExtensions().get(NONCE);
 		if (!Strings.isNullOrEmpty(nonce)) {
 			idClaims.claim("nonce", nonce);
 		}
@@ -154,8 +154,8 @@ public class DefaultOIDCTokenService implements OIDCTokenService {
 		addCustomIdTokenClaims(idClaims, client, request, sub, accessToken);
 
 		if (client.getIdTokenEncryptedResponseAlg() != null && !client.getIdTokenEncryptedResponseAlg().equals(Algorithm.NONE)
-				&& client.getIdTokenEncryptedResponseEnc() != null && !client.getIdTokenEncryptedResponseEnc().equals(Algorithm.NONE)
-				&& (!Strings.isNullOrEmpty(client.getJwksUri()) || client.getJwks() != null)) {
+			&& client.getIdTokenEncryptedResponseEnc() != null && !client.getIdTokenEncryptedResponseEnc().equals(Algorithm.NONE)
+			&& (!Strings.isNullOrEmpty(client.getJwksUri()) || client.getJwks() != null)) {
 
 			JWTEncryptionAndDecryptionService encrypter = encrypters.getEncrypter(client);
 
@@ -180,12 +180,12 @@ public class DefaultOIDCTokenService implements OIDCTokenService {
 				// signed ID token
 
 				if (signingAlg.equals(JWSAlgorithm.HS256)
-						|| signingAlg.equals(JWSAlgorithm.HS384)
-						|| signingAlg.equals(JWSAlgorithm.HS512)) {
+					|| signingAlg.equals(JWSAlgorithm.HS384)
+					|| signingAlg.equals(JWSAlgorithm.HS512)) {
 
 					JWSHeader header = new JWSHeader(signingAlg, null, null, null, null, null, null, null, null, null,
-							jwtService.getDefaultSignerKeyId(),
-							null, null);
+						jwtService.getDefaultSignerKeyId(),
+						null, null);
 					idToken = new SignedJWT(header, idClaims.build());
 
 					JWTSigningAndValidationService signer = symmetricCacheService.getSymmetricValidtor(client);
@@ -196,8 +196,8 @@ public class DefaultOIDCTokenService implements OIDCTokenService {
 					idClaims.claim("kid", jwtService.getDefaultSignerKeyId());
 
 					JWSHeader header = new JWSHeader(signingAlg, null, null, null, null, null, null, null, null, null,
-							jwtService.getDefaultSignerKeyId(),
-							null, null);
+						jwtService.getDefaultSignerKeyId(),
+						null, null);
 
 					idToken = new SignedJWT(header, idClaims.build());
 
@@ -260,8 +260,8 @@ public class DefaultOIDCTokenService implements OIDCTokenService {
 
 		Map<String, String> authorizationParameters = Maps.newHashMap();
 		OAuth2Request clientAuth = new OAuth2Request(authorizationParameters, client.getClientId(),
-				Sets.newHashSet(new SimpleGrantedAuthority("ROLE_CLIENT")), true,
-				scope, null, null, null, null);
+			Sets.newHashSet(new SimpleGrantedAuthority("ROLE_CLIENT")), true,
+			scope, null, null, null, null);
 		OAuth2Authentication authentication = new OAuth2Authentication(clientAuth, null);
 
 		OAuth2AccessTokenEntity token = new OAuth2AccessTokenEntity();
@@ -274,17 +274,17 @@ public class DefaultOIDCTokenService implements OIDCTokenService {
 		token.setAuthenticationHolder(authHolder);
 
 		JWTClaimsSet claims = new JWTClaimsSet.Builder()
-				.audience(Lists.newArrayList(client.getClientId()))
-				.issuer(configBean.getIssuer())
-				.issueTime(new Date())
-				.expirationTime(token.getExpiration())
-				.jwtID(UUID.randomUUID().toString()) // set a random NONCE in the middle of it
-				.build();
+			.audience(Lists.newArrayList(client.getClientId()))
+			.issuer(configBean.getIssuer())
+			.issueTime(new Date())
+			.expirationTime(token.getExpiration())
+			.jwtID(UUID.randomUUID().toString()) // set a random NONCE in the middle of it
+			.build();
 
 		JWSAlgorithm signingAlg = jwtService.getDefaultSigningAlgorithm();
 		JWSHeader header = new JWSHeader(signingAlg, null, null, null, null, null, null, null, null, null,
-				jwtService.getDefaultSignerKeyId(),
-				null, null);
+			jwtService.getDefaultSignerKeyId(),
+			null, null);
 		SignedJWT signed = new SignedJWT(header, claims);
 
 		jwtService.signJwt(signed);
@@ -333,22 +333,23 @@ public class DefaultOIDCTokenService implements OIDCTokenService {
 	 * @param authenticationHolderRepository the authenticationHolderRepository to set
 	 */
 	public void setAuthenticationHolderRepository(
-			AuthenticationHolderRepository authenticationHolderRepository) {
+		AuthenticationHolderRepository authenticationHolderRepository) {
 		this.authenticationHolderRepository = authenticationHolderRepository;
 	}
 
 	/**
 	 * Hook for subclasses that allows adding custom claims to the JWT
 	 * that will be used as id token.
-	 * @param idClaims the builder holding the current claims
-	 * @param client information about the requesting client
-	 * @param request request that caused the id token to be created
-	 * @param sub subject auf the id token
-	 * @param accessToken the access token
+	 *
+	 * @param idClaims       the builder holding the current claims
+	 * @param client         information about the requesting client
+	 * @param request        request that caused the id token to be created
+	 * @param sub            subject auf the id token
+	 * @param accessToken    the access token
 	 * @param authentication current authentication
 	 */
 	protected void addCustomIdTokenClaims(JWTClaimsSet.Builder idClaims, ClientDetailsEntity client, OAuth2Request request,
-	    String sub, OAuth2AccessTokenEntity accessToken) {
+										  String sub, OAuth2AccessTokenEntity accessToken) {
 	}
 
 }

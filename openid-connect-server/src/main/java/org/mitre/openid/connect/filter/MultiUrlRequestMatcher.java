@@ -28,7 +28,6 @@ import org.springframework.util.Assert;
 
 /**
  * @author jricher
- *
  */
 public class MultiUrlRequestMatcher implements RequestMatcher {
 	private final Set<RequestMatcher> matchers;

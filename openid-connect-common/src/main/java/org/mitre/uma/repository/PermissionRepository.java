@@ -24,12 +24,10 @@ import org.mitre.uma.model.ResourceSet;
 
 /**
  * @author jricher
- *
  */
 public interface PermissionRepository {
 
 	/**
-	 *
 	 * Save a permission ticket.
 	 *
 	 * @param p

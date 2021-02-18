@@ -38,12 +38,10 @@ import com.nimbusds.jose.JWSAlgorithm;
 import com.nimbusds.jose.jwk.JWKSet;
 
 /**
- *
  * Takes in a client and returns the appropriate validator or encrypter for
  * that client's registered key types.
  *
  * @author jricher
- *
  */
 @Service
 public class ClientKeyCacheService {
@@ -64,13 +62,13 @@ public class ClientKeyCacheService {
 
 	public ClientKeyCacheService() {
 		this.jwksValidators = CacheBuilder.newBuilder()
-				.expireAfterWrite(1, TimeUnit.HOURS) // expires 1 hour after fetch
-				.maximumSize(100)
-				.build(new JWKSetVerifierBuilder());
+			.expireAfterWrite(1, TimeUnit.HOURS) // expires 1 hour after fetch
+			.maximumSize(100)
+			.build(new JWKSetVerifierBuilder());
 		this.jwksEncrypters = CacheBuilder.newBuilder()
-				.expireAfterWrite(1, TimeUnit.HOURS) // expires 1 hour after fetch
-				.maximumSize(100)
-				.build(new JWKSetEncryptorBuilder());
+			.expireAfterWrite(1, TimeUnit.HOURS) // expires 1 hour after fetch
+			.maximumSize(100)
+			.build(new JWKSetEncryptorBuilder());
 	}
 
 
@@ -78,14 +76,14 @@ public class ClientKeyCacheService {
 
 		try {
 			if (alg.equals(JWSAlgorithm.RS256)
-					|| alg.equals(JWSAlgorithm.RS384)
-					|| alg.equals(JWSAlgorithm.RS512)
-					|| alg.equals(JWSAlgorithm.ES256)
-					|| alg.equals(JWSAlgorithm.ES384)
-					|| alg.equals(JWSAlgorithm.ES512)
-					|| alg.equals(JWSAlgorithm.PS256)
-					|| alg.equals(JWSAlgorithm.PS384)
-					|| alg.equals(JWSAlgorithm.PS512)) {
+				|| alg.equals(JWSAlgorithm.RS384)
+				|| alg.equals(JWSAlgorithm.RS512)
+				|| alg.equals(JWSAlgorithm.ES256)
+				|| alg.equals(JWSAlgorithm.ES384)
+				|| alg.equals(JWSAlgorithm.ES512)
+				|| alg.equals(JWSAlgorithm.PS256)
+				|| alg.equals(JWSAlgorithm.PS384)
+				|| alg.equals(JWSAlgorithm.PS512)) {
 
 				// asymmetric key
 				if (client.getJwks() != null) {
@@ -97,8 +95,8 @@ public class ClientKeyCacheService {
 				}
 
 			} else if (alg.equals(JWSAlgorithm.HS256)
-					|| alg.equals(JWSAlgorithm.HS384)
-					|| alg.equals(JWSAlgorithm.HS512)) {
+				|| alg.equals(JWSAlgorithm.HS384)
+				|| alg.equals(JWSAlgorithm.HS512)) {
 
 				// symmetric key
 

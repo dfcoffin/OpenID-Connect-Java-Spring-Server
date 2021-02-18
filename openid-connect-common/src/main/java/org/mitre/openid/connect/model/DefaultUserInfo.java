@@ -41,10 +41,10 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 @Entity
-@Table(name="user_info")
+@Table(name = "user_info")
 @NamedQueries({
-	@NamedQuery(name=DefaultUserInfo.QUERY_BY_USERNAME, query = "select u from DefaultUserInfo u WHERE u.preferredUsername = :" + DefaultUserInfo.PARAM_USERNAME),
-	@NamedQuery(name=DefaultUserInfo.QUERY_BY_EMAIL, query = "select u from DefaultUserInfo u WHERE u.email = :" + DefaultUserInfo.PARAM_EMAIL)
+	@NamedQuery(name = DefaultUserInfo.QUERY_BY_USERNAME, query = "select u from DefaultUserInfo u WHERE u.preferredUsername = :" + DefaultUserInfo.PARAM_USERNAME),
+	@NamedQuery(name = DefaultUserInfo.QUERY_BY_EMAIL, query = "select u from DefaultUserInfo u WHERE u.email = :" + DefaultUserInfo.PARAM_EMAIL)
 })
 public class DefaultUserInfo implements UserInfo {
 
@@ -84,26 +84,29 @@ public class DefaultUserInfo implements UserInfo {
 	 * @return the id
 	 */
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	public Long getId() {
 		return id;
 	}
+
 	/**
 	 * @param id the id to set
 	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	/* (non-Javadoc)
 	 * @see org.mitre.openid.connect.model.UserInfo#getUserId()
 	 */
 	@Override
 	@Basic
-	@Column(name="sub")
+	@Column(name = "sub")
 	public String getSub() {
 		return sub;
 	}
+
 	/* (non-Javadoc)
 	 * @see org.mitre.openid.connect.model.UserInfo#setUserId(java.lang.String)
 	 */
@@ -111,15 +114,17 @@ public class DefaultUserInfo implements UserInfo {
 	public void setSub(String sub) {
 		this.sub = sub;
 	}
+
 	/* (non-Javadoc)
 	 * @see org.mitre.openid.connect.model.UserInfo#getPreferredUsername
 	 */
 	@Override
 	@Basic
-	@Column(name="preferred_username")
+	@Column(name = "preferred_username")
 	public String getPreferredUsername() {
 		return this.preferredUsername;
 	}
+
 	/* (non-Javadoc)
 	 * @see org.mitre.openid.connect.model.UserInfo#setPreferredUsername(java.lang.String)
 	 */
@@ -127,6 +132,7 @@ public class DefaultUserInfo implements UserInfo {
 	public void setPreferredUsername(String preferredUsername) {
 		this.preferredUsername = preferredUsername;
 	}
+
 	/* (non-Javadoc)
 	 * @see org.mitre.openid.connect.model.UserInfo#getName()
 	 */
@@ -136,6 +142,7 @@ public class DefaultUserInfo implements UserInfo {
 	public String getName() {
 		return name;
 	}
+
 	/* (non-Javadoc)
 	 * @see org.mitre.openid.connect.model.UserInfo#setName(java.lang.String)
 	 */
@@ -143,15 +150,17 @@ public class DefaultUserInfo implements UserInfo {
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	/* (non-Javadoc)
 	 * @see org.mitre.openid.connect.model.UserInfo#getGivenName()
 	 */
 	@Override
 	@Basic
-	@Column(name="given_name")
+	@Column(name = "given_name")
 	public String getGivenName() {
 		return givenName;
 	}
+
 	/* (non-Javadoc)
 	 * @see org.mitre.openid.connect.model.UserInfo#setGivenName(java.lang.String)
 	 */
@@ -159,15 +168,17 @@ public class DefaultUserInfo implements UserInfo {
 	public void setGivenName(String givenName) {
 		this.givenName = givenName;
 	}
+
 	/* (non-Javadoc)
 	 * @see org.mitre.openid.connect.model.UserInfo#getFamilyName()
 	 */
 	@Override
 	@Basic
-	@Column(name="family_name")
+	@Column(name = "family_name")
 	public String getFamilyName() {
 		return familyName;
 	}
+
 	/* (non-Javadoc)
 	 * @see org.mitre.openid.connect.model.UserInfo#setFamilyName(java.lang.String)
 	 */
@@ -175,15 +186,17 @@ public class DefaultUserInfo implements UserInfo {
 	public void setFamilyName(String familyName) {
 		this.familyName = familyName;
 	}
+
 	/* (non-Javadoc)
 	 * @see org.mitre.openid.connect.model.UserInfo#getMiddleName()
 	 */
 	@Override
 	@Basic
-	@Column(name="middle_name")
+	@Column(name = "middle_name")
 	public String getMiddleName() {
 		return middleName;
 	}
+
 	/* (non-Javadoc)
 	 * @see org.mitre.openid.connect.model.UserInfo#setMiddleName(java.lang.String)
 	 */
@@ -191,6 +204,7 @@ public class DefaultUserInfo implements UserInfo {
 	public void setMiddleName(String middleName) {
 		this.middleName = middleName;
 	}
+
 	/* (non-Javadoc)
 	 * @see org.mitre.openid.connect.model.UserInfo#getNickname()
 	 */
@@ -200,6 +214,7 @@ public class DefaultUserInfo implements UserInfo {
 	public String getNickname() {
 		return nickname;
 	}
+
 	/* (non-Javadoc)
 	 * @see org.mitre.openid.connect.model.UserInfo#setNickname(java.lang.String)
 	 */
@@ -207,6 +222,7 @@ public class DefaultUserInfo implements UserInfo {
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
+
 	/* (non-Javadoc)
 	 * @see org.mitre.openid.connect.model.UserInfo#getProfile()
 	 */
@@ -216,6 +232,7 @@ public class DefaultUserInfo implements UserInfo {
 	public String getProfile() {
 		return profile;
 	}
+
 	/* (non-Javadoc)
 	 * @see org.mitre.openid.connect.model.UserInfo#setProfile(java.lang.String)
 	 */
@@ -223,6 +240,7 @@ public class DefaultUserInfo implements UserInfo {
 	public void setProfile(String profile) {
 		this.profile = profile;
 	}
+
 	/* (non-Javadoc)
 	 * @see org.mitre.openid.connect.model.UserInfo#getPicture()
 	 */
@@ -232,6 +250,7 @@ public class DefaultUserInfo implements UserInfo {
 	public String getPicture() {
 		return picture;
 	}
+
 	/* (non-Javadoc)
 	 * @see org.mitre.openid.connect.model.UserInfo#setPicture(java.lang.String)
 	 */
@@ -239,6 +258,7 @@ public class DefaultUserInfo implements UserInfo {
 	public void setPicture(String picture) {
 		this.picture = picture;
 	}
+
 	/* (non-Javadoc)
 	 * @see org.mitre.openid.connect.model.UserInfo#getWebsite()
 	 */
@@ -248,6 +268,7 @@ public class DefaultUserInfo implements UserInfo {
 	public String getWebsite() {
 		return website;
 	}
+
 	/* (non-Javadoc)
 	 * @see org.mitre.openid.connect.model.UserInfo#setWebsite(java.lang.String)
 	 */
@@ -255,6 +276,7 @@ public class DefaultUserInfo implements UserInfo {
 	public void setWebsite(String website) {
 		this.website = website;
 	}
+
 	/* (non-Javadoc)
 	 * @see org.mitre.openid.connect.model.UserInfo#getEmail()
 	 */
@@ -264,6 +286,7 @@ public class DefaultUserInfo implements UserInfo {
 	public String getEmail() {
 		return email;
 	}
+
 	/* (non-Javadoc)
 	 * @see org.mitre.openid.connect.model.UserInfo#setEmail(java.lang.String)
 	 */
@@ -271,15 +294,17 @@ public class DefaultUserInfo implements UserInfo {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 	/* (non-Javadoc)
 	 * @see org.mitre.openid.connect.model.UserInfo#getVerified()
 	 */
 	@Override
 	@Basic
-	@Column(name="email_verified")
+	@Column(name = "email_verified")
 	public Boolean getEmailVerified() {
 		return emailVerified;
 	}
+
 	/* (non-Javadoc)
 	 * @see org.mitre.openid.connect.model.UserInfo#setVerified(java.lang.boolean)
 	 */
@@ -287,6 +312,7 @@ public class DefaultUserInfo implements UserInfo {
 	public void setEmailVerified(Boolean emailVerified) {
 		this.emailVerified = emailVerified;
 	}
+
 	/* (non-Javadoc)
 	 * @see org.mitre.openid.connect.model.UserInfo#getGender()
 	 */
@@ -296,6 +322,7 @@ public class DefaultUserInfo implements UserInfo {
 	public String getGender() {
 		return gender;
 	}
+
 	/* (non-Javadoc)
 	 * @see org.mitre.openid.connect.model.UserInfo#setGender(java.lang.String)
 	 */
@@ -303,15 +330,17 @@ public class DefaultUserInfo implements UserInfo {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
+
 	/* (non-Javadoc)
 	 * @see org.mitre.openid.connect.model.UserInfo#getZoneinfo()
 	 */
 	@Override
 	@Basic
-	@Column(name="zone_info")
+	@Column(name = "zone_info")
 	public String getZoneinfo() {
 		return zoneinfo;
 	}
+
 	/* (non-Javadoc)
 	 * @see org.mitre.openid.connect.model.UserInfo#setZoneinfo(java.lang.String)
 	 */
@@ -319,6 +348,7 @@ public class DefaultUserInfo implements UserInfo {
 	public void setZoneinfo(String zoneinfo) {
 		this.zoneinfo = zoneinfo;
 	}
+
 	/* (non-Javadoc)
 	 * @see org.mitre.openid.connect.model.UserInfo#getLocale()
 	 */
@@ -328,6 +358,7 @@ public class DefaultUserInfo implements UserInfo {
 	public String getLocale() {
 		return locale;
 	}
+
 	/* (non-Javadoc)
 	 * @see org.mitre.openid.connect.model.UserInfo#setLocale(java.lang.String)
 	 */
@@ -335,15 +366,17 @@ public class DefaultUserInfo implements UserInfo {
 	public void setLocale(String locale) {
 		this.locale = locale;
 	}
+
 	/* (non-Javadoc)
 	 * @see org.mitre.openid.connect.model.UserInfo#getPhoneNumber()
 	 */
 	@Override
 	@Basic
-	@Column(name="phone_number")
+	@Column(name = "phone_number")
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
+
 	/* (non-Javadoc)
 	 * @see org.mitre.openid.connect.model.UserInfo#setPhoneNumber(java.lang.String)
 	 */
@@ -351,15 +384,17 @@ public class DefaultUserInfo implements UserInfo {
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
+
 	/* (non-Javadoc)
 	 * @see org.mitre.openid.connect.model.UserInfo#getPhoneNumberVerified()
 	 */
 	@Override
 	@Basic
-	@Column(name="phone_number_verified")
+	@Column(name = "phone_number_verified")
 	public Boolean getPhoneNumberVerified() {
 		return phoneNumberVerified;
 	}
+
 	/* (non-Javadoc)
 	 * @see org.mitre.openid.connect.model.UserInfo#setPhoneNumberVerified(java.lang.Boolean)
 	 */
@@ -367,15 +402,17 @@ public class DefaultUserInfo implements UserInfo {
 	public void setPhoneNumberVerified(Boolean phoneNumberVerified) {
 		this.phoneNumberVerified = phoneNumberVerified;
 	}
+
 	/* (non-Javadoc)
 	 * @see org.mitre.openid.connect.model.UserInfo#getAddress()
 	 */
 	@Override
 	@OneToOne(targetEntity = DefaultAddress.class, cascade = CascadeType.ALL)
-	@JoinColumn(name="address_id")
+	@JoinColumn(name = "address_id")
 	public Address getAddress() {
 		return address;
 	}
+
 	/* (non-Javadoc)
 	 * @see org.mitre.openid.connect.model.UserInfo#setAddress(org.mitre.openid.connect.model.Address)
 	 */
@@ -387,15 +424,17 @@ public class DefaultUserInfo implements UserInfo {
 			this.address = null;
 		}
 	}
+
 	/* (non-Javadoc)
 	 * @see org.mitre.openid.connect.model.UserInfo#getUpdatedTime()
 	 */
 	@Override
 	@Basic
-	@Column(name="updated_time")
+	@Column(name = "updated_time")
 	public String getUpdatedTime() {
 		return updatedTime;
 	}
+
 	/* (non-Javadoc)
 	 * @see org.mitre.openid.connect.model.UserInfo#setUpdatedTime(java.lang.String)
 	 */
@@ -409,10 +448,11 @@ public class DefaultUserInfo implements UserInfo {
 	 */
 	@Override
 	@Basic
-	@Column(name="birthdate")
+	@Column(name = "birthdate")
 	public String getBirthdate() {
 		return birthdate;
 	}
+
 	/**
 	 * @param birthdate the birthdate to set
 	 */
@@ -472,6 +512,7 @@ public class DefaultUserInfo implements UserInfo {
 
 	/**
 	 * Parse a JsonObject into a UserInfo.
+	 *
 	 * @param o
 	 * @return
 	 */
@@ -519,6 +560,7 @@ public class DefaultUserInfo implements UserInfo {
 		return ui;
 
 	}
+
 	/**
 	 * @return the jsonString
 	 */
@@ -750,12 +792,13 @@ public class DefaultUserInfo implements UserInfo {
 			out.writeObject(src.toString());
 		}
 	}
+
 	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
 		in.defaultReadObject();
 		Object o = in.readObject();
 		if (o != null) {
 			JsonParser parser = new JsonParser();
-			src = parser.parse((String)o).getAsJsonObject();
+			src = parser.parse((String) o).getAsJsonObject();
 		}
 	}
 

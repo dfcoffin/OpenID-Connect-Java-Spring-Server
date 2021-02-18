@@ -38,44 +38,45 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TestDefaultOIDCTokenService {
-    private static final String CLIENT_ID = "client";
-    private static final String KEY_ID = "key";
+	private static final String CLIENT_ID = "client";
+	private static final String KEY_ID = "key";
 
-    private ConfigurationPropertiesBean configBean = new ConfigurationPropertiesBean();
-    private ClientDetailsEntity client = new ClientDetailsEntity();
-    private OAuth2AccessTokenEntity accessToken = new OAuth2AccessTokenEntity();
-    private OAuth2Request request = new OAuth2Request(CLIENT_ID) { };
+	private ConfigurationPropertiesBean configBean = new ConfigurationPropertiesBean();
+	private ClientDetailsEntity client = new ClientDetailsEntity();
+	private OAuth2AccessTokenEntity accessToken = new OAuth2AccessTokenEntity();
+	private OAuth2Request request = new OAuth2Request(CLIENT_ID) {
+	};
 
-    @Mock
-    private JWTSigningAndValidationService jwtService;
+	@Mock
+	private JWTSigningAndValidationService jwtService;
 
-    @Before
-    public void prepare() {
-        configBean.setIssuer("https://auth.example.org/");
+	@Before
+	public void prepare() {
+		configBean.setIssuer("https://auth.example.org/");
 
-        client.setClientId(CLIENT_ID);
-        Mockito.when(jwtService.getDefaultSigningAlgorithm()).thenReturn(JWSAlgorithm.RS256);
-        Mockito.when(jwtService.getDefaultSignerKeyId()).thenReturn(KEY_ID);
-    }
+		client.setClientId(CLIENT_ID);
+		Mockito.when(jwtService.getDefaultSigningAlgorithm()).thenReturn(JWSAlgorithm.RS256);
+		Mockito.when(jwtService.getDefaultSignerKeyId()).thenReturn(KEY_ID);
+	}
 
-    @Test
-    public void invokesCustomClaimsHook() throws java.text.ParseException {
-        DefaultOIDCTokenService s = new DefaultOIDCTokenService() {
-            @Override
-            protected void addCustomIdTokenClaims(JWTClaimsSet.Builder idClaims, ClientDetailsEntity client, OAuth2Request request,
-                String sub, OAuth2AccessTokenEntity accessToken) {
-                idClaims.claim("test", "foo");
-            }
-        };
-        configure(s);
+	@Test
+	public void invokesCustomClaimsHook() throws java.text.ParseException {
+		DefaultOIDCTokenService s = new DefaultOIDCTokenService() {
+			@Override
+			protected void addCustomIdTokenClaims(JWTClaimsSet.Builder idClaims, ClientDetailsEntity client, OAuth2Request request,
+												  String sub, OAuth2AccessTokenEntity accessToken) {
+				idClaims.claim("test", "foo");
+			}
+		};
+		configure(s);
 
-        JWT token = s.createIdToken(client, request, new Date(), "sub", accessToken);
-        Assert.assertEquals("foo", token.getJWTClaimsSet().getClaim("test"));
-    }
+		JWT token = s.createIdToken(client, request, new Date(), "sub", accessToken);
+		Assert.assertEquals("foo", token.getJWTClaimsSet().getClaim("test"));
+	}
 
 
-    private void configure(DefaultOIDCTokenService s) {
-        s.setConfigBean(configBean);
-        s.setJwtService(jwtService);
-    }
+	private void configure(DefaultOIDCTokenService s) {
+		s.setConfigBean(configBean);
+		s.setJwtService(jwtService);
+	}
 }

@@ -29,16 +29,15 @@ import org.springframework.transaction.annotation.Transactional;
  * JPA Address repository implementation
  *
  * @author Michael Joseph Walsh
- *
  */
 @Repository
 public class JpaAddressRepository implements AddressRepository {
 
-	@PersistenceContext(unitName="defaultPersistenceUnit")
+	@PersistenceContext(unitName = "defaultPersistenceUnit")
 	private EntityManager manager;
 
 	@Override
-	@Transactional(value="defaultTransactionManager")
+	@Transactional(value = "defaultTransactionManager")
 	public Address getById(Long id) {
 		return manager.find(Address.class, id);
 	}

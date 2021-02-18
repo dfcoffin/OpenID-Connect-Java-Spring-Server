@@ -23,6 +23,7 @@ public interface Address extends Serializable {
 
 	/**
 	 * Get the system-specific ID of the Address object
+	 *
 	 * @return
 	 */
 	public Long getId();

@@ -35,7 +35,6 @@ import org.springframework.stereotype.Service;
 
 /**
  * @author jricher
- *
  */
 @Service
 @Primary
@@ -78,7 +77,7 @@ public class DefaultResourceSetService implements ResourceSetService {
 	public ResourceSet update(ResourceSet oldRs, ResourceSet newRs) {
 
 		if (oldRs.getId() == null || newRs.getId() == null
-				|| !oldRs.getId().equals(newRs.getId())) {
+			|| !oldRs.getId().equals(newRs.getId())) {
 
 			throw new IllegalArgumentException("Resource set IDs mismatched");
 

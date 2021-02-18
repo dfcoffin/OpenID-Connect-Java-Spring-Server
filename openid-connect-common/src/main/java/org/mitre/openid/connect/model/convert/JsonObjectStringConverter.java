@@ -25,7 +25,6 @@ import com.google.gson.JsonParser;
 
 /**
  * @author jricher
- *
  */
 @Converter
 public class JsonObjectStringConverter implements AttributeConverter<JsonObject, String> {

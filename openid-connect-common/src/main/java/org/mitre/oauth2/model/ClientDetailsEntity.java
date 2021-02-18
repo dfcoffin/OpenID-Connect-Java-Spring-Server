@@ -1,20 +1,20 @@
-/*******************************************************************************
+/**
  * Copyright 2018 The MIT Internet Trust Consortium
- *
+ * <p>
  * Portions copyright 2011-2013 The MITRE Corporation
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *******************************************************************************/
+ */
 /**
  *
  */
@@ -169,6 +169,7 @@ public class ClientDetailsEntity implements ClientDetails {
 
 		// map to aid reverse lookup
 		private static final Map<String, AuthMethod> lookup = new HashMap<>();
+
 		static {
 			for (AuthMethod a : AuthMethod.values()) {
 				lookup.put(a.getValue(), a);
@@ -195,6 +196,7 @@ public class ClientDetailsEntity implements ClientDetails {
 
 		// map to aid reverse lookup
 		private static final Map<String, AppType> lookup = new HashMap<>();
+
 		static {
 			for (AppType a : AppType.values()) {
 				lookup.put(a.getValue(), a);
@@ -221,6 +223,7 @@ public class ClientDetailsEntity implements ClientDetails {
 
 		// map to aid reverse lookup
 		private static final Map<String, SubjectType> lookup = new HashMap<>();
+
 		static {
 			for (SubjectType u : SubjectType.values()) {
 				lookup.put(u.getValue(), u);
@@ -278,7 +281,7 @@ public class ClientDetailsEntity implements ClientDetails {
 	 * @return the clientDescription
 	 */
 	@Basic
-	@Column(name="client_description")
+	@Column(name = "client_description")
 	public String getClientDescription() {
 		return clientDescription;
 	}
@@ -303,7 +306,7 @@ public class ClientDetailsEntity implements ClientDetails {
 	}
 
 	@Basic
-	@Column(name="reuse_refresh_tokens")
+	@Column(name = "reuse_refresh_tokens")
 	public boolean isReuseRefreshToken() {
 		return reuseRefreshToken;
 	}
@@ -318,7 +321,7 @@ public class ClientDetailsEntity implements ClientDetails {
 	 * @return the idTokenValiditySeconds
 	 */
 	@Basic
-	@Column(name="id_token_validity_seconds")
+	@Column(name = "id_token_validity_seconds")
 	public Integer getIdTokenValiditySeconds() {
 		return idTokenValiditySeconds;
 	}
@@ -334,7 +337,7 @@ public class ClientDetailsEntity implements ClientDetails {
 	 * @return the dynamicallyRegistered
 	 */
 	@Basic
-	@Column(name="dynamically_registered")
+	@Column(name = "dynamically_registered")
 	public boolean isDynamicallyRegistered() {
 		return dynamicallyRegistered;
 	}
@@ -347,14 +350,11 @@ public class ClientDetailsEntity implements ClientDetails {
 	}
 
 
-
-
-
 	/**
 	 * @return the allowIntrospection
 	 */
 	@Basic
-	@Column(name="allow_introspection")
+	@Column(name = "allow_introspection")
 	public boolean isAllowIntrospection() {
 		return allowIntrospection;
 	}
@@ -373,9 +373,9 @@ public class ClientDetailsEntity implements ClientDetails {
 	@Transient
 	public boolean isSecretRequired() {
 		if (getTokenEndpointAuthMethod() != null &&
-				(getTokenEndpointAuthMethod().equals(AuthMethod.SECRET_BASIC) ||
-						getTokenEndpointAuthMethod().equals(AuthMethod.SECRET_POST) ||
-						getTokenEndpointAuthMethod().equals(AuthMethod.SECRET_JWT))) {
+			(getTokenEndpointAuthMethod().equals(AuthMethod.SECRET_BASIC) ||
+				getTokenEndpointAuthMethod().equals(AuthMethod.SECRET_POST) ||
+				getTokenEndpointAuthMethod().equals(AuthMethod.SECRET_JWT))) {
 			return true;
 		} else {
 			return false;
@@ -397,7 +397,7 @@ public class ClientDetailsEntity implements ClientDetails {
 	 */
 	@Basic
 	@Override
-	@Column(name="client_id")
+	@Column(name = "client_id")
 	public String getClientId() {
 		return clientId;
 	}
@@ -414,7 +414,7 @@ public class ClientDetailsEntity implements ClientDetails {
 	 */
 	@Basic
 	@Override
-	@Column(name="client_secret")
+	@Column(name = "client_secret")
 	public String getClientSecret() {
 		return clientSecret;
 	}
@@ -431,11 +431,11 @@ public class ClientDetailsEntity implements ClientDetails {
 	 */
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(
-			name="client_scope",
-			joinColumns=@JoinColumn(name="owner_id")
-			)
+		name = "client_scope",
+		joinColumns = @JoinColumn(name = "owner_id")
+	)
 	@Override
-	@Column(name="scope")
+	@Column(name = "scope")
 	public Set<String> getScope() {
 		return scope;
 	}
@@ -452,10 +452,10 @@ public class ClientDetailsEntity implements ClientDetails {
 	 */
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(
-			name="client_grant_type",
-			joinColumns=@JoinColumn(name="owner_id")
-			)
-	@Column(name="grant_type")
+		name = "client_grant_type",
+		joinColumns = @JoinColumn(name = "owner_id")
+	)
+	@Column(name = "grant_type")
 	public Set<String> getGrantTypes() {
 		return grantTypes;
 	}
@@ -481,12 +481,12 @@ public class ClientDetailsEntity implements ClientDetails {
 	 */
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(
-			name="client_authority",
-			joinColumns=@JoinColumn(name="owner_id")
-			)
+		name = "client_authority",
+		joinColumns = @JoinColumn(name = "owner_id")
+	)
 	@Override
 	@Convert(converter = SimpleGrantedAuthorityStringConverter.class)
-	@Column(name="authority")
+	@Column(name = "authority")
 	public Set<GrantedAuthority> getAuthorities() {
 		return authorities;
 	}
@@ -500,7 +500,7 @@ public class ClientDetailsEntity implements ClientDetails {
 
 	@Override
 	@Basic
-	@Column(name="access_token_validity_seconds")
+	@Column(name = "access_token_validity_seconds")
 	public Integer getAccessTokenValiditySeconds() {
 		return accessTokenValiditySeconds;
 	}
@@ -514,7 +514,7 @@ public class ClientDetailsEntity implements ClientDetails {
 
 	@Override
 	@Basic
-	@Column(name="refresh_token_validity_seconds")
+	@Column(name = "refresh_token_validity_seconds")
 	public Integer getRefreshTokenValiditySeconds() {
 		return refreshTokenValiditySeconds;
 	}
@@ -531,10 +531,10 @@ public class ClientDetailsEntity implements ClientDetails {
 	 */
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(
-			name="client_redirect_uri",
-			joinColumns=@JoinColumn(name="owner_id")
-			)
-	@Column(name="redirect_uri")
+		name = "client_redirect_uri",
+		joinColumns = @JoinColumn(name = "owner_id")
+	)
+	@Column(name = "redirect_uri")
 	public Set<String> getRedirectUris() {
 		return redirectUris;
 	}
@@ -561,10 +561,10 @@ public class ClientDetailsEntity implements ClientDetails {
 	@Override
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(
-			name="client_resource",
-			joinColumns=@JoinColumn(name="owner_id")
-			)
-	@Column(name="resource_id")
+		name = "client_resource",
+		joinColumns = @JoinColumn(name = "owner_id")
+	)
+	@Column(name = "resource_id")
 	public Set<String> getResourceIds() {
 		return resourceIds;
 	}
@@ -592,10 +592,8 @@ public class ClientDetailsEntity implements ClientDetails {
 	}
 
 
-
-
 	@Enumerated(EnumType.STRING)
-	@Column(name="application_type")
+	@Column(name = "application_type")
 	public AppType getApplicationType() {
 		return applicationType;
 	}
@@ -605,7 +603,7 @@ public class ClientDetailsEntity implements ClientDetails {
 	}
 
 	@Basic
-	@Column(name="client_name")
+	@Column(name = "client_name")
 	public String getClientName() {
 		return clientName;
 	}
@@ -615,7 +613,7 @@ public class ClientDetailsEntity implements ClientDetails {
 	}
 
 	@Enumerated(EnumType.STRING)
-	@Column(name="token_endpoint_auth_method")
+	@Column(name = "token_endpoint_auth_method")
 	public AuthMethod getTokenEndpointAuthMethod() {
 		return tokenEndpointAuthMethod;
 	}
@@ -625,7 +623,7 @@ public class ClientDetailsEntity implements ClientDetails {
 	}
 
 	@Enumerated(EnumType.STRING)
-	@Column(name="subject_type")
+	@Column(name = "subject_type")
 	public SubjectType getSubjectType() {
 		return subjectType;
 	}
@@ -636,10 +634,10 @@ public class ClientDetailsEntity implements ClientDetails {
 
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(
-			name="client_contact",
-			joinColumns=@JoinColumn(name="owner_id")
-			)
-	@Column(name="contact")
+		name = "client_contact",
+		joinColumns = @JoinColumn(name = "owner_id")
+	)
+	@Column(name = "contact")
 	public Set<String> getContacts() {
 		return contacts;
 	}
@@ -649,7 +647,7 @@ public class ClientDetailsEntity implements ClientDetails {
 	}
 
 	@Basic
-	@Column(name="logo_uri")
+	@Column(name = "logo_uri")
 	public String getLogoUri() {
 		return logoUri;
 	}
@@ -659,7 +657,7 @@ public class ClientDetailsEntity implements ClientDetails {
 	}
 
 	@Basic
-	@Column(name="policy_uri")
+	@Column(name = "policy_uri")
 	public String getPolicyUri() {
 		return policyUri;
 	}
@@ -672,7 +670,7 @@ public class ClientDetailsEntity implements ClientDetails {
 	 * @return the clientUrl
 	 */
 	@Basic
-	@Column(name="client_uri")
+	@Column(name = "client_uri")
 	public String getClientUri() {
 		return clientUri;
 	}
@@ -688,7 +686,7 @@ public class ClientDetailsEntity implements ClientDetails {
 	 * @return the tosUrl
 	 */
 	@Basic
-	@Column(name="tos_uri")
+	@Column(name = "tos_uri")
 	public String getTosUri() {
 		return tosUri;
 	}
@@ -701,7 +699,7 @@ public class ClientDetailsEntity implements ClientDetails {
 	}
 
 	@Basic
-	@Column(name="jwks_uri")
+	@Column(name = "jwks_uri")
 	public String getJwksUri() {
 		return jwksUri;
 	}
@@ -714,7 +712,7 @@ public class ClientDetailsEntity implements ClientDetails {
 	 * @return the jwks
 	 */
 	@Basic
-	@Column(name="jwks")
+	@Column(name = "jwks")
 	@Convert(converter = JWKSetStringConverter.class)
 	public JWKSet getJwks() {
 		return jwks;
@@ -728,7 +726,7 @@ public class ClientDetailsEntity implements ClientDetails {
 	}
 
 	@Basic
-	@Column(name="sector_identifier_uri")
+	@Column(name = "sector_identifier_uri")
 	public String getSectorIdentifierUri() {
 		return sectorIdentifierUri;
 	}
@@ -782,7 +780,7 @@ public class ClientDetailsEntity implements ClientDetails {
 	}
 
 	@Basic
-	@Column(name="id_token_signed_response_alg")
+	@Column(name = "id_token_signed_response_alg")
 	@Convert(converter = JWSAlgorithmStringConverter.class)
 	public JWSAlgorithm getIdTokenSignedResponseAlg() {
 		return idTokenSignedResponseAlg;
@@ -815,7 +813,7 @@ public class ClientDetailsEntity implements ClientDetails {
 	}
 
 	@Basic
-	@Column(name="token_endpoint_auth_signing_alg")
+	@Column(name = "token_endpoint_auth_signing_alg")
 	@Convert(converter = JWSAlgorithmStringConverter.class)
 	public JWSAlgorithm getTokenEndpointAuthSigningAlg() {
 		return tokenEndpointAuthSigningAlg;
@@ -826,7 +824,7 @@ public class ClientDetailsEntity implements ClientDetails {
 	}
 
 	@Basic
-	@Column(name="default_max_age")
+	@Column(name = "default_max_age")
 	public Integer getDefaultMaxAge() {
 		return defaultMaxAge;
 	}
@@ -836,7 +834,7 @@ public class ClientDetailsEntity implements ClientDetails {
 	}
 
 	@Basic
-	@Column(name="require_auth_time")
+	@Column(name = "require_auth_time")
 	public Boolean getRequireAuthTime() {
 		return requireAuthTime;
 	}
@@ -850,10 +848,10 @@ public class ClientDetailsEntity implements ClientDetails {
 	 */
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(
-			name="client_response_type",
-			joinColumns=@JoinColumn(name="owner_id")
-			)
-	@Column(name="response_type")
+		name = "client_response_type",
+		joinColumns = @JoinColumn(name = "owner_id")
+	)
+	@Column(name = "response_type")
 	public Set<String> getResponseTypes() {
 		return responseTypes;
 	}
@@ -870,10 +868,10 @@ public class ClientDetailsEntity implements ClientDetails {
 	 */
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(
-			name="client_default_acr_value",
-			joinColumns=@JoinColumn(name="owner_id")
-			)
-	@Column(name="default_acr_value")
+		name = "client_default_acr_value",
+		joinColumns = @JoinColumn(name = "owner_id")
+	)
+	@Column(name = "default_acr_value")
 	public Set<String> getDefaultACRvalues() {
 		return defaultACRvalues;
 	}
@@ -889,7 +887,7 @@ public class ClientDetailsEntity implements ClientDetails {
 	 * @return the initiateLoginUri
 	 */
 	@Basic
-	@Column(name="initiate_login_uri")
+	@Column(name = "initiate_login_uri")
 	public String getInitiateLoginUri() {
 		return initiateLoginUri;
 	}
@@ -906,10 +904,10 @@ public class ClientDetailsEntity implements ClientDetails {
 	 */
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(
-			name="client_post_logout_redirect_uri",
-			joinColumns=@JoinColumn(name="owner_id")
-			)
-	@Column(name="post_logout_redirect_uri")
+		name = "client_post_logout_redirect_uri",
+		joinColumns = @JoinColumn(name = "owner_id")
+	)
+	@Column(name = "post_logout_redirect_uri")
 	public Set<String> getPostLogoutRedirectUris() {
 		return postLogoutRedirectUris;
 	}
@@ -926,10 +924,10 @@ public class ClientDetailsEntity implements ClientDetails {
 	 */
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(
-			name="client_request_uri",
-			joinColumns=@JoinColumn(name="owner_id")
-			)
-	@Column(name="request_uri")
+		name = "client_request_uri",
+		joinColumns = @JoinColumn(name = "owner_id")
+	)
+	@Column(name = "request_uri")
 	public Set<String> getRequestUris() {
 		return requestUris;
 	}
@@ -945,7 +943,7 @@ public class ClientDetailsEntity implements ClientDetails {
 	 * @return the createdAt
 	 */
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="created_at")
+	@Column(name = "created_at")
 	public Date getCreatedAt() {
 		return createdAt;
 	}
@@ -986,10 +984,10 @@ public class ClientDetailsEntity implements ClientDetails {
 	 */
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(
-			name="client_claims_redirect_uri",
-			joinColumns=@JoinColumn(name="owner_id")
-			)
-	@Column(name="redirect_uri")
+		name = "client_claims_redirect_uri",
+		joinColumns = @JoinColumn(name = "owner_id")
+	)
+	@Column(name = "redirect_uri")
 	public Set<String> getClaimsRedirectUris() {
 		return claimsRedirectUris;
 	}
@@ -1039,7 +1037,7 @@ public class ClientDetailsEntity implements ClientDetails {
 	 * @return the deviceCodeValiditySeconds
 	 */
 	@Basic
-	@Column(name="device_code_validity_seconds")
+	@Column(name = "device_code_validity_seconds")
 	public Integer getDeviceCodeValiditySeconds() {
 		return deviceCodeValiditySeconds;
 	}
@@ -1055,7 +1053,7 @@ public class ClientDetailsEntity implements ClientDetails {
 	 * @return the softwareId
 	 */
 	@Basic
-	@Column(name="software_id")
+	@Column(name = "software_id")
 	public String getSoftwareId() {
 		return softwareId;
 	}
@@ -1071,7 +1069,7 @@ public class ClientDetailsEntity implements ClientDetails {
 	 * @return the softwareVersion
 	 */
 	@Basic
-	@Column(name="software_version")
+	@Column(name = "software_version")
 	public String getSoftwareVersion() {
 		return softwareVersion;
 	}

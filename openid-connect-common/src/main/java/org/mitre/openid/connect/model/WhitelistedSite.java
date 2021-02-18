@@ -36,11 +36,11 @@ import javax.persistence.Table;
 /**
  * Indicator that login to a site should be automatically granted
  * without user interaction.
- * @author jricher, aanganes
  *
+ * @author jricher, aanganes
  */
 @Entity
-@Table(name="whitelisted_site")
+@Table(name = "whitelisted_site")
 @NamedQueries({
 	@NamedQuery(name = WhitelistedSite.QUERY_ALL, query = "select w from WhitelistedSite w"),
 	@NamedQuery(name = WhitelistedSite.QUERY_BY_CLIENT_ID, query = "select w from WhitelistedSite w where w.clientId = :" + WhitelistedSite.PARAM_CLIENT_ID),
@@ -96,7 +96,7 @@ public class WhitelistedSite {
 	 * @return the clientId
 	 */
 	@Basic
-	@Column(name="client_id")
+	@Column(name = "client_id")
 	public String getClientId() {
 		return clientId;
 	}
@@ -113,10 +113,10 @@ public class WhitelistedSite {
 	 */
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(
-			name="whitelisted_site_scope",
-			joinColumns=@JoinColumn(name="owner_id")
-			)
-	@Column(name="scope")
+		name = "whitelisted_site_scope",
+		joinColumns = @JoinColumn(name = "owner_id")
+	)
+	@Column(name = "scope")
 	public Set<String> getAllowedScopes() {
 		return allowedScopes;
 	}
@@ -129,7 +129,7 @@ public class WhitelistedSite {
 	}
 
 	@Basic
-	@Column(name="creator_user_id")
+	@Column(name = "creator_user_id")
 	public String getCreatorUserId() {
 		return creatorUserId;
 	}

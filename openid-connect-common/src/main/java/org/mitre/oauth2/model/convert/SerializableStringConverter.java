@@ -29,11 +29,10 @@ import org.slf4j.LoggerFactory;
  * Translates a Serializable object of certain primitive types
  * into a String for storage in the database, for use with the
  * OAuth2Request extensions map.
- *
+ * <p>
  * This class does allow some extension data to be lost.
  *
  * @author jricher
- *
  */
 @Converter
 public class SerializableStringConverter implements AttributeConverter<Serializable, String> {
@@ -49,7 +48,7 @@ public class SerializableStringConverter implements AttributeConverter<Serializa
 		} else if (attribute instanceof Long) {
 			return attribute.toString();
 		} else if (attribute instanceof Date) {
-			return Long.toString(((Date)attribute).getTime());
+			return Long.toString(((Date) attribute).getTime());
 		} else {
 			logger.warn("Dropping data from request: " + attribute + " :: " + attribute.getClass());
 			return null;

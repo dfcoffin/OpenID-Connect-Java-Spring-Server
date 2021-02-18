@@ -143,77 +143,77 @@ public class ClientAPI {
 	private JsonParser parser = new JsonParser();
 
 	private Gson gson = new GsonBuilder()
-			.serializeNulls()
-			.registerTypeAdapter(JWSAlgorithm.class, new JsonDeserializer<Algorithm>() {
-				@Override
-				public JWSAlgorithm deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-					if (json.isJsonPrimitive()) {
-						return JWSAlgorithm.parse(json.getAsString());
-					} else {
+		.serializeNulls()
+		.registerTypeAdapter(JWSAlgorithm.class, new JsonDeserializer<Algorithm>() {
+			@Override
+			public JWSAlgorithm deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+				if (json.isJsonPrimitive()) {
+					return JWSAlgorithm.parse(json.getAsString());
+				} else {
+					return null;
+				}
+			}
+		})
+		.registerTypeAdapter(JWEAlgorithm.class, new JsonDeserializer<Algorithm>() {
+			@Override
+			public JWEAlgorithm deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+				if (json.isJsonPrimitive()) {
+					return JWEAlgorithm.parse(json.getAsString());
+				} else {
+					return null;
+				}
+			}
+		})
+		.registerTypeAdapter(EncryptionMethod.class, new JsonDeserializer<Algorithm>() {
+			@Override
+			public EncryptionMethod deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+				if (json.isJsonPrimitive()) {
+					return EncryptionMethod.parse(json.getAsString());
+				} else {
+					return null;
+				}
+			}
+		})
+		.registerTypeAdapter(JWKSet.class, new JsonDeserializer<JWKSet>() {
+			@Override
+			public JWKSet deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+				if (json.isJsonObject()) {
+					try {
+						return JWKSet.parse(json.toString());
+					} catch (ParseException e) {
 						return null;
 					}
+				} else {
+					return null;
 				}
-			})
-			.registerTypeAdapter(JWEAlgorithm.class, new JsonDeserializer<Algorithm>() {
-				@Override
-				public JWEAlgorithm deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-					if (json.isJsonPrimitive()) {
-						return JWEAlgorithm.parse(json.getAsString());
-					} else {
+			}
+		})
+		.registerTypeAdapter(JWT.class, new JsonDeserializer<JWT>() {
+			@Override
+			public JWT deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+				if (json.isJsonPrimitive()) {
+					try {
+						return JWTParser.parse(json.getAsString());
+					} catch (ParseException e) {
 						return null;
 					}
+				} else {
+					return null;
 				}
-			})
-			.registerTypeAdapter(EncryptionMethod.class, new JsonDeserializer<Algorithm>() {
-				@Override
-				public EncryptionMethod deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-					if (json.isJsonPrimitive()) {
-						return EncryptionMethod.parse(json.getAsString());
-					} else {
-						return null;
-					}
+			}
+		})
+		.registerTypeAdapter(PKCEAlgorithm.class, new JsonDeserializer<Algorithm>() {
+			@Override
+			public PKCEAlgorithm deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+				if (json.isJsonPrimitive()) {
+					return PKCEAlgorithm.parse(json.getAsString());
+				} else {
+					return null;
 				}
-			})
-			.registerTypeAdapter(JWKSet.class, new JsonDeserializer<JWKSet>() {
-				@Override
-				public JWKSet deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-					if (json.isJsonObject()) {
-						try {
-							return JWKSet.parse(json.toString());
-						} catch (ParseException e) {
-							return null;
-						}
-					} else {
-						return null;
-					}
-				}
-			})
-			.registerTypeAdapter(JWT.class, new JsonDeserializer<JWT>() {
-				@Override
-				public JWT deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-					if (json.isJsonPrimitive()) {
-						try {
-							return JWTParser.parse(json.getAsString());
-						} catch (ParseException e) {
-							return null;
-						}
-					} else {
-						return null;
-					}
-				}
-			})
-			.registerTypeAdapter(PKCEAlgorithm.class, new JsonDeserializer<Algorithm>() {
-				@Override
-				public PKCEAlgorithm deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-					if (json.isJsonPrimitive()) {
-						return PKCEAlgorithm.parse(json.getAsString());
-					} else {
-						return null;
-					}
-				}
-			})
-			.setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
-			.create();
+			}
+		})
+		.setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
+		.create();
 
 	/**
 	 * Logger for this class
@@ -222,6 +222,7 @@ public class ClientAPI {
 
 	/**
 	 * Get a list of all clients
+	 *
 	 * @param modelAndView
 	 * @return
 	 */
@@ -240,6 +241,7 @@ public class ClientAPI {
 
 	/**
 	 * Create a new client
+	 *
 	 * @param json
 	 * @param m
 	 * @param principal
@@ -279,18 +281,18 @@ public class ClientAPI {
 		}
 
 		if (client.getTokenEndpointAuthMethod() == null ||
-				client.getTokenEndpointAuthMethod().equals(AuthMethod.NONE)) {
+			client.getTokenEndpointAuthMethod().equals(AuthMethod.NONE)) {
 			// we shouldn't have a secret for this client
 
 			client.setClientSecret(null);
 
 		} else if (client.getTokenEndpointAuthMethod().equals(AuthMethod.SECRET_BASIC)
-				|| client.getTokenEndpointAuthMethod().equals(AuthMethod.SECRET_POST)
-				|| client.getTokenEndpointAuthMethod().equals(AuthMethod.SECRET_JWT)) {
+			|| client.getTokenEndpointAuthMethod().equals(AuthMethod.SECRET_POST)
+			|| client.getTokenEndpointAuthMethod().equals(AuthMethod.SECRET_JWT)) {
 
 			// if they've asked for us to generate a client secret (or they left it blank but require one), do so here
 			if (json.has("generateClientSecret") && json.get("generateClientSecret").getAsBoolean()
-					|| Strings.isNullOrEmpty(client.getClientSecret())) {
+				|| Strings.isNullOrEmpty(client.getClientSecret())) {
 				client = clientService.generateClientSecret(client);
 			}
 
@@ -336,7 +338,7 @@ public class ClientAPI {
 			Throwable cause = e.getCause();
 			if (cause instanceof DatabaseException) {
 				Throwable databaseExceptionCause = cause.getCause();
-				if(databaseExceptionCause instanceof SQLIntegrityConstraintViolationException) {
+				if (databaseExceptionCause instanceof SQLIntegrityConstraintViolationException) {
 					logger.error("apiAddClient failed; duplicate client id entry found: {}", client.getClientId());
 					m.addAttribute(HttpCodeView.CODE, HttpStatus.CONFLICT);
 					m.addAttribute(JsonErrorView.ERROR_MESSAGE, "Unable to save client. Duplicate client id entry found: " + client.getClientId());
@@ -349,6 +351,7 @@ public class ClientAPI {
 
 	/**
 	 * Update an existing client
+	 *
 	 * @param id
 	 * @param jsonString
 	 * @param m
@@ -356,7 +359,7 @@ public class ClientAPI {
 	 * @return
 	 */
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping(value="/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String apiUpdateClient(@PathVariable("id") Long id, @RequestBody String jsonString, Model m, Authentication auth) {
 
 		JsonObject json = null;
@@ -399,18 +402,18 @@ public class ClientAPI {
 		}
 
 		if (client.getTokenEndpointAuthMethod() == null ||
-				client.getTokenEndpointAuthMethod().equals(AuthMethod.NONE)) {
+			client.getTokenEndpointAuthMethod().equals(AuthMethod.NONE)) {
 			// we shouldn't have a secret for this client
 
 			client.setClientSecret(null);
 
 		} else if (client.getTokenEndpointAuthMethod().equals(AuthMethod.SECRET_BASIC)
-				|| client.getTokenEndpointAuthMethod().equals(AuthMethod.SECRET_POST)
-				|| client.getTokenEndpointAuthMethod().equals(AuthMethod.SECRET_JWT)) {
+			|| client.getTokenEndpointAuthMethod().equals(AuthMethod.SECRET_POST)
+			|| client.getTokenEndpointAuthMethod().equals(AuthMethod.SECRET_JWT)) {
 
 			// if they've asked for us to generate a client secret (or they left it blank but require one), do so here
 			if (json.has("generateClientSecret") && json.get("generateClientSecret").getAsBoolean()
-					|| Strings.isNullOrEmpty(client.getClientSecret())) {
+				|| Strings.isNullOrEmpty(client.getClientSecret())) {
 				client = clientService.generateClientSecret(client);
 			}
 
@@ -455,12 +458,13 @@ public class ClientAPI {
 
 	/**
 	 * Delete a client
+	 *
 	 * @param id
 	 * @param modelAndView
 	 * @return
 	 */
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public String apiDeleteClient(@PathVariable("id") Long id, ModelAndView modelAndView) {
 
 		ClientDetailsEntity client = clientService.getClientById(id);
@@ -481,11 +485,12 @@ public class ClientAPI {
 
 	/**
 	 * Get an individual client
+	 *
 	 * @param id
 	 * @param modelAndView
 	 * @return
 	 */
-	@RequestMapping(value="/{id}", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String apiShowClient(@PathVariable("id") Long id, Model model, Authentication auth) {
 
 		ClientDetailsEntity client = clientService.getClientById(id);
@@ -508,9 +513,10 @@ public class ClientAPI {
 
 	/**
 	 * Get the logo image for a client
+	 *
 	 * @param id
 	 */
-	@RequestMapping(value = "/{id}/logo", method=RequestMethod.GET, produces = { MediaType.IMAGE_GIF_VALUE, MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE })
+	@RequestMapping(value = "/{id}/logo", method = RequestMethod.GET, produces = {MediaType.IMAGE_GIF_VALUE, MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE})
 	public ResponseEntity<byte[]> getClientLogo(@PathVariable("id") Long id, Model model) {
 
 		ClientDetailsEntity client = clientService.getClientById(id);

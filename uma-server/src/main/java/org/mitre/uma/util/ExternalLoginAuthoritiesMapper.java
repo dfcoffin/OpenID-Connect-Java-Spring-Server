@@ -31,7 +31,6 @@ import com.nimbusds.jwt.JWT;
  * to prevent them from accessing other parts of the server.
  *
  * @author jricher
- *
  */
 public class ExternalLoginAuthoritiesMapper implements OIDCAuthoritiesMapper {
 

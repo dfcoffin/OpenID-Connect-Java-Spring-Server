@@ -107,8 +107,8 @@ public class ResourceSetRegistrationEndpoint {
 		rs = validateScopes(rs);
 
 		if (Strings.isNullOrEmpty(rs.getName()) // there was no name (required)
-				|| rs.getScopes() == null // there were no scopes (required)
-				) {
+			|| rs.getScopes() == null // there were no scopes (required)
+		) {
 
 			logger.warn("Resource set registration missing one or more required fields.");
 
@@ -128,7 +128,7 @@ public class ResourceSetRegistrationEndpoint {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
-	public String readResourceSet(@PathVariable ("id") Long id, Model m, Authentication auth) {
+	public String readResourceSet(@PathVariable("id") Long id, Model m, Authentication auth) {
 		ensureOAuthScope(auth, SystemScopeService.UMA_PROTECTION_SCOPE);
 
 		ResourceSet rs = resourceSetService.getById(id);
@@ -158,16 +158,16 @@ public class ResourceSetRegistrationEndpoint {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MimeTypeUtils.APPLICATION_JSON_VALUE, produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
-	public String updateResourceSet(@PathVariable ("id") Long id, @RequestBody String jsonString, Model m, Authentication auth) {
+	public String updateResourceSet(@PathVariable("id") Long id, @RequestBody String jsonString, Model m, Authentication auth) {
 		ensureOAuthScope(auth, SystemScopeService.UMA_PROTECTION_SCOPE);
 
 		ResourceSet newRs = parseResourceSet(jsonString);
 
 		if (newRs == null // there was no resource set in the body
-				|| Strings.isNullOrEmpty(newRs.getName()) // there was no name (required)
-				|| newRs.getScopes() == null // there were no scopes (required)
-				|| newRs.getId() == null || !newRs.getId().equals(id) // the IDs didn't match
-				) {
+			|| Strings.isNullOrEmpty(newRs.getName()) // there was no name (required)
+			|| newRs.getScopes() == null // there were no scopes (required)
+			|| newRs.getId() == null || !newRs.getId().equals(id) // the IDs didn't match
+		) {
 
 			logger.warn("Resource set registration missing one or more required fields.");
 
@@ -203,7 +203,7 @@ public class ResourceSetRegistrationEndpoint {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
-	public String deleteResourceSet(@PathVariable ("id") Long id, Model m, Authentication auth) {
+	public String deleteResourceSet(@PathVariable("id") Long id, Model m, Authentication auth) {
 		ensureOAuthScope(auth, SystemScopeService.UMA_PROTECTION_SCOPE);
 
 		ResourceSet rs = resourceSetService.getById(id);
@@ -221,9 +221,9 @@ public class ResourceSetRegistrationEndpoint {
 				m.addAttribute(HttpCodeView.CODE, HttpStatus.FORBIDDEN);
 				return JsonErrorView.VIEWNAME;
 			} else if (auth instanceof OAuth2Authentication &&
-					!((OAuth2Authentication)auth).getOAuth2Request().getClientId().equals(rs.getClientId())){
+				!((OAuth2Authentication) auth).getOAuth2Request().getClientId().equals(rs.getClientId())) {
 
-				logger.warn("Unauthorized resource set request from bad client; expected " + rs.getClientId() + " got " + ((OAuth2Authentication)auth).getOAuth2Request().getClientId());
+				logger.warn("Unauthorized resource set request from bad client; expected " + rs.getClientId() + " got " + ((OAuth2Authentication) auth).getOAuth2Request().getClientId());
 
 				// it wasn't issued to this client
 				m.addAttribute(HttpCodeView.CODE, HttpStatus.FORBIDDEN);
@@ -297,7 +297,6 @@ public class ResourceSetRegistrationEndpoint {
 
 
 	/**
-	 *
 	 * Make sure the resource set doesn't have any restricted or reserved scopes.
 	 *
 	 * @param rs

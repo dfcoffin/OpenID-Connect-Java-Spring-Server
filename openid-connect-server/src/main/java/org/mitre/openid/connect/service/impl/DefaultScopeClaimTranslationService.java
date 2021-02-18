@@ -30,7 +30,6 @@ import com.google.common.collect.SetMultimap;
  * Service to map scopes to claims, and claims to Java field names
  *
  * @author Amanda Anganes
- *
  */
 @Service("scopeClaimTranslator")
 public class DefaultScopeClaimTranslationService implements ScopeClaimTranslationService {

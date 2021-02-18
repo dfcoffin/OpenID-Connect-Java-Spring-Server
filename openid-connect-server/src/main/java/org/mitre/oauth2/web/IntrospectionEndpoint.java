@@ -90,8 +90,8 @@ public class IntrospectionEndpoint {
 
 	@RequestMapping("/" + URL)
 	public String verify(@RequestParam("token") String tokenValue,
-			@RequestParam(value = "token_type_hint", required = false) String tokenType,
-			Authentication auth, Model model) {
+						 @RequestParam(value = "token_type_hint", required = false) String tokenType,
+						 Authentication auth, Model model) {
 
 		ClientDetailsEntity authClient = null;
 		Set<String> authScopes = new HashSet<>();
@@ -129,7 +129,7 @@ public class IntrospectionEndpoint {
 			authScopes.addAll(authClient.getScope());
 
 			if (!AuthenticationUtilities.hasRole(auth, "ROLE_CLIENT")
-					|| !authClient.isAllowIntrospection()) {
+				|| !authClient.isAllowIntrospection()) {
 
 				// this client isn't allowed to do direct introspection
 
@@ -146,7 +146,7 @@ public class IntrospectionEndpoint {
 		// first make sure the token is there
 		if (Strings.isNullOrEmpty(tokenValue)) {
 			logger.error("Verify failed; token value is null");
-			Map<String,Boolean> entity = ImmutableMap.of("active", Boolean.FALSE);
+			Map<String, Boolean> entity = ImmutableMap.of("active", Boolean.FALSE);
 			model.addAttribute(JsonEntityView.ENTITY, entity);
 			return JsonEntityView.VIEWNAME;
 		}
@@ -182,7 +182,7 @@ public class IntrospectionEndpoint {
 
 			} catch (InvalidTokenException e2) {
 				logger.error("Invalid refresh token");
-				Map<String,Boolean> entity = ImmutableMap.of(IntrospectionResultAssembler.ACTIVE, Boolean.FALSE);
+				Map<String, Boolean> entity = ImmutableMap.of(IntrospectionResultAssembler.ACTIVE, Boolean.FALSE);
 				model.addAttribute(JsonEntityView.ENTITY, entity);
 				return JsonEntityView.VIEWNAME;
 			}
@@ -199,7 +199,7 @@ public class IntrospectionEndpoint {
 		} else {
 			// no tokens were found (we shouldn't get here)
 			logger.error("Verify failed; Invalid access/refresh token");
-			Map<String,Boolean> entity = ImmutableMap.of(IntrospectionResultAssembler.ACTIVE, Boolean.FALSE);
+			Map<String, Boolean> entity = ImmutableMap.of(IntrospectionResultAssembler.ACTIVE, Boolean.FALSE);
 			model.addAttribute(JsonEntityView.ENTITY, entity);
 			return JsonEntityView.VIEWNAME;
 		}

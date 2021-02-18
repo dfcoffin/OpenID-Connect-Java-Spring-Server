@@ -25,7 +25,6 @@ import org.mitre.openid.connect.model.WhitelistedSite;
  * WhitelistedSite repository interface
  *
  * @author Michael Joseph Walsh, aanganes
- *
  */
 public interface WhitelistedSiteRepository {
 
@@ -39,8 +38,7 @@ public interface WhitelistedSiteRepository {
 	/**
 	 * Returns the WhitelistedSite for the given id
 	 *
-	 * @param id
-	 *            id the id of the WhitelistedSite
+	 * @param id id the id of the WhitelistedSite
 	 * @return a valid WhitelistedSite if it exists, null otherwise
 	 */
 	public WhitelistedSite getById(Long id);
@@ -48,24 +46,23 @@ public interface WhitelistedSiteRepository {
 	/**
 	 * Find a WhitelistedSite by its associated ClientDetails reference
 	 *
-	 * @param client	the Relying Party
-	 * @return			the corresponding WhitelistedSite if one exists for the RP, or null
+	 * @param client the Relying Party
+	 * @return the corresponding WhitelistedSite if one exists for the RP, or null
 	 */
 	public WhitelistedSite getByClientId(String clientId);
 
 	/**
 	 * Return a collection of the WhitelistedSites created by a given user
 	 *
-	 * @param creator	the id of the admin who may have created some WhitelistedSites
-	 * @return			the collection of corresponding WhitelistedSites, if any, or null
+	 * @param creator the id of the admin who may have created some WhitelistedSites
+	 * @return the collection of corresponding WhitelistedSites, if any, or null
 	 */
 	public Collection<WhitelistedSite> getByCreator(String creatorId);
 
 	/**
 	 * Removes the given IdToken from the repository
 	 *
-	 * @param whitelistedSite
-	 *            the WhitelistedSite object to remove
+	 * @param whitelistedSite the WhitelistedSite object to remove
 	 */
 	public void remove(WhitelistedSite whitelistedSite);
 
@@ -79,6 +76,7 @@ public interface WhitelistedSiteRepository {
 
 	/**
 	 * Persist changes to a whitelistedSite. The ID of oldWhitelistedSite is retained.
+	 *
 	 * @param oldWhitelistedSite
 	 * @param whitelistedSite
 	 * @return

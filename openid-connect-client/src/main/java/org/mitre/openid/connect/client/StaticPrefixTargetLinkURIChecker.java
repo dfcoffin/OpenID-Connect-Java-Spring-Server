@@ -20,7 +20,6 @@ package org.mitre.openid.connect.client;
  * with a configured prefix. Returns "/" if the match fails.
  *
  * @author jricher
- *
  */
 public class StaticPrefixTargetLinkURIChecker implements TargetLinkURIChecker {
 

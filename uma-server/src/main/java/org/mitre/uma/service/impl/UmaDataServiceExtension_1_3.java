@@ -54,7 +54,6 @@ import com.google.gson.stream.JsonWriter;
 
 /**
  * @author jricher
- *
  */
 @Service("umaDataExtension_1_3")
 public class UmaDataServiceExtension_1_3 extends MITREidDataServiceSupport implements MITREidDataServiceExtension {
@@ -90,7 +89,6 @@ public class UmaDataServiceExtension_1_3 extends MITREidDataServiceSupport imple
 	private static final String TOKEN_ID = "tokenId";
 
 	private static final Logger logger = LoggerFactory.getLogger(UmaDataServiceExtension_1_3.class);
-
 
 
 	@Autowired
@@ -328,12 +326,12 @@ public class UmaDataServiceExtension_1_3 extends MITREidDataServiceSupport imple
 	 */
 	private void readTokenPermissions(JsonReader reader) throws IOException {
 		reader.beginArray();
-		while(reader.hasNext()) {
+		while (reader.hasNext()) {
 			reader.beginObject();
 			Long tokenId = null;
 			Set<Long> permissions = new HashSet<>();
 			while (reader.hasNext()) {
-				switch(reader.peek()) {
+				switch (reader.peek()) {
 					case END_OBJECT:
 						continue;
 					case NAME:
@@ -642,7 +640,7 @@ public class UmaDataServiceExtension_1_3 extends MITREidDataServiceSupport imple
 	/**
 	 * @param reader
 	 */
-	private void readSavedRegisteredClients(JsonReader reader) throws IOException{
+	private void readSavedRegisteredClients(JsonReader reader) throws IOException {
 		reader.beginArray();
 		while (reader.hasNext()) {
 			String issuer = null;

@@ -22,7 +22,6 @@ import org.mitre.openid.connect.service.LoginHintExtracter;
  * Sends all login hints through to the login page regardless of setup.
  *
  * @author jricher
- *
  */
 public class PassAllLoginHints implements LoginHintExtracter {
 

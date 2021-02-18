@@ -18,7 +18,6 @@ package org.mitre.openid.connect.service;
 
 /**
  * @author jricher
- *
  */
 public interface LoginHintExtracter {
 

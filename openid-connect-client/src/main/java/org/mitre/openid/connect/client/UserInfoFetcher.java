@@ -50,8 +50,8 @@ import com.google.gson.JsonParser;
 
 /**
  * Utility class to fetch userinfo from the userinfo endpoint, if available. Caches the results.
- * @author jricher
  *
+ * @author jricher
  */
 public class UserInfoFetcher {
 
@@ -68,9 +68,9 @@ public class UserInfoFetcher {
 
 	public UserInfoFetcher(HttpClient httpClient) {
 		cache = CacheBuilder.newBuilder()
-				.expireAfterWrite(1, TimeUnit.HOURS) // expires 1 hour after fetch
-				.maximumSize(100)
-				.build(new UserInfoLoader(httpClient));
+			.expireAfterWrite(1, TimeUnit.HOURS) // expires 1 hour after fetch
+			.maximumSize(100)
+			.build(new UserInfoLoader(httpClient));
 	}
 
 	public UserInfo loadUserInfo(final PendingOIDCAuthenticationToken token) {
@@ -129,7 +129,7 @@ public class UserInfoFetcher {
 				userInfoString = restTemplate.postForObject(serverConfiguration.getUserInfoUri(), form, String.class);
 			} else if (serverConfiguration.getUserInfoTokenMethod().equals(UserInfoTokenMethod.QUERY)) {
 				URIBuilder builder = new URIBuilder(serverConfiguration.getUserInfoUri());
-				builder.setParameter("access_token",  token.getAccessTokenValue());
+				builder.setParameter("access_token", token.getAccessTokenValue());
 
 				RestTemplate restTemplate = new RestTemplate(factory);
 				userInfoString = restTemplate.getForObject(builder.toString(), String.class);

@@ -1,20 +1,20 @@
-/*******************************************************************************
+/**
  * Copyright 2018 The MIT Internet Trust Consortium
- *
+ * <p>
  * Portions copyright 2011-2013 The MITRE Corporation
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *******************************************************************************/
+ */
 /**
  *
  */
@@ -82,7 +82,7 @@ public class JWTBearerAuthenticationProvider implements AuthenticationProvider {
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 
-		JWTBearerAssertionAuthenticationToken jwtAuth = (JWTBearerAssertionAuthenticationToken)authentication;
+		JWTBearerAssertionAuthenticationToken jwtAuth = (JWTBearerAssertionAuthenticationToken) authentication;
 
 
 		try {
@@ -101,33 +101,33 @@ public class JWTBearerAuthenticationProvider implements AuthenticationProvider {
 			JWSAlgorithm alg = jws.getHeader().getAlgorithm();
 
 			if (client.getTokenEndpointAuthSigningAlg() != null &&
-					!client.getTokenEndpointAuthSigningAlg().equals(alg)) {
+				!client.getTokenEndpointAuthSigningAlg().equals(alg)) {
 				throw new AuthenticationServiceException("Client's registered token endpoint signing algorithm (" + client.getTokenEndpointAuthSigningAlg()
-						+ ") does not match token's actual algorithm (" + alg.getName() + ")");
+					+ ") does not match token's actual algorithm (" + alg.getName() + ")");
 			}
 
 			if (client.getTokenEndpointAuthMethod() == null ||
-					client.getTokenEndpointAuthMethod().equals(AuthMethod.NONE) ||
-					client.getTokenEndpointAuthMethod().equals(AuthMethod.SECRET_BASIC) ||
-					client.getTokenEndpointAuthMethod().equals(AuthMethod.SECRET_POST)) {
+				client.getTokenEndpointAuthMethod().equals(AuthMethod.NONE) ||
+				client.getTokenEndpointAuthMethod().equals(AuthMethod.SECRET_BASIC) ||
+				client.getTokenEndpointAuthMethod().equals(AuthMethod.SECRET_POST)) {
 
 				// this client doesn't support this type of authentication
 				throw new AuthenticationServiceException("Client does not support this authentication method.");
 
 			} else if ((client.getTokenEndpointAuthMethod().equals(AuthMethod.PRIVATE_KEY) &&
-					(alg.equals(JWSAlgorithm.RS256)
-							|| alg.equals(JWSAlgorithm.RS384)
-							|| alg.equals(JWSAlgorithm.RS512)
-							|| alg.equals(JWSAlgorithm.ES256)
-							|| alg.equals(JWSAlgorithm.ES384)
-							|| alg.equals(JWSAlgorithm.ES512)
-							|| alg.equals(JWSAlgorithm.PS256)
-							|| alg.equals(JWSAlgorithm.PS384)
-							|| alg.equals(JWSAlgorithm.PS512)))
-					|| (client.getTokenEndpointAuthMethod().equals(AuthMethod.SECRET_JWT) &&
-					(alg.equals(JWSAlgorithm.HS256)
-							|| alg.equals(JWSAlgorithm.HS384)
-							|| alg.equals(JWSAlgorithm.HS512)))) {
+				(alg.equals(JWSAlgorithm.RS256)
+					|| alg.equals(JWSAlgorithm.RS384)
+					|| alg.equals(JWSAlgorithm.RS512)
+					|| alg.equals(JWSAlgorithm.ES256)
+					|| alg.equals(JWSAlgorithm.ES384)
+					|| alg.equals(JWSAlgorithm.ES512)
+					|| alg.equals(JWSAlgorithm.PS256)
+					|| alg.equals(JWSAlgorithm.PS384)
+					|| alg.equals(JWSAlgorithm.PS512)))
+				|| (client.getTokenEndpointAuthMethod().equals(AuthMethod.SECRET_JWT) &&
+				(alg.equals(JWSAlgorithm.HS256)
+					|| alg.equals(JWSAlgorithm.HS384)
+					|| alg.equals(JWSAlgorithm.HS512)))) {
 
 				// double-check the method is asymmetrical if we're in HEART mode
 				if (config.isHeartMode() && !client.getTokenEndpointAuthMethod().equals(AuthMethod.PRIVATE_KEY)) {
@@ -150,7 +150,7 @@ public class JWTBearerAuthenticationProvider implements AuthenticationProvider {
 			// check the issuer
 			if (jwtClaims.getIssuer() == null) {
 				throw new AuthenticationServiceException("Assertion Token Issuer is null");
-			} else if (!jwtClaims.getIssuer().equals(client.getClientId())){
+			} else if (!jwtClaims.getIssuer().equals(client.getClientId())) {
 				throw new AuthenticationServiceException("Issuers do not match, expected " + client.getClientId() + " got " + jwtClaims.getIssuer());
 			}
 
@@ -168,7 +168,7 @@ public class JWTBearerAuthenticationProvider implements AuthenticationProvider {
 			// check not before
 			if (jwtClaims.getNotBeforeTime() != null) {
 				Date now = new Date(System.currentTimeMillis() + (timeSkewAllowance * 1000));
-				if (now.before(jwtClaims.getNotBeforeTime())){
+				if (now.before(jwtClaims.getNotBeforeTime())) {
 					throw new AuthenticationServiceException("Assertion Token not valid untill: " + jwtClaims.getNotBeforeTime());
 				}
 			}

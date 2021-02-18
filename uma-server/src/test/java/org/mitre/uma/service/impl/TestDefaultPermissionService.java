@@ -49,7 +49,6 @@ import static org.junit.Assert.assertThat;
 
 /**
  * @author jricher
- *
  */
 @RunWith(MockitoJUnitRunner.class)
 public class TestDefaultPermissionService {
@@ -83,7 +82,7 @@ public class TestDefaultPermissionService {
 		rs1 = new ResourceSet();
 		rs1.setName(rs1Name);
 		rs1.setOwner(rs1Owner);
-		rs1.setId(rs1Id );
+		rs1.setId(rs1Id);
 		rs1.setScopes(scopes1);
 
 		rs2 = new ResourceSet();
@@ -167,7 +166,7 @@ public class TestDefaultPermissionService {
 	public void testCreate_scopeMismatch() {
 		@SuppressWarnings("unused")
 		// try to get scopes outside of what we're allowed to do, this should throw an exception
-		PermissionTicket perm = permissionService.createTicket(rs1, scopes2);
+			PermissionTicket perm = permissionService.createTicket(rs1, scopes2);
 	}
 
 }

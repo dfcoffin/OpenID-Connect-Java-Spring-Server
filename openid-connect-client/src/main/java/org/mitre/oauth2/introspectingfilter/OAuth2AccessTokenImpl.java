@@ -88,7 +88,7 @@ public class OAuth2AccessTokenImpl implements OAuth2AccessToken {
 	@Override
 	public int getExpiresIn() {
 		if (expireDate != null) {
-			return (int)TimeUnit.MILLISECONDS.toSeconds(expireDate.getTime() - (new Date()).getTime());
+			return (int) TimeUnit.MILLISECONDS.toSeconds(expireDate.getTime() - (new Date()).getTime());
 		}
 		return 0;
 	}

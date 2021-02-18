@@ -1,7 +1,7 @@
-<%@attribute name="title" required="false"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@attribute name="title" required="false" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ tag import="com.google.gson.Gson" %>
 <!DOCTYPE html>
 <html lang="${pageContext.response.locale}">
@@ -42,45 +42,46 @@
             lng: "${config.locale}",
             resGetPath: "resources/js/locale/__lng__/__ns__.json",
             ns: {
-            	namespaces: ${config.languageNamespacesString},
-            	defaultNs: '${config.defaultLanguageNamespace}'
+                namespaces: ${config.languageNamespacesString},
+                defaultNs: '${config.defaultLanguageNamespace}'
             },
             fallbackNS: ${config.languageNamespacesString}
         });
         moment.locale("${config.locale}");
-    	// safely set the title of the application
-    	function setPageTitle(title) {
-    		document.title = "${config.topbarTitle} - " + title;
-    	}
-    	
-		// get the info of the current user, if available (null otherwise)
-    	function getUserInfo() {
-    		return ${userInfoJson};
-    	}
-		
-		// get the authorities of the current user, if available (null otherwise)
-		function getUserAuthorities() {
-			return ${userAuthorities};
-		}
-		
-		// is the current user an admin?
-		// NOTE: this is just for  
-		function isAdmin() {
-			var auth = getUserAuthorities();
-			if (auth && _.contains(auth, "ROLE_ADMIN")) {
-				return true;
-			} else {
-				return false;
-			}
-		}
-		
-		var heartMode = ${config.heartMode};
-		
-    </script>    
+
+        // safely set the title of the application
+        function setPageTitle(title) {
+            document.title = "${config.topbarTitle} - " + title;
+        }
+
+        // get the info of the current user, if available (null otherwise)
+        function getUserInfo() {
+            return ${userInfoJson};
+        }
+
+        // get the authorities of the current user, if available (null otherwise)
+        function getUserAuthorities() {
+            return ${userAuthorities};
+        }
+
+        // is the current user an admin?
+        // NOTE: this is just for
+        function isAdmin() {
+            var auth = getUserAuthorities();
+            if (auth && _.contains(auth, "ROLE_ADMIN")) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        var heartMode = ${config.heartMode};
+
+    </script>
 </head>
 
 <body>
 
 <div id="wrap">
 
-<!-- Start body -->
+    <!-- Start body -->

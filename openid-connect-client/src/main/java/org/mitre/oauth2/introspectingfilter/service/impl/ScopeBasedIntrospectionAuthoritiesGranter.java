@@ -30,7 +30,6 @@ import com.google.gson.JsonObject;
 
 /**
  * @author jricher
- *
  */
 public class ScopeBasedIntrospectionAuthoritiesGranter implements IntrospectionAuthorityGranter {
 

@@ -1,20 +1,20 @@
-/*******************************************************************************
+/**
  * Copyright 2018 The MIT Internet Trust Consortium
- *
+ * <p>
  * Portions copyright 2011-2013 The MITRE Corporation
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *******************************************************************************/
+ */
 /**
  *
  */
@@ -104,8 +104,7 @@ public class BlacklistAPI {
 			BlacklistedSite newBlacklist = blacklistService.saveNew(blacklist);
 			m.put(JsonEntityView.ENTITY, newBlacklist);
 
-		}
-		catch (JsonSyntaxException e) {
+		} catch (JsonSyntaxException e) {
 			logger.error("addNewBlacklistedSite failed due to JsonSyntaxException: ", e);
 			m.put(HttpCodeView.CODE, HttpStatus.BAD_REQUEST);
 			m.put(JsonErrorView.ERROR_MESSAGE, "Could not save new blacklisted site. The server encountered a JSON syntax exception. Contact a system administrator for assistance.");
@@ -124,7 +123,7 @@ public class BlacklistAPI {
 	/**
 	 * Update an existing blacklisted site
 	 */
-	@RequestMapping(value="/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String updateBlacklistedSite(@PathVariable("id") Long id, @RequestBody String jsonString, ModelMap m, Principal p) {
 
 		JsonObject json;
@@ -136,8 +135,7 @@ public class BlacklistAPI {
 			json = parser.parse(jsonString).getAsJsonObject();
 			blacklist = gson.fromJson(json, BlacklistedSite.class);
 
-		}
-		catch (JsonSyntaxException e) {
+		} catch (JsonSyntaxException e) {
 			logger.error("updateBlacklistedSite failed due to JsonSyntaxException", e);
 			m.put(HttpCodeView.CODE, HttpStatus.BAD_REQUEST);
 			m.put(JsonErrorView.ERROR_MESSAGE, "Could not update blacklisted site. The server encountered a JSON syntax exception. Contact a system administrator for assistance.");
@@ -171,7 +169,7 @@ public class BlacklistAPI {
 	 * Delete a blacklisted site
 	 *
 	 */
-	@RequestMapping(value="/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public String deleteBlacklistedSite(@PathVariable("id") Long id, ModelMap m) {
 		BlacklistedSite blacklist = blacklistService.getById(id);
 
@@ -190,7 +188,7 @@ public class BlacklistAPI {
 	/**
 	 * Get a single blacklisted site
 	 */
-	@RequestMapping(value="/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String getBlacklistedSite(@PathVariable("id") Long id, ModelMap m) {
 		BlacklistedSite blacklist = blacklistService.getById(id);
 		if (blacklist == null) {

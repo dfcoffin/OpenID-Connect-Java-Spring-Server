@@ -31,14 +31,12 @@ import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 
 
-
 /**
  * Bean to hold configuration information that must be injected into various parts
  * of our application. Set all of the properties here, and autowire a reference
  * to this bean if you need access to any configuration properties.
  *
  * @author AANGANES
- *
  */
 public class ConfigurationPropertiesBean {
 
@@ -68,7 +66,7 @@ public class ConfigurationPropertiesBean {
 	private boolean dualClient = false;
 
 	private boolean heartMode = false;
-	
+
 	private boolean allowCompleteDeviceCodeUri = false;
 
 	public ConfigurationPropertiesBean() {
@@ -77,6 +75,7 @@ public class ConfigurationPropertiesBean {
 
 	/**
 	 * Endpoints protected by TLS must have https scheme in the URI.
+	 *
 	 * @throws HttpsUrlRequiredException
 	 */
 	@PostConstruct
@@ -85,8 +84,7 @@ public class ConfigurationPropertiesBean {
 			if (this.forceHttps) {
 				logger.error("Configured issuer url is not using https scheme. Server will be shut down!");
 				throw new BeanCreationException("Issuer is not using https scheme as required: " + issuer);
-			}
-			else {
+			} else {
 				logger.warn("\n\n**\n** WARNING: Configured issuer url is not using https scheme.\n**\n\n");
 			}
 		}
@@ -233,6 +231,7 @@ public class ConfigurationPropertiesBean {
 
 	/**
 	 * Get the list of namespaces as a JSON string, for injection into the JavaScript UI
+	 *
 	 * @return
 	 */
 	public String getLanguageNamespacesString() {

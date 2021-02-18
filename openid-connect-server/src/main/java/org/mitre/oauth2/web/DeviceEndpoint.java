@@ -66,10 +66,8 @@ import com.google.common.collect.Sets;
 /**
  * Implements https://tools.ietf.org/html/draft-ietf-oauth-device-flow
  *
- * @see DeviceTokenGranter
- *
  * @author jricher
- *
+ * @see DeviceTokenGranter
  */
 @Controller
 public class DeviceEndpoint {
@@ -95,7 +93,7 @@ public class DeviceEndpoint {
 	private OAuth2RequestFactory oAuth2RequestFactory;
 
 	@RequestMapping(value = "/" + URL, method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public String requestDeviceCode(@RequestParam("client_id") String clientId, @RequestParam(name="scope", required=false) String scope, Map<String, String> parameters, ModelMap model) {
+	public String requestDeviceCode(@RequestParam("client_id") String clientId, @RequestParam(name = "scope", required = false) String scope, Map<String, String> parameters, ModelMap model) {
 
 		ClientDetailsEntity client;
 		try {
@@ -105,7 +103,7 @@ public class DeviceEndpoint {
 
 			Collection<String> authorizedGrantTypes = client.getAuthorizedGrantTypes();
 			if (authorizedGrantTypes != null && !authorizedGrantTypes.isEmpty()
-					&& !authorizedGrantTypes.contains(DeviceTokenGranter.GRANT_TYPE)) {
+				&& !authorizedGrantTypes.contains(DeviceTokenGranter.GRANT_TYPE)) {
 				throw new InvalidClientException("Unauthorized grant type: " + DeviceTokenGranter.GRANT_TYPE);
 			}
 
@@ -145,25 +143,25 @@ public class DeviceEndpoint {
 			if (client.getDeviceCodeValiditySeconds() != null) {
 				response.put("expires_in", client.getDeviceCodeValiditySeconds());
 			}
-			
+
 			if (config.isAllowCompleteDeviceCodeUri()) {
-				URI verificationUriComplete  = new URIBuilder(config.getIssuer() + USER_URL)
+				URI verificationUriComplete = new URIBuilder(config.getIssuer() + USER_URL)
 					.addParameter("user_code", dc.getUserCode())
 					.build();
 
 				response.put("verification_uri_complete", verificationUriComplete.toString());
 			}
-	
+
 			model.put(JsonEntityView.ENTITY, response);
-	
-	
+
+
 			return JsonEntityView.VIEWNAME;
 		} catch (DeviceCodeCreationException dcce) {
-			
+
 			model.put(HttpCodeView.CODE, HttpStatus.BAD_REQUEST);
 			model.put(JsonErrorView.ERROR, dcce.getError());
 			model.put(JsonErrorView.ERROR_MESSAGE, dcce.getMessage());
-			
+
 			return JsonErrorView.VIEWNAME;
 		} catch (URISyntaxException use) {
 			logger.error("unable to build verification_uri_complete due to wrong syntax of uri components");
@@ -280,9 +278,9 @@ public class DeviceEndpoint {
 		// create an OAuth request for storage
 		OAuth2Request o2req = oAuth2RequestFactory.createOAuth2Request(authorizationRequest);
 		OAuth2Authentication o2Auth = new OAuth2Authentication(o2req, auth);
-		
+
 		DeviceCode approvedCode = deviceCodeService.approveDeviceCode(dc, o2Auth);
-		
+
 		// pre-process the scopes
 		Set<SystemScope> scopes = scopeService.fromStrings(dc.getScope());
 

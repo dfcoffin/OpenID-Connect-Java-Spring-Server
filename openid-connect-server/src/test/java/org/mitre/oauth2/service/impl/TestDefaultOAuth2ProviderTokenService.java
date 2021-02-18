@@ -72,7 +72,6 @@ import static org.junit.Assert.fail;
 
 /**
  * @author wkim
- *
  */
 @RunWith(MockitoJUnitRunner.class)
 public class TestDefaultOAuth2ProviderTokenService {
@@ -147,7 +146,7 @@ public class TestDefaultOAuth2ProviderTokenService {
 		when(tokenRepository.getRefreshTokenByValue(refreshTokenValue)).thenReturn(refreshToken);
 		when(refreshToken.getClient()).thenReturn(client);
 		when(refreshToken.isExpired()).thenReturn(false);
-		
+
 		accessToken = Mockito.mock(OAuth2AccessTokenEntity.class);
 
 		tokenRequest = new TokenRequest(null, clientId, null, null);
@@ -194,32 +193,32 @@ public class TestDefaultOAuth2ProviderTokenService {
 		when(scopeService.removeRestrictedAndReservedScopes(anySet())).then(returnsFirstArg());
 
 		when(tokenEnhancer.enhance(any(OAuth2AccessTokenEntity.class), any(OAuth2Authentication.class)))
-		.thenAnswer(new Answer<OAuth2AccessTokenEntity>(){
-			@Override
-			public OAuth2AccessTokenEntity answer(InvocationOnMock invocation) throws Throwable {
-				Object[] args = invocation.getArguments();
-				return (OAuth2AccessTokenEntity) args[0];
-			}
-		});
+			.thenAnswer(new Answer<OAuth2AccessTokenEntity>() {
+				@Override
+				public OAuth2AccessTokenEntity answer(InvocationOnMock invocation) throws Throwable {
+					Object[] args = invocation.getArguments();
+					return (OAuth2AccessTokenEntity) args[0];
+				}
+			});
 
 		when(tokenRepository.saveAccessToken(any(OAuth2AccessTokenEntity.class)))
-		.thenAnswer(new Answer<OAuth2AccessTokenEntity>() {
-			@Override
-			public OAuth2AccessTokenEntity answer(InvocationOnMock invocation) throws Throwable {
-				Object[] args = invocation.getArguments();
-				return (OAuth2AccessTokenEntity) args[0];
-			}
+			.thenAnswer(new Answer<OAuth2AccessTokenEntity>() {
+				@Override
+				public OAuth2AccessTokenEntity answer(InvocationOnMock invocation) throws Throwable {
+					Object[] args = invocation.getArguments();
+					return (OAuth2AccessTokenEntity) args[0];
+				}
 
-		});
+			});
 
 		when(tokenRepository.saveRefreshToken(any(OAuth2RefreshTokenEntity.class)))
-		.thenAnswer(new Answer<OAuth2RefreshTokenEntity>() {
-			@Override
-			public OAuth2RefreshTokenEntity answer(InvocationOnMock invocation) throws Throwable {
-				Object[] args = invocation.getArguments();
-				return (OAuth2RefreshTokenEntity) args[0];
-			}
-		});
+			.thenAnswer(new Answer<OAuth2RefreshTokenEntity>() {
+				@Override
+				public OAuth2RefreshTokenEntity answer(InvocationOnMock invocation) throws Throwable {
+					Object[] args = invocation.getArguments();
+					return (OAuth2RefreshTokenEntity) args[0];
+				}
+			});
 
 	}
 
@@ -525,20 +524,20 @@ public class TestDefaultOAuth2ProviderTokenService {
 
 		assertTrue(token.getExpiration().after(lowerBoundAccessTokens) && token.getExpiration().before(upperBoundAccessTokens));
 	}
-	
+
 	@Test
-	public void getAllAccessTokensForUser(){
+	public void getAllAccessTokensForUser() {
 		when(tokenRepository.getAccessTokensByUserName(userName)).thenReturn(newHashSet(accessToken));
-		
+
 		Set<OAuth2AccessTokenEntity> tokens = service.getAllAccessTokensForUser(userName);
 		assertEquals(1, tokens.size());
 		assertTrue(tokens.contains(accessToken));
 	}
-	
+
 	@Test
-	public void getAllRefreshTokensForUser(){
+	public void getAllRefreshTokensForUser() {
 		when(tokenRepository.getRefreshTokensByUserName(userName)).thenReturn(newHashSet(refreshToken));
-		
+
 		Set<OAuth2RefreshTokenEntity> tokens = service.getAllRefreshTokensForUser(userName);
 		assertEquals(1, tokens.size());
 		assertTrue(tokens.contains(refreshToken));

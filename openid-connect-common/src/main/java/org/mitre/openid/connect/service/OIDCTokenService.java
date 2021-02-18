@@ -29,7 +29,6 @@ import com.nimbusds.jwt.JWT;
  * Service to create specialty OpenID Connect tokens.
  *
  * @author Amanda Anganes
- *
  */
 public interface OIDCTokenService {
 
@@ -45,8 +44,8 @@ public interface OIDCTokenService {
 	 * @return
 	 */
 	public JWT createIdToken(
-			ClientDetailsEntity client, OAuth2Request request, Date issueTime,
-			String sub, OAuth2AccessTokenEntity accessToken);
+		ClientDetailsEntity client, OAuth2Request request, Date issueTime,
+		String sub, OAuth2AccessTokenEntity accessToken);
 
 	/**
 	 * Create a registration access token for the given client.
@@ -66,6 +65,7 @@ public interface OIDCTokenService {
 
 	/**
 	 * Rotate the registration or resource token for a client
+	 *
 	 * @param client
 	 * @return
 	 */

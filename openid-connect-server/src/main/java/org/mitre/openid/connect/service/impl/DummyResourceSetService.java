@@ -29,7 +29,6 @@ import org.springframework.stereotype.Service;
  * introspection service when the UMA functionality is disabled.
  *
  * @author jricher
- *
  */
 @Service
 public class DummyResourceSetService implements ResourceSetService {

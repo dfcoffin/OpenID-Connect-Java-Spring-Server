@@ -31,12 +31,11 @@ import com.nimbusds.jwt.JWTClaimsSet;
 
 /**
  * Takes an assertion from a trusted source, looks for the fields:
- *
- *  - scope, space-separated list of strings
- *  - aud, array of audience IDs
+ * <p>
+ * - scope, space-separated list of strings
+ * - aud, array of audience IDs
  *
  * @author jricher
- *
  */
 public class DirectCopyRequestFactory implements AssertionOAuth2RequestFactory {
 

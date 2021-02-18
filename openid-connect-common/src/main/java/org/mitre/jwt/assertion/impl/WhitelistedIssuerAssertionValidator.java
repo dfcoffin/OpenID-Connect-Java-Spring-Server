@@ -34,8 +34,8 @@ import com.nimbusds.jwt.SignedJWT;
 
 /**
  * Checks to see if the assertion was signed by a particular authority available from a whitelist
- * @author jricher
  *
+ * @author jricher
  */
 public class WhitelistedIssuerAssertionValidator implements AssertionValidator {
 

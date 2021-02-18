@@ -32,7 +32,6 @@ import org.springframework.stereotype.Service;
 
 /**
  * @author jricher
- *
  */
 @Service
 public class DefaultPermissionService implements PermissionService {
@@ -90,7 +89,6 @@ public class DefaultPermissionService implements PermissionService {
 		}
 
 	}
-
 
 
 }

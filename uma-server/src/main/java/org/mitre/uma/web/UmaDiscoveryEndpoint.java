@@ -34,7 +34,6 @@ import com.google.common.collect.Lists;
 
 /**
  * @author jricher
- *
  */
 @Controller
 public class UmaDiscoveryEndpoint {
@@ -68,7 +67,6 @@ public class UmaDiscoveryEndpoint {
 		m.put("resource_set_registration_endpoint", issuer + ResourceSetRegistrationEndpoint.DISCOVERY_URL);
 		m.put("permission_registration_endpoint", issuer + PermissionRegistrationEndpoint.URL);
 		m.put("rpt_endpoint", issuer + AuthorizationRequestEndpoint.URL);
-
 
 
 		model.addAttribute("entity", m);

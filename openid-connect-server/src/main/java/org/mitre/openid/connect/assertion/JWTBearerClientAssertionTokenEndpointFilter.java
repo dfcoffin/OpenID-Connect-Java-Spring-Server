@@ -1,20 +1,20 @@
-/*******************************************************************************
+/**
  * Copyright 2018 The MIT Internet Trust Consortium
- *
+ * <p>
  * Portions copyright 2011-2013 The MITRE Corporation
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *******************************************************************************/
+ */
 /**
  *
  */
@@ -65,7 +65,7 @@ public class JWTBearerClientAssertionTokenEndpointFilter extends AbstractAuthent
 		setAuthenticationFailureHandler(new AuthenticationFailureHandler() {
 			@Override
 			public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
-					AuthenticationException exception) throws IOException, ServletException {
+												AuthenticationException exception) throws IOException, ServletException {
 				if (exception instanceof BadCredentialsException) {
 					exception = new BadCredentialsException(exception.getMessage(), new BadClientCredentialsException());
 				}
@@ -75,7 +75,7 @@ public class JWTBearerClientAssertionTokenEndpointFilter extends AbstractAuthent
 		setAuthenticationSuccessHandler(new AuthenticationSuccessHandler() {
 			@Override
 			public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-					Authentication authentication) throws IOException, ServletException {
+												Authentication authentication) throws IOException, ServletException {
 				// no-op - just allow filter chain to continue to token endpoint
 			}
 		});
@@ -106,7 +106,7 @@ public class JWTBearerClientAssertionTokenEndpointFilter extends AbstractAuthent
 
 	@Override
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,
-			FilterChain chain, Authentication authResult) throws IOException, ServletException {
+											FilterChain chain, Authentication authResult) throws IOException, ServletException {
 		super.successfulAuthentication(request, response, chain, authResult);
 		chain.doFilter(request, response);
 	}
@@ -135,7 +135,6 @@ public class JWTBearerClientAssertionTokenEndpointFilter extends AbstractAuthent
 		}
 
 	}
-
 
 
 }

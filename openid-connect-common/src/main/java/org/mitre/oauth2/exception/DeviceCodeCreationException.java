@@ -18,7 +18,6 @@ package org.mitre.oauth2.exception;
 
 /**
  * @author jricher
- *
  */
 public class DeviceCodeCreationException extends Exception {
 
@@ -30,7 +29,7 @@ public class DeviceCodeCreationException extends Exception {
 		super(message);
 		this.error = error;
 	}
-	
+
 	/**
 	 * @return the error
 	 */
@@ -44,7 +43,6 @@ public class DeviceCodeCreationException extends Exception {
 	public void setError(String error) {
 		this.error = error;
 	}
-	
-	
-	
+
+
 }

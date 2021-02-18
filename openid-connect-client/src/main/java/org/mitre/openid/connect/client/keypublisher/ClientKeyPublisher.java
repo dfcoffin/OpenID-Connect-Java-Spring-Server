@@ -34,7 +34,6 @@ import com.nimbusds.jose.jwk.JWK;
 
 /**
  * @author jricher
- *
  */
 public class ClientKeyPublisher implements BeanDefinitionRegistryPostProcessor {
 
@@ -88,6 +87,7 @@ public class ClientKeyPublisher implements BeanDefinitionRegistryPostProcessor {
 
 	/**
 	 * Return a view to publish all keys in JWK format. Only used if jwkPublishUrl is set.
+	 *
 	 * @return
 	 */
 	public ModelAndView publishClientJwk() {

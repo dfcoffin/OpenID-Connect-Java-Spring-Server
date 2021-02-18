@@ -24,7 +24,6 @@ import com.nimbusds.jwt.JWT;
  * Reject all assertions passed in.
  *
  * @author jricher
- *
  */
 public class NullAssertionValidator implements AssertionValidator {
 

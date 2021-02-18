@@ -35,29 +35,28 @@ import org.springframework.transaction.annotation.Transactional;
  * JPA WhitelistedSite repository implementation
  *
  * @author Michael Joseph Walsh, aanganes
- *
  */
 @Repository
 public class JpaWhitelistedSiteRepository implements WhitelistedSiteRepository {
 
-	@PersistenceContext(unitName="defaultPersistenceUnit")
+	@PersistenceContext(unitName = "defaultPersistenceUnit")
 	private EntityManager manager;
 
 	@Override
-	@Transactional(value="defaultTransactionManager")
+	@Transactional(value = "defaultTransactionManager")
 	public Collection<WhitelistedSite> getAll() {
 		TypedQuery<WhitelistedSite> query = manager.createNamedQuery(WhitelistedSite.QUERY_ALL, WhitelistedSite.class);
 		return query.getResultList();
 	}
 
 	@Override
-	@Transactional(value="defaultTransactionManager")
+	@Transactional(value = "defaultTransactionManager")
 	public WhitelistedSite getById(Long id) {
 		return manager.find(WhitelistedSite.class, id);
 	}
 
 	@Override
-	@Transactional(value="defaultTransactionManager")
+	@Transactional(value = "defaultTransactionManager")
 	public void remove(WhitelistedSite whitelistedSite) {
 		WhitelistedSite found = manager.find(WhitelistedSite.class, whitelistedSite.getId());
 
@@ -69,13 +68,13 @@ public class JpaWhitelistedSiteRepository implements WhitelistedSiteRepository {
 	}
 
 	@Override
-	@Transactional(value="defaultTransactionManager")
+	@Transactional(value = "defaultTransactionManager")
 	public WhitelistedSite save(WhitelistedSite whiteListedSite) {
 		return saveOrUpdate(whiteListedSite.getId(), manager, whiteListedSite);
 	}
 
 	@Override
-	@Transactional(value="defaultTransactionManager")
+	@Transactional(value = "defaultTransactionManager")
 	public WhitelistedSite update(WhitelistedSite oldWhitelistedSite, WhitelistedSite whitelistedSite) {
 		// sanity check
 		whitelistedSite.setId(oldWhitelistedSite.getId());
@@ -84,7 +83,7 @@ public class JpaWhitelistedSiteRepository implements WhitelistedSiteRepository {
 	}
 
 	@Override
-	@Transactional(value="defaultTransactionManager")
+	@Transactional(value = "defaultTransactionManager")
 	public WhitelistedSite getByClientId(String clientId) {
 		TypedQuery<WhitelistedSite> query = manager.createNamedQuery(WhitelistedSite.QUERY_BY_CLIENT_ID, WhitelistedSite.class);
 		query.setParameter(WhitelistedSite.PARAM_CLIENT_ID, clientId);
@@ -92,7 +91,7 @@ public class JpaWhitelistedSiteRepository implements WhitelistedSiteRepository {
 	}
 
 	@Override
-	@Transactional(value="defaultTransactionManager")
+	@Transactional(value = "defaultTransactionManager")
 	public Collection<WhitelistedSite> getByCreator(String creatorId) {
 		TypedQuery<WhitelistedSite> query = manager.createNamedQuery(WhitelistedSite.QUERY_BY_CREATOR, WhitelistedSite.class);
 		query.setParameter(WhitelistedSite.PARAM_USER_ID, creatorId);

@@ -49,7 +49,6 @@ import com.google.gson.Gson;
  * API for managing policies on resource sets.
  *
  * @author jricher
- *
  */
 @Controller
 @RequestMapping("/" + PolicyAPI.URL)
@@ -69,6 +68,7 @@ public class PolicyAPI {
 
 	/**
 	 * List all resource sets for the current user
+	 *
 	 * @param m
 	 * @param auth
 	 * @return
@@ -85,13 +85,14 @@ public class PolicyAPI {
 
 	/**
 	 * Get the indicated resource set
+	 *
 	 * @param rsid
 	 * @param m
 	 * @param auth
 	 * @return
 	 */
 	@RequestMapping(value = "/{rsid}", method = RequestMethod.GET, produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
-	public String getResourceSet(@PathVariable (value = "rsid") Long rsid, Model m, Authentication auth) {
+	public String getResourceSet(@PathVariable(value = "rsid") Long rsid, Model m, Authentication auth) {
 
 		ResourceSet rs = resourceSetService.getById(rsid);
 
@@ -115,13 +116,14 @@ public class PolicyAPI {
 
 	/**
 	 * Delete the indicated resource set
+	 *
 	 * @param rsid
 	 * @param m
 	 * @param auth
 	 * @return
 	 */
 	@RequestMapping(value = "/{rsid}", method = RequestMethod.DELETE, produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
-	public String deleteResourceSet(@PathVariable (value = "rsid") Long rsid, Model m, Authentication auth) {
+	public String deleteResourceSet(@PathVariable(value = "rsid") Long rsid, Model m, Authentication auth) {
 
 		ResourceSet rs = resourceSetService.getById(rsid);
 
@@ -146,13 +148,14 @@ public class PolicyAPI {
 
 	/**
 	 * List all the policies for the given resource set
+	 *
 	 * @param rsid
 	 * @param m
 	 * @param auth
 	 * @return
 	 */
 	@RequestMapping(value = "/{rsid}" + POLICYURL, method = RequestMethod.GET, produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
-	public String getPoliciesForResourceSet(@PathVariable (value = "rsid") Long rsid, Model m, Authentication auth) {
+	public String getPoliciesForResourceSet(@PathVariable(value = "rsid") Long rsid, Model m, Authentication auth) {
 
 		ResourceSet rs = resourceSetService.getById(rsid);
 
@@ -176,13 +179,14 @@ public class PolicyAPI {
 
 	/**
 	 * Create a new policy on the given resource set
+	 *
 	 * @param rsid
 	 * @param m
 	 * @param auth
 	 * @return
 	 */
 	@RequestMapping(value = "/{rsid}" + POLICYURL, method = RequestMethod.POST, produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
-	public String createNewPolicyForResourceSet(@PathVariable (value = "rsid") Long rsid, @RequestBody String jsonString, Model m, Authentication auth) {
+	public String createNewPolicyForResourceSet(@PathVariable(value = "rsid") Long rsid, @RequestBody String jsonString, Model m, Authentication auth) {
 		ResourceSet rs = resourceSetService.getById(rsid);
 
 		if (rs == null) {
@@ -234,6 +238,7 @@ public class PolicyAPI {
 
 	/**
 	 * Get a specific policy
+	 *
 	 * @param rsid
 	 * @param pid
 	 * @param m
@@ -241,7 +246,7 @@ public class PolicyAPI {
 	 * @return
 	 */
 	@RequestMapping(value = "/{rsid}" + POLICYURL + "/{pid}", method = RequestMethod.GET, produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
-	public String getPolicy(@PathVariable (value = "rsid") Long rsid, @PathVariable (value = "pid") Long pid, Model m, Authentication auth) {
+	public String getPolicy(@PathVariable(value = "rsid") Long rsid, @PathVariable(value = "pid") Long pid, Model m, Authentication auth) {
 
 		ResourceSet rs = resourceSetService.getById(rsid);
 
@@ -273,6 +278,7 @@ public class PolicyAPI {
 
 	/**
 	 * Update a specific policy
+	 *
 	 * @param rsid
 	 * @param pid
 	 * @param jsonString
@@ -281,7 +287,7 @@ public class PolicyAPI {
 	 * @return
 	 */
 	@RequestMapping(value = "/{rsid}" + POLICYURL + "/{pid}", method = RequestMethod.PUT, consumes = MimeTypeUtils.APPLICATION_JSON_VALUE, produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
-	public String setClaimsForResourceSet(@PathVariable (value = "rsid") Long rsid, @PathVariable (value = "pid") Long pid, @RequestBody String jsonString, Model m, Authentication auth) {
+	public String setClaimsForResourceSet(@PathVariable(value = "rsid") Long rsid, @PathVariable(value = "pid") Long pid, @RequestBody String jsonString, Model m, Authentication auth) {
 
 		ResourceSet rs = resourceSetService.getById(rsid);
 
@@ -344,6 +350,7 @@ public class PolicyAPI {
 
 	/**
 	 * Delete a specific policy
+	 *
 	 * @param rsid
 	 * @param pid
 	 * @param m
@@ -351,7 +358,7 @@ public class PolicyAPI {
 	 * @return
 	 */
 	@RequestMapping(value = "/{rsid}" + POLICYURL + "/{pid}", method = RequestMethod.DELETE, produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
-	public String deleteResourceSet(@PathVariable ("rsid") Long rsid, @PathVariable (value = "pid") Long pid, Model m, Authentication auth) {
+	public String deleteResourceSet(@PathVariable("rsid") Long rsid, @PathVariable(value = "pid") Long pid, Model m, Authentication auth) {
 
 		ResourceSet rs = resourceSetService.getById(rsid);
 

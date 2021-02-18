@@ -54,7 +54,6 @@ import com.google.gson.JsonPrimitive;
 
 /**
  * @author jricher
- *
  */
 @Controller
 @RequestMapping("/" + AuthorizationRequestEndpoint.URL)

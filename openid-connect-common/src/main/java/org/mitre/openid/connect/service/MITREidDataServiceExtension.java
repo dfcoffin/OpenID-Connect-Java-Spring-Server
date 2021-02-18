@@ -26,7 +26,6 @@ import com.google.gson.stream.JsonWriter;
  * declared as beans to be picked up by the data services.
  *
  * @author jricher
- *
  */
 public interface MITREidDataServiceExtension {
 
@@ -45,7 +44,7 @@ public interface MITREidDataServiceExtension {
 	 * such that another member of the top level object can be read next. The name of
 	 * the data element being imported is passed in as name. If the extension does not
 	 * support this data element, it must return without advancing the reader.
-	 *
+	 * <p>
 	 * Returns "true" if the item was processed, "false" otherwise.
 	 *
 	 * @param reader
@@ -59,6 +58,7 @@ public interface MITREidDataServiceExtension {
 
 	/**
 	 * Return
+	 *
 	 * @param mitreidConnect13
 	 * @return
 	 */

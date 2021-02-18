@@ -45,11 +45,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;
 
 /**
- *
  * Collect claims interactively from the end user.
  *
  * @author jricher
- *
  */
 @Controller
 @PreAuthorize("hasRole('ROLE_EXTERNAL_USER')")
@@ -69,8 +67,8 @@ public class ClaimsCollectionEndpoint {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String collectClaims(@RequestParam("client_id") String clientId, @RequestParam(value = "redirect_uri", required = false) String redirectUri,
-			@RequestParam("ticket") String ticketValue, @RequestParam(value = "state", required = false) String state,
-			Model m, OIDCAuthenticationToken auth) {
+								@RequestParam("ticket") String ticketValue, @RequestParam(value = "state", required = false) String state,
+								Model m, OIDCAuthenticationToken auth) {
 
 
 		ClientDetailsEntity client = clientService.loadClientByClientId(clientId);
@@ -112,9 +110,9 @@ public class ClaimsCollectionEndpoint {
 		}
 
 		ticket.setClaimsSupplied(claimsSupplied);
-		
+
 		PermissionTicket updatedTicket = permissionService.updateTicket(ticket);
-		
+
 		if (Strings.isNullOrEmpty(redirectUri)) {
 			if (client.getClaimsRedirectUris().size() == 1) {
 				redirectUri = client.getClaimsRedirectUris().iterator().next(); // get the first (and only) redirect URI to use here

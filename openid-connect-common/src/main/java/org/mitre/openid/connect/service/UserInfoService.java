@@ -23,13 +23,13 @@ import org.mitre.openid.connect.model.UserInfo;
  * Interface for UserInfo service
  *
  * @author Michael Joseph Walsh
- *
  */
 public interface UserInfoService {
 
 	/**
 	 * Get the UserInfo for the given username (usually maps to the
 	 * preferredUsername field).
+	 *
 	 * @param username
 	 * @return
 	 */
@@ -39,6 +39,7 @@ public interface UserInfoService {
 	 * Get the UserInfo for the given username (usually maps to the
 	 * preferredUsername field) and clientId. This allows pairwise
 	 * client identifiers where appropriate.
+	 *
 	 * @param username
 	 * @param clientId
 	 * @return

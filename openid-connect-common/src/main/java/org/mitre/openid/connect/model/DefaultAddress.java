@@ -24,7 +24,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="address")
+@Table(name = "address")
 public class DefaultAddress implements Address {
 
 	private static final long serialVersionUID = -1304880008685206811L;
@@ -46,6 +46,7 @@ public class DefaultAddress implements Address {
 
 	/**
 	 * Copy constructor from an existing address.
+	 *
 	 * @param address
 	 */
 	public DefaultAddress(Address address) {
@@ -66,6 +67,7 @@ public class DefaultAddress implements Address {
 	public String getFormatted() {
 		return formatted;
 	}
+
 	/**
 	 * @param formatted the formatted address to set
 	 */
@@ -73,15 +75,17 @@ public class DefaultAddress implements Address {
 	public void setFormatted(String formatted) {
 		this.formatted = formatted;
 	}
+
 	/**
 	 * @return the streetAddress
 	 */
 	@Override
 	@Basic
-	@Column(name="street_address")
+	@Column(name = "street_address")
 	public String getStreetAddress() {
 		return streetAddress;
 	}
+
 	/**
 	 * @param streetAddress the streetAddress to set
 	 */
@@ -89,6 +93,7 @@ public class DefaultAddress implements Address {
 	public void setStreetAddress(String streetAddress) {
 		this.streetAddress = streetAddress;
 	}
+
 	/**
 	 * @return the locality
 	 */
@@ -98,6 +103,7 @@ public class DefaultAddress implements Address {
 	public String getLocality() {
 		return locality;
 	}
+
 	/**
 	 * @param locality the locality to set
 	 */
@@ -105,6 +111,7 @@ public class DefaultAddress implements Address {
 	public void setLocality(String locality) {
 		this.locality = locality;
 	}
+
 	/**
 	 * @return the region
 	 */
@@ -114,6 +121,7 @@ public class DefaultAddress implements Address {
 	public String getRegion() {
 		return region;
 	}
+
 	/**
 	 * @param region the region to set
 	 */
@@ -121,15 +129,17 @@ public class DefaultAddress implements Address {
 	public void setRegion(String region) {
 		this.region = region;
 	}
+
 	/**
 	 * @return the postalCode
 	 */
 	@Override
 	@Basic
-	@Column(name="postal_code")
+	@Column(name = "postal_code")
 	public String getPostalCode() {
 		return postalCode;
 	}
+
 	/**
 	 * @param postalCode the postalCode to set
 	 */
@@ -137,6 +147,7 @@ public class DefaultAddress implements Address {
 	public void setPostalCode(String postalCode) {
 		this.postalCode = postalCode;
 	}
+
 	/**
 	 * @return the country
 	 */
@@ -146,6 +157,7 @@ public class DefaultAddress implements Address {
 	public String getCountry() {
 		return country;
 	}
+
 	/**
 	 * @param country the country to set
 	 */
@@ -159,7 +171,7 @@ public class DefaultAddress implements Address {
 	 */
 	@Override
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	public Long getId() {
 		return id;

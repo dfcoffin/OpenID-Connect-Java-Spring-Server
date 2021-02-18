@@ -37,7 +37,6 @@ import com.google.gson.JsonElement;
 
 /**
  * @author jricher
- *
  */
 @Entity
 @Table(name = "claim")
@@ -60,12 +59,14 @@ public class Claim {
 	public Long getId() {
 		return id;
 	}
+
 	/**
 	 * @param id the id to set
 	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	/**
 	 * @return the name
 	 */
@@ -74,6 +75,7 @@ public class Claim {
 	public String getName() {
 		return name;
 	}
+
 	/**
 	 * @param name the name to set
 	 */
@@ -89,6 +91,7 @@ public class Claim {
 	public String getFriendlyName() {
 		return friendlyName;
 	}
+
 	/**
 	 * @param friendlyName the friendlyName to set
 	 */
@@ -104,6 +107,7 @@ public class Claim {
 	public String getClaimType() {
 		return claimType;
 	}
+
 	/**
 	 * @param claimType the claimType to set
 	 */
@@ -117,12 +121,13 @@ public class Claim {
 	@ElementCollection(fetch = FetchType.EAGER)
 	@Column(name = "claim_token_format")
 	@CollectionTable(
-			name = "claim_token_format",
-			joinColumns = @JoinColumn(name = "owner_id")
-			)
+		name = "claim_token_format",
+		joinColumns = @JoinColumn(name = "owner_id")
+	)
 	public Set<String> getClaimTokenFormat() {
 		return claimTokenFormat;
 	}
+
 	/**
 	 * @param claimTokenFormat the claimTokenFormat to set
 	 */
@@ -136,12 +141,13 @@ public class Claim {
 	@ElementCollection(fetch = FetchType.EAGER)
 	@Column(name = "issuer")
 	@CollectionTable(
-			name = "claim_issuer",
-			joinColumns = @JoinColumn(name = "owner_id")
-			)
+		name = "claim_issuer",
+		joinColumns = @JoinColumn(name = "owner_id")
+	)
 	public Set<String> getIssuer() {
 		return issuer;
 	}
+
 	/**
 	 * @param issuer the issuer to set
 	 */
@@ -158,12 +164,14 @@ public class Claim {
 	public JsonElement getValue() {
 		return value;
 	}
+
 	/**
 	 * @param value the value to set
 	 */
 	public void setValue(JsonElement value) {
 		this.value = value;
 	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -171,6 +179,7 @@ public class Claim {
 	public String toString() {
 		return "Claim [id=" + id + ", name=" + name + ", friendlyName=" + friendlyName + ", claimType=" + claimType + ", value=" + value + ", claimTokenFormat=" + claimTokenFormat + ", issuer=" + issuer + "]";
 	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
@@ -187,6 +196,7 @@ public class Claim {
 		result = prime * result + ((value == null) ? 0 : value.hashCode());
 		return result;
 	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */

@@ -36,8 +36,7 @@ public interface JWTSigningAndValidationService {
 	 * Checks the signature of the given JWT against all configured signers,
 	 * returns true if at least one of the signers validates it.
 	 *
-	 * @param jwtString
-	 *            the string representation of the JWT as sent on the wire
+	 * @param jwtString the string representation of the JWT as sent on the wire
 	 * @return true if the signature is valid, false if not
 	 * @throws NoSuchAlgorithmException
 	 */
@@ -55,12 +54,14 @@ public interface JWTSigningAndValidationService {
 
 	/**
 	 * Get the default signing algorithm for use when nothing else has been specified.
+	 *
 	 * @return
 	 */
 	public JWSAlgorithm getDefaultSigningAlgorithm();
 
 	/**
 	 * Get the list of all signing algorithms supported by this service.
+	 *
 	 * @return
 	 */
 	public Collection<JWSAlgorithm> getAllSigningAlgsSupported();

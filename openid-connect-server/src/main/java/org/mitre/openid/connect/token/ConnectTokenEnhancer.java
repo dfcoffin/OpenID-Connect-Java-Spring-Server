@@ -71,7 +71,7 @@ public class ConnectTokenEnhancer implements TokenEnhancer {
 	private OIDCTokenService connectTokenService;
 
 	@Override
-	public OAuth2AccessToken enhance(OAuth2AccessToken accessToken,	OAuth2Authentication authentication) {
+	public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
 
 		OAuth2AccessTokenEntity token = (OAuth2AccessTokenEntity) accessToken;
 		OAuth2Request originalAuthRequest = authentication.getOAuth2Request();
@@ -80,12 +80,12 @@ public class ConnectTokenEnhancer implements TokenEnhancer {
 		ClientDetailsEntity client = clientService.loadClientByClientId(clientId);
 
 		Builder builder = new JWTClaimsSet.Builder()
-				.claim("azp", clientId)
-				.issuer(configBean.getIssuer())
-				.issueTime(new Date())
-				.expirationTime(token.getExpiration())
-				.subject(authentication.getName())
-				.jwtID(UUID.randomUUID().toString()); // set a random NONCE in the middle of it
+			.claim("azp", clientId)
+			.issuer(configBean.getIssuer())
+			.issueTime(new Date())
+			.expirationTime(token.getExpiration())
+			.subject(authentication.getName())
+			.jwtID(UUID.randomUUID().toString()); // set a random NONCE in the middle of it
 
 		String audience = (String) authentication.getOAuth2Request().getExtensions().get("aud");
 		if (!Strings.isNullOrEmpty(audience)) {
@@ -98,8 +98,8 @@ public class ConnectTokenEnhancer implements TokenEnhancer {
 
 		JWSAlgorithm signingAlg = jwtService.getDefaultSigningAlgorithm();
 		JWSHeader header = new JWSHeader(signingAlg, null, null, null, null, null, null, null, null, null,
-				jwtService.getDefaultSignerKeyId(),
-				null, null);
+			jwtService.getDefaultSignerKeyId(),
+			null, null);
 		SignedJWT signed = new SignedJWT(header, claims);
 
 		jwtService.signJwt(signed);
@@ -116,7 +116,7 @@ public class ConnectTokenEnhancer implements TokenEnhancer {
 		 * OIDC and not OAuth, so we check for that as well.
 		 */
 		if (originalAuthRequest.getScope().contains(SystemScopeService.OPENID_SCOPE)
-				&& !authentication.isClientOnly()) {
+			&& !authentication.isClientOnly()) {
 
 			String username = authentication.getName();
 			UserInfo userInfo = userInfoService.getByUsernameAndClientId(username, clientId);
@@ -124,8 +124,8 @@ public class ConnectTokenEnhancer implements TokenEnhancer {
 			if (userInfo != null) {
 
 				JWT idToken = connectTokenService.createIdToken(client,
-						originalAuthRequest, claims.getIssueTime(),
-						userInfo.getSub(), token);
+					originalAuthRequest, claims.getIssueTime(),
+					userInfo.getSub(), token);
 
 				// attach the id token to the parent access token
 				token.setIdToken(idToken);
@@ -165,12 +165,13 @@ public class ConnectTokenEnhancer implements TokenEnhancer {
 
 	/**
 	 * Hook for subclasses that allows adding custom claims to the JWT that will be used as access token.
-	 * @param builder the builder holding the current claims
-	 * @param token the un-enhanced token
+	 *
+	 * @param builder        the builder holding the current claims
+	 * @param token          the un-enhanced token
 	 * @param authentication current authentication
 	 */
-    protected void addCustomAccessTokenClaims(JWTClaimsSet.Builder builder, OAuth2AccessTokenEntity token,
-	    OAuth2Authentication authentication) {
+	protected void addCustomAccessTokenClaims(JWTClaimsSet.Builder builder, OAuth2AccessTokenEntity token,
+											  OAuth2Authentication authentication) {
 	}
 
 }

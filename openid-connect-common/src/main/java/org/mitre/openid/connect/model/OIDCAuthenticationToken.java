@@ -31,9 +31,7 @@ import com.nimbusds.jwt.JWT;
 import com.nimbusds.jwt.JWTParser;
 
 /**
- *
  * @author Michael Walsh, Justin Richer
- *
  */
 public class OIDCAuthenticationToken extends AbstractAuthenticationToken {
 
@@ -50,18 +48,19 @@ public class OIDCAuthenticationToken extends AbstractAuthenticationToken {
 
 	/**
 	 * Constructs OIDCAuthenticationToken with a full set of authorities, marking this as authenticated.
-	 *
+	 * <p>
 	 * Set to authenticated.
-	 *
+	 * <p>
 	 * Constructs a Principal out of the subject and issuer.
+	 *
 	 * @param subject
 	 * @param authorities
 	 * @param principal
 	 * @param idToken
 	 */
 	public OIDCAuthenticationToken(String subject, String issuer,
-			UserInfo userInfo, Collection<? extends GrantedAuthority> authorities,
-			JWT idToken, String accessTokenValue, String refreshTokenValue) {
+								   UserInfo userInfo, Collection<? extends GrantedAuthority> authorities,
+								   JWT idToken, String accessTokenValue, String refreshTokenValue) {
 
 		super(authorities);
 
@@ -145,11 +144,12 @@ public class OIDCAuthenticationToken extends AbstractAuthenticationToken {
 			out.writeObject(idToken.serialize());
 		}
 	}
+
 	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException, ParseException {
 		in.defaultReadObject();
 		Object o = in.readObject();
 		if (o != null) {
-			idToken = JWTParser.parse((String)o);
+			idToken = JWTParser.parse((String) o);
 		}
 	}
 

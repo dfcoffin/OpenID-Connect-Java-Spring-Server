@@ -30,7 +30,6 @@ import org.mitre.uma.model.convert.RegisteredClientStringConverter;
 
 /**
  * @author jricher
- *
  */
 @Entity
 @Table(name = "saved_registered_client")
@@ -51,7 +50,6 @@ public class SavedRegisteredClient {
 	}
 
 	/**
-	 *
 	 * @param id the id to set
 	 */
 	public void setId(Long id) {
@@ -90,7 +88,6 @@ public class SavedRegisteredClient {
 	public void setRegisteredClient(RegisteredClient registeredClient) {
 		this.registeredClient = registeredClient;
 	}
-
 
 
 }

@@ -25,15 +25,13 @@ import org.mitre.openid.connect.model.ApprovedSite;
  * ApprovedSite repository interface
  *
  * @author Michael Joseph Walsh, aanganes
- *
  */
 public interface ApprovedSiteRepository {
 
 	/**
 	 * Returns the ApprovedSite for the given id
 	 *
-	 * @param id
-	 *            id the id of the ApprovedSite
+	 * @param id id the id of the ApprovedSite
 	 * @return a valid ApprovedSite if it exists, null otherwise
 	 */
 	public ApprovedSite getById(Long id);
@@ -58,22 +56,21 @@ public interface ApprovedSiteRepository {
 	/**
 	 * Removes the given ApprovedSite from the repository
 	 *
-	 * @param aggregator
-	 *            the ApprovedSite object to remove
+	 * @param aggregator the ApprovedSite object to remove
 	 */
 	public void remove(ApprovedSite approvedSite);
 
 	/**
 	 * Persists an ApprovedSite
 	 *
-	 * @param aggregator
-	 *            valid ApprovedSite instance
+	 * @param aggregator valid ApprovedSite instance
 	 * @return the persisted entity
 	 */
 	public ApprovedSite save(ApprovedSite approvedSite);
 
 	/**
 	 * Get all sites approved by this user
+	 *
 	 * @param userId
 	 * @return
 	 */
@@ -81,6 +78,7 @@ public interface ApprovedSiteRepository {
 
 	/**
 	 * Get all sites associated with this client
+	 *
 	 * @param clientId
 	 * @return
 	 */

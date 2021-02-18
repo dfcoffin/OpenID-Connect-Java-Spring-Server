@@ -55,17 +55,17 @@ import com.google.common.collect.Sets;
 /**
  * Custom User Approval Handler implementation which uses a concept of a whitelist,
  * blacklist, and greylist.
- *
+ * <p>
  * Blacklisted sites will be caught and handled before this
  * point.
- *
+ * <p>
  * Whitelisted sites will be automatically approved, and an ApprovedSite entry will
  * be created for the site the first time a given user access it.
- *
+ * <p>
  * All other sites fall into the greylist - the user will be presented with the user
  * approval page upon their first visit
- * @author aanganes
  *
+ * @author aanganes
  */
 @Component("tofuUserApprovalHandler")
 public class TofuUserApprovalHandler implements UserApprovalHandler {
@@ -85,13 +85,12 @@ public class TofuUserApprovalHandler implements UserApprovalHandler {
 	/**
 	 * Check if the user has already stored a positive approval decision for this site; or if the
 	 * site is whitelisted, approve it automatically.
-	 *
+	 * <p>
 	 * Otherwise, return false so that the user will see the approval page and can make their own decision.
 	 *
-	 * @param authorizationRequest	the incoming authorization request
-	 * @param userAuthentication	the Principal representing the currently-logged-in user
-	 *
-	 * @return 						true if the site is approved, false otherwise
+	 * @param authorizationRequest the incoming authorization request
+	 * @param userAuthentication   the Principal representing the currently-logged-in user
+	 * @return true if the site is approved, false otherwise
 	 */
 	@Override
 	public boolean isApproved(AuthorizationRequest authorizationRequest, Authentication userAuthentication) {
@@ -111,13 +110,12 @@ public class TofuUserApprovalHandler implements UserApprovalHandler {
 	/**
 	 * Check if the user has already stored a positive approval decision for this site; or if the
 	 * site is whitelisted, approve it automatically.
-	 *
+	 * <p>
 	 * Otherwise the user will be directed to the approval page and can make their own decision.
 	 *
-	 * @param authorizationRequest	the incoming authorization request
-	 * @param userAuthentication	the Principal representing the currently-logged-in user
-	 *
-	 * @return 						the updated AuthorizationRequest
+	 * @param authorizationRequest the incoming authorization request
+	 * @param userAuthentication   the Principal representing the currently-logged-in user
+	 * @return the updated AuthorizationRequest
 	 */
 	@Override
 	public AuthorizationRequest checkForPreApproval(AuthorizationRequest authorizationRequest, Authentication userAuthentication) {
@@ -188,7 +186,7 @@ public class TofuUserApprovalHandler implements UserApprovalHandler {
 
 			// process scopes from user input
 			Set<String> allowedScopes = Sets.newHashSet();
-			Map<String,String> approvalParams = authorizationRequest.getApprovalParameters();
+			Map<String, String> approvalParams = authorizationRequest.getApprovalParameters();
 
 			Set<String> keys = approvalParams.keySet();
 
@@ -261,7 +259,7 @@ public class TofuUserApprovalHandler implements UserApprovalHandler {
 
 	@Override
 	public Map<String, Object> getUserApprovalRequest(AuthorizationRequest authorizationRequest,
-			Authentication userAuthentication) {
+													  Authentication userAuthentication) {
 		Map<String, Object> model = new HashMap<>();
 		// In case of a redirect we might want the request parameters to be included
 		model.putAll(authorizationRequest.getRequestParameters());

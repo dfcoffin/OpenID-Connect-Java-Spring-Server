@@ -30,10 +30,9 @@ import org.springframework.transaction.annotation.Transactional;
  * Implementation of the WhitelistedSiteService
  *
  * @author Michael Joseph Walsh, aanganes
- *
  */
 @Service
-@Transactional(value="defaultTransactionManager")
+@Transactional(value = "defaultTransactionManager")
 public class DefaultWhitelistedSiteService implements WhitelistedSiteService {
 
 	@Autowired

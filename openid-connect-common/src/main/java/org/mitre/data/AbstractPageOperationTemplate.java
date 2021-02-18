@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
  * Abstract class for performing an operation on a potentially large
  * number of items by paging through the items in discreet chunks.
  *
- * @param <T>  the type parameter
+ * @param <T> the type parameter
  * @author Colm Smyth.
  */
 public abstract class AbstractPageOperationTemplate<T> {
@@ -67,7 +67,7 @@ public abstract class AbstractPageOperationTemplate<T> {
 	 * maxPages and maxTime to DEFAULT_MAX_PAGES and
 	 * DEFAULT_MAX_TIME_MILLIS respectively
 	 */
-	public AbstractPageOperationTemplate(String operationName){
+	public AbstractPageOperationTemplate(String operationName) {
 		this(DEFAULT_MAX_PAGES, DEFAULT_MAX_TIME_MILLIS, operationName);
 	}
 
@@ -76,9 +76,9 @@ public abstract class AbstractPageOperationTemplate<T> {
 	 * given maxPages and maxTime
 	 *
 	 * @param maxPages the maximum number of pages to fetch.
-	 * @param maxTime the maximum execution time.
+	 * @param maxTime  the maximum execution time.
 	 */
-	public AbstractPageOperationTemplate(int maxPages, long maxTime, String operationName){
+	public AbstractPageOperationTemplate(int maxPages, long maxTime, String operationName) {
 		this.maxPages = maxPages;
 		this.maxTime = maxTime;
 		this.operationName = operationName;
@@ -92,8 +92,8 @@ public abstract class AbstractPageOperationTemplate<T> {
 	 * performing the operation on the item will be swallowed if the
 	 * swallowException (default true) field is set true.
 	 */
-	public void execute(){
-		logger.debug("[" + getOperationName() +  "] Starting execution of paged operation. maximum time: " + maxTime + ", maximum pages: " + maxPages);
+	public void execute() {
+		logger.debug("[" + getOperationName() + "] Starting execution of paged operation. maximum time: " + maxTime + ", maximum pages: " + maxPages);
 
 		long startTime = System.currentTimeMillis();
 		long executionTime = 0;
@@ -104,9 +104,9 @@ public abstract class AbstractPageOperationTemplate<T> {
 		Set<String> exceptionsSwallowedClasses = new HashSet<String>();
 
 
-		while (i< maxPages && executionTime < maxTime){
+		while (i < maxPages && executionTime < maxTime) {
 			Collection<T> page = fetchPage();
-			if(page == null || page.size() == 0){
+			if (page == null || page.size() == 0) {
 				break;
 			}
 
@@ -114,8 +114,8 @@ public abstract class AbstractPageOperationTemplate<T> {
 				try {
 					doOperation(item);
 					operationsCompleted++;
-				} catch (Exception e){
-					if(swallowExceptions){
+				} catch (Exception e) {
+					if (swallowExceptions) {
 						exceptionsSwallowedCount++;
 						exceptionsSwallowedClasses.add(e.getClass().getName());
 						logger.debug("Swallowing exception " + e.getMessage(), e);
@@ -132,7 +132,6 @@ public abstract class AbstractPageOperationTemplate<T> {
 
 		finalReport(operationsCompleted, exceptionsSwallowedCount, exceptionsSwallowedClasses);
 	}
-
 
 
 	/**
@@ -153,14 +152,15 @@ public abstract class AbstractPageOperationTemplate<T> {
 
 	/**
 	 * Method responsible for final report of progress.
+	 *
 	 * @return
 	 */
 	protected void finalReport(int operationsCompleted, int exceptionsSwallowedCount, Set<String> exceptionsSwallowedClasses) {
 		if (operationsCompleted > 0 || exceptionsSwallowedCount > 0) {
-			logger.info("[" + getOperationName() +  "] Paged operation run: completed " + operationsCompleted + "; swallowed " + exceptionsSwallowedCount + " exceptions");
+			logger.info("[" + getOperationName() + "] Paged operation run: completed " + operationsCompleted + "; swallowed " + exceptionsSwallowedCount + " exceptions");
 		}
-		for(String className:  exceptionsSwallowedClasses) {
-			logger.warn("[" + getOperationName() +  "] Paged operation swallowed at least one exception of type " + className);
+		for (String className : exceptionsSwallowedClasses) {
+			logger.warn("[" + getOperationName() + "] Paged operation swallowed at least one exception of type " + className);
 		}
 	}
 

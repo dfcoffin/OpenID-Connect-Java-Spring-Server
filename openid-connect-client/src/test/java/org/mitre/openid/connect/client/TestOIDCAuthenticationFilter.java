@@ -46,10 +46,9 @@ public class TestOIDCAuthenticationFilter {
 			filter.attemptAuthentication(request, mock(HttpServletResponse.class));
 
 			fail("AuthorizationEndpointException expected.");
-		}
-		catch (AuthorizationEndpointException exception) {
+		} catch (AuthorizationEndpointException exception) {
 			assertThat(exception.getMessage(),
-					is("Error from Authorization Endpoint: Error Description http://example.com"));
+				is("Error from Authorization Endpoint: Error Description http://example.com"));
 
 			assertThat(exception.getError(), is("Error"));
 			assertThat(exception.getErrorDescription(), is("Description"));

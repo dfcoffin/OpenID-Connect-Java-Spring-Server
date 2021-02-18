@@ -1,20 +1,20 @@
-/*******************************************************************************
+/**
  * Copyright 2018 The MIT Internet Trust Consortium
- *
+ * <p>
  * Portions copyright 2011-2013 The MITRE Corporation
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *******************************************************************************/
+ */
 /**
  *
  */
@@ -78,12 +78,14 @@ public class SystemScope {
 	public Long getId() {
 		return id;
 	}
+
 	/**
 	 * @param id the id to set
 	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	/**
 	 * @return the value
 	 */
@@ -92,12 +94,14 @@ public class SystemScope {
 	public String getValue() {
 		return value;
 	}
+
 	/**
 	 * @param value the value to set
 	 */
 	public void setValue(String value) {
 		this.value = value;
 	}
+
 	/**
 	 * @return the description
 	 */
@@ -106,12 +110,14 @@ public class SystemScope {
 	public String getDescription() {
 		return description;
 	}
+
 	/**
 	 * @param description the description to set
 	 */
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
 	/**
 	 * @return the icon
 	 */
@@ -120,6 +126,7 @@ public class SystemScope {
 	public String getIcon() {
 		return icon;
 	}
+
 	/**
 	 * @param icon the icon to set
 	 */
@@ -168,7 +175,7 @@ public class SystemScope {
 		int result = 1;
 		result = prime * result + (defaultScope ? 1231 : 1237);
 		result = prime * result
-				+ ((description == null) ? 0 : description.hashCode());
+			+ ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((icon == null) ? 0 : icon.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + (restricted ? 1231 : 1237);
@@ -234,8 +241,8 @@ public class SystemScope {
 	@Override
 	public String toString() {
 		return "SystemScope [id=" + id + ", value=" + value + ", description="
-				+ description + ", icon=" + icon + ", defaultScope="
-				+ defaultScope + ", restricted=" + restricted + "]";
+			+ description + ", icon=" + icon + ", defaultScope="
+			+ defaultScope + ", restricted=" + restricted + "]";
 	}
 
 }

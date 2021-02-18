@@ -37,7 +37,7 @@ import javax.persistence.Temporal;
 import javax.persistence.Transient;
 
 @Entity
-@Table(name="approved_site")
+@Table(name = "approved_site")
 @NamedQueries({
 	@NamedQuery(name = ApprovedSite.QUERY_ALL, query = "select a from ApprovedSite a"),
 	@NamedQuery(name = ApprovedSite.QUERY_BY_USER_ID, query = "select a from ApprovedSite a where a.userId = :" + ApprovedSite.PARAM_USER_ID),
@@ -104,7 +104,7 @@ public class ApprovedSite {
 	 * @return the userInfo
 	 */
 	@Basic
-	@Column(name="user_id")
+	@Column(name = "user_id")
 	public String getUserId() {
 		return userId;
 	}
@@ -120,7 +120,7 @@ public class ApprovedSite {
 	 * @return the clientId
 	 */
 	@Basic
-	@Column(name="client_id")
+	@Column(name = "client_id")
 	public String getClientId() {
 		return clientId;
 	}
@@ -137,7 +137,7 @@ public class ApprovedSite {
 	 */
 	@Basic
 	@Temporal(javax.persistence.TemporalType.TIMESTAMP)
-	@Column(name="creation_date")
+	@Column(name = "creation_date")
 	public Date getCreationDate() {
 		return creationDate;
 	}
@@ -154,7 +154,7 @@ public class ApprovedSite {
 	 */
 	@Basic
 	@Temporal(javax.persistence.TemporalType.TIMESTAMP)
-	@Column(name="access_date")
+	@Column(name = "access_date")
 	public Date getAccessDate() {
 		return accessDate;
 	}
@@ -171,10 +171,10 @@ public class ApprovedSite {
 	 */
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(
-			name="approved_site_scope",
-			joinColumns=@JoinColumn(name="owner_id")
-			)
-	@Column(name="scope")
+		name = "approved_site_scope",
+		joinColumns = @JoinColumn(name = "owner_id")
+	)
+	@Column(name = "scope")
 	public Set<String> getAllowedScopes() {
 		return allowedScopes;
 	}
@@ -191,7 +191,7 @@ public class ApprovedSite {
 	 */
 	@Basic
 	@Temporal(javax.persistence.TemporalType.TIMESTAMP)
-	@Column(name="timeout_date")
+	@Column(name = "timeout_date")
 	public Date getTimeoutDate() {
 		return timeoutDate;
 	}
@@ -205,6 +205,7 @@ public class ApprovedSite {
 
 	/**
 	 * Has this approval expired?
+	 *
 	 * @return
 	 */
 	@Transient

@@ -32,12 +32,12 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-@Transactional(value="defaultTransactionManager")
+@Transactional(value = "defaultTransactionManager")
 public class JpaAuthenticationHolderRepository implements AuthenticationHolderRepository {
 
 	private static final int MAXEXPIREDRESULTS = 1000;
 
-	@PersistenceContext(unitName="defaultPersistenceUnit")
+	@PersistenceContext(unitName = "defaultPersistenceUnit")
 	private EntityManager manager;
 
 	@Override
@@ -52,7 +52,7 @@ public class JpaAuthenticationHolderRepository implements AuthenticationHolderRe
 	}
 
 	@Override
-	@Transactional(value="defaultTransactionManager")
+	@Transactional(value = "defaultTransactionManager")
 	public void remove(AuthenticationHolderEntity a) {
 		AuthenticationHolderEntity found = getById(a.getId());
 		if (found != null) {
@@ -63,20 +63,20 @@ public class JpaAuthenticationHolderRepository implements AuthenticationHolderRe
 	}
 
 	@Override
-	@Transactional(value="defaultTransactionManager")
+	@Transactional(value = "defaultTransactionManager")
 	public AuthenticationHolderEntity save(AuthenticationHolderEntity a) {
 		return JpaUtil.saveOrUpdate(a.getId(), manager, a);
 	}
 
 	@Override
-	@Transactional(value="defaultTransactionManager")
+	@Transactional(value = "defaultTransactionManager")
 	public List<AuthenticationHolderEntity> getOrphanedAuthenticationHolders() {
-		DefaultPageCriteria pageCriteria = new DefaultPageCriteria(0,MAXEXPIREDRESULTS);
+		DefaultPageCriteria pageCriteria = new DefaultPageCriteria(0, MAXEXPIREDRESULTS);
 		return getOrphanedAuthenticationHolders(pageCriteria);
 	}
 
 	@Override
-	@Transactional(value="defaultTransactionManager")
+	@Transactional(value = "defaultTransactionManager")
 	public List<AuthenticationHolderEntity> getOrphanedAuthenticationHolders(PageCriteria pageCriteria) {
 		TypedQuery<AuthenticationHolderEntity> query = manager.createNamedQuery(AuthenticationHolderEntity.QUERY_GET_UNUSED, AuthenticationHolderEntity.class);
 		return JpaUtil.getResultPage(query, pageCriteria);

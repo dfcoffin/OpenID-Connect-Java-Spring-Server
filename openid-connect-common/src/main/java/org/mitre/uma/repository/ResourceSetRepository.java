@@ -22,7 +22,6 @@ import org.mitre.uma.model.ResourceSet;
 
 /**
  * @author jricher
- *
  */
 public interface ResourceSetRepository {
 

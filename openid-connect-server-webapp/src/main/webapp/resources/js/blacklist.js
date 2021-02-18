@@ -20,7 +20,7 @@ var BlackListModel = Backbone.Model.extend({
 });
 
 var BlackListCollection = Backbone.Collection.extend({
-	initialize: function() {
+	initialize: function () {
 	},
 
 	url: "api/blacklist"
@@ -29,11 +29,11 @@ var BlackListCollection = Backbone.Collection.extend({
 var BlackListListView = Backbone.View.extend({
 	tagName: 'span',
 
-	initialize: function(options) {
+	initialize: function (options) {
 		this.options = options;
 	},
 
-	load: function(callback) {
+	load: function (callback) {
 		if (this.collection.isFetched) {
 			callback();
 			return;
@@ -43,11 +43,11 @@ var BlackListListView = Backbone.View.extend({
 		$('#loading').html('<span class="label" id="loading-blacklist">' + $.t('admin.blacklist') + '</span> ');
 
 		$.when(this.collection.fetchIfNeeded({
-			success: function(e) {
+			success: function (e) {
 				$('#loading-blacklist').addClass('label-success');
 			},
 			error: app.errorHandlerView.handleError()
-		})).done(function() {
+		})).done(function () {
 			$('#loadingbox').sheet('hide');
 			callback();
 		});
@@ -59,20 +59,20 @@ var BlackListListView = Backbone.View.extend({
 		"submit #add-blacklist form": "addItem"
 	},
 
-	refreshTable: function(e) {
+	refreshTable: function (e) {
 		e.preventDefault();
 
 		var _self = this;
 		$('#loadingbox').sheet('show');
 		$('#loading').html('<span class="label" id="loading-blacklist">' + $.t('admin.blacklist') + '</span> ');
 
-		$.when(this.collection.fetch()).done(function() {
+		$.when(this.collection.fetch()).done(function () {
 			$('#loadingbox').sheet('hide');
 			_self.render();
 		});
 	},
 
-	togglePlaceholder: function() {
+	togglePlaceholder: function () {
 		if (this.collection.length > 0) {
 			$('#blacklist-table', this.el).show();
 			$('#blacklist-table-empty', this.el).hide();
@@ -82,12 +82,12 @@ var BlackListListView = Backbone.View.extend({
 		}
 	},
 
-	render: function(eventName) {
+	render: function (eventName) {
 
 		$(this.el).html($('#tmpl-blacklist-table').html());
 
 		var _self = this;
-		_.each(this.collection.models, function(blacklist) {
+		_.each(this.collection.models, function (blacklist) {
 			var view = new BlackListWidgetView({
 				model: blacklist
 			});
@@ -101,7 +101,7 @@ var BlackListListView = Backbone.View.extend({
 		return this;
 	},
 
-	addItem: function(e) {
+	addItem: function (e) {
 		e.preventDefault();
 
 		var input_value = $("#blacklist-uri", this.el).val().trim();
@@ -119,7 +119,7 @@ var BlackListListView = Backbone.View.extend({
 		var _self = this; // closures...
 
 		item.save({}, {
-			success: function() {
+			success: function () {
 				_self.collection.add(item);
 				_self.render();
 			},
@@ -134,7 +134,7 @@ var BlackListWidgetView = Backbone.View.extend({
 
 	tagName: 'tr',
 
-	initialize: function(options) {
+	initialize: function (options) {
 		this.options = options;
 
 		if (!this.template) {
@@ -142,7 +142,7 @@ var BlackListWidgetView = Backbone.View.extend({
 		}
 	},
 
-	render: function() {
+	render: function () {
 
 		this.$el.html(this.template(this.model.toJSON()));
 
@@ -154,7 +154,7 @@ var BlackListWidgetView = Backbone.View.extend({
 		'click .btn-delete': 'deleteBlacklist'
 	},
 
-	deleteBlacklist: function(e) {
+	deleteBlacklist: function (e) {
 		e.preventDefault();
 
 		if (confirm($.t("blacklist.confirm"))) {
@@ -163,10 +163,10 @@ var BlackListWidgetView = Backbone.View.extend({
 			this.model.destroy({
 				dataType: false,
 				processData: false,
-				success: function() {
+				success: function () {
 
-					_self.$el.fadeTo("fast", 0.00, function() { // fade
-						$(this).slideUp("fast", function() { // slide up
+					_self.$el.fadeTo("fast", 0.00, function () { // fade
+						$(this).slideUp("fast", function () { // slide up
 							$(this).remove(); // then remove from the DOM
 							_self.parentView.togglePlaceholder();
 						});
@@ -186,7 +186,7 @@ var BlackListWidgetView = Backbone.View.extend({
 ui.routes.push({
 	path: "admin/blacklist",
 	name: "blackList",
-	callback: function() {
+	callback: function () {
 
 		if (!isAdmin()) {
 			this.root();
@@ -208,7 +208,7 @@ ui.routes.push({
 			collection: this.blackListList
 		});
 
-		view.load(function(collection, response, options) {
+		view.load(function (collection, response, options) {
 			$('#content').html(view.render().el);
 			setPageTitle($.t('admin.manage-blacklist'));
 		});
@@ -218,6 +218,6 @@ ui.routes.push({
 
 ui.templates.push('resources/template/blacklist.html');
 
-ui.init.push(function(app) {
+ui.init.push(function (app) {
 	app.blackListList = new BlackListCollection();
 });

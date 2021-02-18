@@ -21,7 +21,6 @@ import com.nimbusds.jose.Requirement;
 
 /**
  * @author jricher
- *
  */
 public final class PKCEAlgorithm extends Algorithm {
 
@@ -51,7 +50,6 @@ public final class PKCEAlgorithm extends Algorithm {
 			return new PKCEAlgorithm(s);
 		}
 	}
-
 
 
 }

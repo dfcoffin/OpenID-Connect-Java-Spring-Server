@@ -263,7 +263,7 @@ public class TestMITREidDataService_1_3 {
 		assertThat(checked.containsAll(allRefreshTokens), is(true));
 	}
 
-	private class refreshTokenIdComparator implements Comparator<OAuth2RefreshTokenEntity>  {
+	private class refreshTokenIdComparator implements Comparator<OAuth2RefreshTokenEntity> {
 		@Override
 		public int compare(OAuth2RefreshTokenEntity entity1, OAuth2RefreshTokenEntity entity2) {
 			return entity1.getId().compareTo(entity2.getId());
@@ -306,22 +306,22 @@ public class TestMITREidDataService_1_3 {
 		token2.setAuthenticationHolder(mockedAuthHolder2);
 
 		String configJson = "{" +
-				"\"" + MITREidDataService.SYSTEMSCOPES + "\": [], " +
-				"\"" + MITREidDataService.ACCESSTOKENS + "\": [], " +
-				"\"" + MITREidDataService.CLIENTS + "\": [], " +
-				"\"" + MITREidDataService.GRANTS + "\": [], " +
-				"\"" + MITREidDataService.WHITELISTEDSITES + "\": [], " +
-				"\"" + MITREidDataService.BLACKLISTEDSITES + "\": [], " +
-				"\"" + MITREidDataService.AUTHENTICATIONHOLDERS + "\": [], " +
-				"\"" + MITREidDataService.REFRESHTOKENS + "\": [" +
+			"\"" + MITREidDataService.SYSTEMSCOPES + "\": [], " +
+			"\"" + MITREidDataService.ACCESSTOKENS + "\": [], " +
+			"\"" + MITREidDataService.CLIENTS + "\": [], " +
+			"\"" + MITREidDataService.GRANTS + "\": [], " +
+			"\"" + MITREidDataService.WHITELISTEDSITES + "\": [], " +
+			"\"" + MITREidDataService.BLACKLISTEDSITES + "\": [], " +
+			"\"" + MITREidDataService.AUTHENTICATIONHOLDERS + "\": [], " +
+			"\"" + MITREidDataService.REFRESHTOKENS + "\": [" +
 
-				"{\"id\":1,\"clientId\":\"mocked_client_1\",\"expiration\":\"2014-09-10T22:49:44.090+0000\","
-				+ "\"authenticationHolderId\":1,\"value\":\"eyJhbGciOiJub25lIn0.eyJqdGkiOiJmOTg4OWQyOS0xMTk1LTQ4ODEtODgwZC1lZjVlYzAwY2Y4NDIifQ.\"}," +
-				"{\"id\":2,\"clientId\":\"mocked_client_2\",\"expiration\":\"2015-01-07T18:31:50.079+0000\","
-				+ "\"authenticationHolderId\":2,\"value\":\"eyJhbGciOiJub25lIn0.eyJqdGkiOiJlYmEyYjc3My0xNjAzLTRmNDAtOWQ3MS1hMGIxZDg1OWE2MDAifQ.\"}" +
+			"{\"id\":1,\"clientId\":\"mocked_client_1\",\"expiration\":\"2014-09-10T22:49:44.090+0000\","
+			+ "\"authenticationHolderId\":1,\"value\":\"eyJhbGciOiJub25lIn0.eyJqdGkiOiJmOTg4OWQyOS0xMTk1LTQ4ODEtODgwZC1lZjVlYzAwY2Y4NDIifQ.\"}," +
+			"{\"id\":2,\"clientId\":\"mocked_client_2\",\"expiration\":\"2015-01-07T18:31:50.079+0000\","
+			+ "\"authenticationHolderId\":2,\"value\":\"eyJhbGciOiJub25lIn0.eyJqdGkiOiJlYmEyYjc3My0xNjAzLTRmNDAtOWQ3MS1hMGIxZDg1OWE2MDAifQ.\"}" +
 
-				"  ]" +
-				"}";
+			"  ]" +
+			"}";
 
 		logger.debug(configJson);
 		JsonReader reader = new JsonReader(new StringReader(configJson));
@@ -329,10 +329,11 @@ public class TestMITREidDataService_1_3 {
 		final Map<Long, OAuth2RefreshTokenEntity> fakeDb = new HashMap<>();
 		when(tokenRepository.saveRefreshToken(isA(OAuth2RefreshTokenEntity.class))).thenAnswer(new Answer<OAuth2RefreshTokenEntity>() {
 			Long id = 332L;
+
 			@Override
 			public OAuth2RefreshTokenEntity answer(InvocationOnMock invocation) throws Throwable {
 				OAuth2RefreshTokenEntity _token = (OAuth2RefreshTokenEntity) invocation.getArguments()[0];
-				if(_token.getId() == null) {
+				if (_token.getId() == null) {
 					_token.setId(id++);
 				}
 				fakeDb.put(_token.getId(), _token);
@@ -357,6 +358,7 @@ public class TestMITREidDataService_1_3 {
 		});
 		when(authHolderRepository.getById(isNull(Long.class))).thenAnswer(new Answer<AuthenticationHolderEntity>() {
 			Long id = 131L;
+
 			@Override
 			public AuthenticationHolderEntity answer(InvocationOnMock invocation) throws Throwable {
 				AuthenticationHolderEntity _auth = mock(AuthenticationHolderEntity.class);
@@ -502,7 +504,7 @@ public class TestMITREidDataService_1_3 {
 				assertThat(token.get("authenticationHolderId").getAsLong(), equalTo(compare.getAuthenticationHolder().getId()));
 				assertTrue(token.get("scope").isJsonArray());
 				assertThat(jsonArrayToStringSet(token.getAsJsonArray("scope")), equalTo(compare.getScope()));
-				if(token.get("refreshTokenId").isJsonNull()) {
+				if (token.get("refreshTokenId").isJsonNull()) {
 					assertNull(compare.getRefreshToken());
 				} else {
 					assertThat(token.get("refreshTokenId").getAsLong(), equalTo(compare.getRefreshToken().getId()));
@@ -514,7 +516,7 @@ public class TestMITREidDataService_1_3 {
 		assertThat(checked.containsAll(allAccessTokens), is(true));
 	}
 
-	private class accessTokenIdComparator implements Comparator<OAuth2AccessTokenEntity>  {
+	private class accessTokenIdComparator implements Comparator<OAuth2AccessTokenEntity> {
 		@Override
 		public int compare(OAuth2AccessTokenEntity entity1, OAuth2AccessTokenEntity entity2) {
 			return entity1.getId().compareTo(entity2.getId());
@@ -564,24 +566,24 @@ public class TestMITREidDataService_1_3 {
 		token2.setTokenType("Bearer");
 
 		String configJson = "{" +
-				"\"" + MITREidDataService.SYSTEMSCOPES + "\": [], " +
-				"\"" + MITREidDataService.REFRESHTOKENS + "\": [], " +
-				"\"" + MITREidDataService.CLIENTS + "\": [], " +
-				"\"" + MITREidDataService.GRANTS + "\": [], " +
-				"\"" + MITREidDataService.WHITELISTEDSITES + "\": [], " +
-				"\"" + MITREidDataService.BLACKLISTEDSITES + "\": [], " +
-				"\"" + MITREidDataService.AUTHENTICATIONHOLDERS + "\": [], " +
-				"\"" + MITREidDataService.ACCESSTOKENS + "\": [" +
+			"\"" + MITREidDataService.SYSTEMSCOPES + "\": [], " +
+			"\"" + MITREidDataService.REFRESHTOKENS + "\": [], " +
+			"\"" + MITREidDataService.CLIENTS + "\": [], " +
+			"\"" + MITREidDataService.GRANTS + "\": [], " +
+			"\"" + MITREidDataService.WHITELISTEDSITES + "\": [], " +
+			"\"" + MITREidDataService.BLACKLISTEDSITES + "\": [], " +
+			"\"" + MITREidDataService.AUTHENTICATIONHOLDERS + "\": [], " +
+			"\"" + MITREidDataService.ACCESSTOKENS + "\": [" +
 
-				"{\"id\":1,\"clientId\":\"mocked_client_1\",\"expiration\":\"2014-09-10T22:49:44.090+0000\","
-				+ "\"refreshTokenId\":null,\"idTokenId\":null,\"scope\":[\"id-token\"],\"type\":\"Bearer\","
-				+ "\"authenticationHolderId\":1,\"value\":\"eyJhbGciOiJSUzI1NiJ9.eyJleHAiOjE0MTI3ODk5NjgsInN1YiI6IjkwMzQyLkFTREZKV0ZBIiwiYXRfaGFzaCI6InptTmt1QmNRSmNYQktNaVpFODZqY0EiLCJhdWQiOlsiY2xpZW50Il0sImlzcyI6Imh0dHA6XC9cL2xvY2FsaG9zdDo4MDgwXC9vcGVuaWQtY29ubmVjdC1zZXJ2ZXItd2ViYXBwXC8iLCJpYXQiOjE0MTI3ODkzNjh9.xkEJ9IMXpH7qybWXomfq9WOOlpGYnrvGPgey9UQ4GLzbQx7JC0XgJK83PmrmBZosvFPCmota7FzI_BtwoZLgAZfFiH6w3WIlxuogoH-TxmYbxEpTHoTsszZppkq9mNgOlArV4jrR9y3TPo4MovsH71dDhS_ck-CvAlJunHlqhs0\"}," +
-				"{\"id\":2,\"clientId\":\"mocked_client_2\",\"expiration\":\"2015-01-07T18:31:50.079+0000\","
-				+ "\"refreshTokenId\":1,\"idTokenId\":1,\"scope\":[\"openid\",\"offline_access\",\"email\",\"profile\"],\"type\":\"Bearer\","
-				+ "\"authenticationHolderId\":2,\"value\":\"eyJhbGciOiJSUzI1NiJ9.eyJleHAiOjE0MTI3OTI5NjgsImF1ZCI6WyJjbGllbnQiXSwiaXNzIjoiaHR0cDpcL1wvbG9jYWxob3N0OjgwODBcL29wZW5pZC1jb25uZWN0LXNlcnZlci13ZWJhcHBcLyIsImp0aSI6IjBmZGE5ZmRiLTYyYzItNGIzZS05OTdiLWU0M2VhMDUwMzNiOSIsImlhdCI6MTQxMjc4OTM2OH0.xgaVpRLYE5MzbgXfE0tZt823tjAm6Oh3_kdR1P2I9jRLR6gnTlBQFlYi3Y_0pWNnZSerbAE8Tn6SJHZ9k-curVG0-ByKichV7CNvgsE5X_2wpEaUzejvKf8eZ-BammRY-ie6yxSkAarcUGMvGGOLbkFcz5CtrBpZhfd75J49BIQ\"}" +
+			"{\"id\":1,\"clientId\":\"mocked_client_1\",\"expiration\":\"2014-09-10T22:49:44.090+0000\","
+			+ "\"refreshTokenId\":null,\"idTokenId\":null,\"scope\":[\"id-token\"],\"type\":\"Bearer\","
+			+ "\"authenticationHolderId\":1,\"value\":\"eyJhbGciOiJSUzI1NiJ9.eyJleHAiOjE0MTI3ODk5NjgsInN1YiI6IjkwMzQyLkFTREZKV0ZBIiwiYXRfaGFzaCI6InptTmt1QmNRSmNYQktNaVpFODZqY0EiLCJhdWQiOlsiY2xpZW50Il0sImlzcyI6Imh0dHA6XC9cL2xvY2FsaG9zdDo4MDgwXC9vcGVuaWQtY29ubmVjdC1zZXJ2ZXItd2ViYXBwXC8iLCJpYXQiOjE0MTI3ODkzNjh9.xkEJ9IMXpH7qybWXomfq9WOOlpGYnrvGPgey9UQ4GLzbQx7JC0XgJK83PmrmBZosvFPCmota7FzI_BtwoZLgAZfFiH6w3WIlxuogoH-TxmYbxEpTHoTsszZppkq9mNgOlArV4jrR9y3TPo4MovsH71dDhS_ck-CvAlJunHlqhs0\"}," +
+			"{\"id\":2,\"clientId\":\"mocked_client_2\",\"expiration\":\"2015-01-07T18:31:50.079+0000\","
+			+ "\"refreshTokenId\":1,\"idTokenId\":1,\"scope\":[\"openid\",\"offline_access\",\"email\",\"profile\"],\"type\":\"Bearer\","
+			+ "\"authenticationHolderId\":2,\"value\":\"eyJhbGciOiJSUzI1NiJ9.eyJleHAiOjE0MTI3OTI5NjgsImF1ZCI6WyJjbGllbnQiXSwiaXNzIjoiaHR0cDpcL1wvbG9jYWxob3N0OjgwODBcL29wZW5pZC1jb25uZWN0LXNlcnZlci13ZWJhcHBcLyIsImp0aSI6IjBmZGE5ZmRiLTYyYzItNGIzZS05OTdiLWU0M2VhMDUwMzNiOSIsImlhdCI6MTQxMjc4OTM2OH0.xgaVpRLYE5MzbgXfE0tZt823tjAm6Oh3_kdR1P2I9jRLR6gnTlBQFlYi3Y_0pWNnZSerbAE8Tn6SJHZ9k-curVG0-ByKichV7CNvgsE5X_2wpEaUzejvKf8eZ-BammRY-ie6yxSkAarcUGMvGGOLbkFcz5CtrBpZhfd75J49BIQ\"}" +
 
-				"  ]" +
-				"}";
+			"  ]" +
+			"}";
 
 
 		logger.debug(configJson);
@@ -591,10 +593,11 @@ public class TestMITREidDataService_1_3 {
 		final Map<Long, OAuth2AccessTokenEntity> fakeDb = new HashMap<>();
 		when(tokenRepository.saveAccessToken(isA(OAuth2AccessTokenEntity.class))).thenAnswer(new Answer<OAuth2AccessTokenEntity>() {
 			Long id = 324L;
+
 			@Override
 			public OAuth2AccessTokenEntity answer(InvocationOnMock invocation) throws Throwable {
 				OAuth2AccessTokenEntity _token = (OAuth2AccessTokenEntity) invocation.getArguments()[0];
-				if(_token.getId() == null) {
+				if (_token.getId() == null) {
 					_token.setId(id++);
 				}
 				fakeDb.put(_token.getId(), _token);
@@ -619,6 +622,7 @@ public class TestMITREidDataService_1_3 {
 		});
 		when(authHolderRepository.getById(isNull(Long.class))).thenAnswer(new Answer<AuthenticationHolderEntity>() {
 			Long id = 133L;
+
 			@Override
 			public AuthenticationHolderEntity answer(InvocationOnMock invocation) throws Throwable {
 				AuthenticationHolderEntity _auth = mock(AuthenticationHolderEntity.class);
@@ -775,28 +779,28 @@ public class TestMITREidDataService_1_3 {
 		client2.setAllowIntrospection(false);
 
 		String configJson = "{" +
-				"\"" + MITREidDataService.SYSTEMSCOPES + "\": [], " +
-				"\"" + MITREidDataService.ACCESSTOKENS + "\": [], " +
-				"\"" + MITREidDataService.REFRESHTOKENS + "\": [], " +
-				"\"" + MITREidDataService.GRANTS + "\": [], " +
-				"\"" + MITREidDataService.WHITELISTEDSITES + "\": [], " +
-				"\"" + MITREidDataService.BLACKLISTEDSITES + "\": [], " +
-				"\"" + MITREidDataService.AUTHENTICATIONHOLDERS + "\": [], " +
-				"\"" + MITREidDataService.CLIENTS + "\": [" +
+			"\"" + MITREidDataService.SYSTEMSCOPES + "\": [], " +
+			"\"" + MITREidDataService.ACCESSTOKENS + "\": [], " +
+			"\"" + MITREidDataService.REFRESHTOKENS + "\": [], " +
+			"\"" + MITREidDataService.GRANTS + "\": [], " +
+			"\"" + MITREidDataService.WHITELISTEDSITES + "\": [], " +
+			"\"" + MITREidDataService.BLACKLISTEDSITES + "\": [], " +
+			"\"" + MITREidDataService.AUTHENTICATIONHOLDERS + "\": [], " +
+			"\"" + MITREidDataService.CLIENTS + "\": [" +
 
-				"{\"id\":1,\"accessTokenValiditySeconds\":3600,\"clientId\":\"client1\",\"secret\":\"clientsecret1\","
-				+ "\"redirectUris\":[\"http://foo.com/\"],"
-				+ "\"scope\":[\"foo\",\"bar\",\"baz\",\"dolphin\"],"
-				+ "\"grantTypes\":[\"implicit\",\"authorization_code\",\"urn:ietf:params:oauth:grant_type:redelegate\",\"refresh_token\"],"
-				+ "\"allowIntrospection\":true}," +
-				"{\"id\":2,\"accessTokenValiditySeconds\":3600,\"clientId\":\"client2\",\"secret\":\"clientsecret2\","
-				+ "\"redirectUris\":[\"http://bar.baz.com/\"],"
-				+ "\"scope\":[\"foo\",\"dolphin\",\"electric-wombat\"],"
-				+ "\"grantTypes\":[\"client_credentials\",\"urn:ietf:params:oauth:grant_type:redelegate\"],"
-				+ "\"allowIntrospection\":false}" +
+			"{\"id\":1,\"accessTokenValiditySeconds\":3600,\"clientId\":\"client1\",\"secret\":\"clientsecret1\","
+			+ "\"redirectUris\":[\"http://foo.com/\"],"
+			+ "\"scope\":[\"foo\",\"bar\",\"baz\",\"dolphin\"],"
+			+ "\"grantTypes\":[\"implicit\",\"authorization_code\",\"urn:ietf:params:oauth:grant_type:redelegate\",\"refresh_token\"],"
+			+ "\"allowIntrospection\":true}," +
+			"{\"id\":2,\"accessTokenValiditySeconds\":3600,\"clientId\":\"client2\",\"secret\":\"clientsecret2\","
+			+ "\"redirectUris\":[\"http://bar.baz.com/\"],"
+			+ "\"scope\":[\"foo\",\"dolphin\",\"electric-wombat\"],"
+			+ "\"grantTypes\":[\"client_credentials\",\"urn:ietf:params:oauth:grant_type:redelegate\"],"
+			+ "\"allowIntrospection\":false}" +
 
-				"  ]" +
-				"}";
+			"  ]" +
+			"}";
 
 		logger.debug(configJson);
 
@@ -934,21 +938,21 @@ public class TestMITREidDataService_1_3 {
 		site3.setUri("http://baz.com");
 
 		String configJson = "{" +
-				"\"" + MITREidDataService.CLIENTS + "\": [], " +
-				"\"" + MITREidDataService.ACCESSTOKENS + "\": [], " +
-				"\"" + MITREidDataService.REFRESHTOKENS + "\": [], " +
-				"\"" + MITREidDataService.GRANTS + "\": [], " +
-				"\"" + MITREidDataService.WHITELISTEDSITES + "\": [], " +
-				"\"" + MITREidDataService.SYSTEMSCOPES + "\": [], " +
-				"\"" + MITREidDataService.AUTHENTICATIONHOLDERS + "\": [], " +
-				"\"" + MITREidDataService.BLACKLISTEDSITES + "\": [" +
+			"\"" + MITREidDataService.CLIENTS + "\": [], " +
+			"\"" + MITREidDataService.ACCESSTOKENS + "\": [], " +
+			"\"" + MITREidDataService.REFRESHTOKENS + "\": [], " +
+			"\"" + MITREidDataService.GRANTS + "\": [], " +
+			"\"" + MITREidDataService.WHITELISTEDSITES + "\": [], " +
+			"\"" + MITREidDataService.SYSTEMSCOPES + "\": [], " +
+			"\"" + MITREidDataService.AUTHENTICATIONHOLDERS + "\": [], " +
+			"\"" + MITREidDataService.BLACKLISTEDSITES + "\": [" +
 
-				"{\"id\":1,\"uri\":\"http://foo.com\"}," +
-				"{\"id\":2,\"uri\":\"http://bar.com\"}," +
-				"{\"id\":3,\"uri\":\"http://baz.com\"}" +
+			"{\"id\":1,\"uri\":\"http://foo.com\"}," +
+			"{\"id\":2,\"uri\":\"http://bar.com\"}," +
+			"{\"id\":3,\"uri\":\"http://baz.com\"}" +
 
-				"  ]" +
-				"}";
+			"  ]" +
+			"}";
 
 
 		logger.debug(configJson);
@@ -1076,21 +1080,21 @@ public class TestMITREidDataService_1_3 {
 		//site3.setAllowedScopes(null);
 
 		String configJson = "{" +
-				"\"" + MITREidDataService.CLIENTS + "\": [], " +
-				"\"" + MITREidDataService.ACCESSTOKENS + "\": [], " +
-				"\"" + MITREidDataService.REFRESHTOKENS + "\": [], " +
-				"\"" + MITREidDataService.GRANTS + "\": [], " +
-				"\"" + MITREidDataService.BLACKLISTEDSITES + "\": [], " +
-				"\"" + MITREidDataService.SYSTEMSCOPES + "\": [], " +
-				"\"" + MITREidDataService.AUTHENTICATIONHOLDERS + "\": [], " +
-				"\"" + MITREidDataService.WHITELISTEDSITES + "\": [" +
+			"\"" + MITREidDataService.CLIENTS + "\": [], " +
+			"\"" + MITREidDataService.ACCESSTOKENS + "\": [], " +
+			"\"" + MITREidDataService.REFRESHTOKENS + "\": [], " +
+			"\"" + MITREidDataService.GRANTS + "\": [], " +
+			"\"" + MITREidDataService.BLACKLISTEDSITES + "\": [], " +
+			"\"" + MITREidDataService.SYSTEMSCOPES + "\": [], " +
+			"\"" + MITREidDataService.AUTHENTICATIONHOLDERS + "\": [], " +
+			"\"" + MITREidDataService.WHITELISTEDSITES + "\": [" +
 
-				"{\"id\":1,\"clientId\":\"foo\"}," +
-				"{\"id\":2,\"clientId\":\"bar\"}," +
-				"{\"id\":3,\"clientId\":\"baz\"}" +
+			"{\"id\":1,\"clientId\":\"foo\"}," +
+			"{\"id\":2,\"clientId\":\"bar\"}," +
+			"{\"id\":3,\"clientId\":\"baz\"}" +
 
-				"  ]" +
-				"}";
+			"  ]" +
+			"}";
 
 		logger.debug(configJson);
 
@@ -1099,10 +1103,11 @@ public class TestMITREidDataService_1_3 {
 		final Map<Long, WhitelistedSite> fakeDb = new HashMap<>();
 		when(wlSiteRepository.save(isA(WhitelistedSite.class))).thenAnswer(new Answer<WhitelistedSite>() {
 			Long id = 333L;
+
 			@Override
 			public WhitelistedSite answer(InvocationOnMock invocation) throws Throwable {
 				WhitelistedSite _site = (WhitelistedSite) invocation.getArguments()[0];
-				if(_site.getId() == null) {
+				if (_site.getId() == null) {
 					_site.setId(id++);
 				}
 				fakeDb.put(_site.getId(), _site);
@@ -1230,7 +1235,7 @@ public class TestMITREidDataService_1_3 {
 				assertThat(site.get("clientId").getAsString(), equalTo(compare.getClientId()));
 				assertThat(site.get("creationDate").getAsString(), equalTo(formatter.print(compare.getCreationDate(), Locale.ENGLISH)));
 				assertThat(site.get("accessDate").getAsString(), equalTo(formatter.print(compare.getAccessDate(), Locale.ENGLISH)));
-				if(site.get("timeoutDate").isJsonNull()) {
+				if (site.get("timeoutDate").isJsonNull()) {
 					assertNull(compare.getTimeoutDate());
 				} else {
 					assertThat(site.get("timeoutDate").getAsString(), equalTo(formatter.print(compare.getTimeoutDate(), Locale.ENGLISH)));
@@ -1275,24 +1280,24 @@ public class TestMITREidDataService_1_3 {
 		site2.setTimeoutDate(timeoutDate2);
 
 		String configJson = "{" +
-				"\"" + MITREidDataService.CLIENTS + "\": [], " +
-				"\"" + MITREidDataService.ACCESSTOKENS + "\": [], " +
-				"\"" + MITREidDataService.REFRESHTOKENS + "\": [], " +
-				"\"" + MITREidDataService.WHITELISTEDSITES + "\": [], " +
-				"\"" + MITREidDataService.BLACKLISTEDSITES + "\": [], " +
-				"\"" + MITREidDataService.SYSTEMSCOPES + "\": [], " +
-				"\"" + MITREidDataService.AUTHENTICATIONHOLDERS + "\": [], " +
-				"\"" + MITREidDataService.GRANTS + "\": [" +
+			"\"" + MITREidDataService.CLIENTS + "\": [], " +
+			"\"" + MITREidDataService.ACCESSTOKENS + "\": [], " +
+			"\"" + MITREidDataService.REFRESHTOKENS + "\": [], " +
+			"\"" + MITREidDataService.WHITELISTEDSITES + "\": [], " +
+			"\"" + MITREidDataService.BLACKLISTEDSITES + "\": [], " +
+			"\"" + MITREidDataService.SYSTEMSCOPES + "\": [], " +
+			"\"" + MITREidDataService.AUTHENTICATIONHOLDERS + "\": [], " +
+			"\"" + MITREidDataService.GRANTS + "\": [" +
 
-				"{\"id\":1,\"clientId\":\"foo\",\"creationDate\":\"2014-09-10T22:49:44.090+0000\",\"accessDate\":\"2014-09-10T23:49:44.090+0000\","
-				+ "\"userId\":\"user1\",\"whitelistedSiteId\":null,\"allowedScopes\":[\"openid\",\"phone\"], \"whitelistedSiteId\":1,"
-				+ "\"approvedAccessTokens\":[1]}," +
-				"{\"id\":2,\"clientId\":\"bar\",\"creationDate\":\"2014-09-11T18:49:44.090+0000\",\"accessDate\":\"2014-09-11T20:49:44.090+0000\","
-				+ "\"timeoutDate\":\"2014-10-01T20:49:44.090+0000\",\"userId\":\"user2\","
-				+ "\"allowedScopes\":[\"openid\",\"offline_access\",\"email\",\"profile\"]}" +
+			"{\"id\":1,\"clientId\":\"foo\",\"creationDate\":\"2014-09-10T22:49:44.090+0000\",\"accessDate\":\"2014-09-10T23:49:44.090+0000\","
+			+ "\"userId\":\"user1\",\"whitelistedSiteId\":null,\"allowedScopes\":[\"openid\",\"phone\"], \"whitelistedSiteId\":1,"
+			+ "\"approvedAccessTokens\":[1]}," +
+			"{\"id\":2,\"clientId\":\"bar\",\"creationDate\":\"2014-09-11T18:49:44.090+0000\",\"accessDate\":\"2014-09-11T20:49:44.090+0000\","
+			+ "\"timeoutDate\":\"2014-10-01T20:49:44.090+0000\",\"userId\":\"user2\","
+			+ "\"allowedScopes\":[\"openid\",\"offline_access\",\"email\",\"profile\"]}" +
 
-				"  ]" +
-				"}";
+			"  ]" +
+			"}";
 
 		logger.debug(configJson);
 
@@ -1301,10 +1306,11 @@ public class TestMITREidDataService_1_3 {
 		final Map<Long, ApprovedSite> fakeDb = new HashMap<>();
 		when(approvedSiteRepository.save(isA(ApprovedSite.class))).thenAnswer(new Answer<ApprovedSite>() {
 			Long id = 364L;
+
 			@Override
 			public ApprovedSite answer(InvocationOnMock invocation) throws Throwable {
 				ApprovedSite _site = (ApprovedSite) invocation.getArguments()[0];
-				if(_site.getId() == null) {
+				if (_site.getId() == null) {
 					_site.setId(id++);
 				}
 				fakeDb.put(_site.getId(), _site);
@@ -1320,6 +1326,7 @@ public class TestMITREidDataService_1_3 {
 		});
 		when(wlSiteRepository.getById(isNull(Long.class))).thenAnswer(new Answer<WhitelistedSite>() {
 			Long id = 432L;
+
 			@Override
 			public WhitelistedSite answer(InvocationOnMock invocation) throws Throwable {
 				WhitelistedSite _site = mock(WhitelistedSite.class);
@@ -1329,6 +1336,7 @@ public class TestMITREidDataService_1_3 {
 		});
 		when(tokenRepository.getAccessTokenById(isNull(Long.class))).thenAnswer(new Answer<OAuth2AccessTokenEntity>() {
 			Long id = 245L;
+
 			@Override
 			public OAuth2AccessTokenEntity answer(InvocationOnMock invocation) throws Throwable {
 				OAuth2AccessTokenEntity _token = mock(OAuth2AccessTokenEntity.class);
@@ -1361,8 +1369,8 @@ public class TestMITREidDataService_1_3 {
 	@Test
 	public void testExportAuthenticationHolders() throws IOException {
 		OAuth2Request req1 = new OAuth2Request(new HashMap<String, String>(), "client1", new ArrayList<GrantedAuthority>(),
-				true, new HashSet<String>(), new HashSet<String>(), "http://foo.com",
-				new HashSet<String>(), null);
+			true, new HashSet<String>(), new HashSet<String>(), "http://foo.com",
+			new HashSet<String>(), null);
 		Authentication mockAuth1 = new UsernamePasswordAuthenticationToken("user1", "pass1", AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_USER"));
 		OAuth2Authentication auth1 = new OAuth2Authentication(req1, mockAuth1);
 
@@ -1371,8 +1379,8 @@ public class TestMITREidDataService_1_3 {
 		holder1.setAuthentication(auth1);
 
 		OAuth2Request req2 = new OAuth2Request(new HashMap<String, String>(), "client2", new ArrayList<GrantedAuthority>(),
-				true, new HashSet<String>(), new HashSet<String>(), "http://bar.com",
-				new HashSet<String>(), null);
+			true, new HashSet<String>(), new HashSet<String>(), "http://bar.com",
+			new HashSet<String>(), null);
 		OAuth2Authentication auth2 = new OAuth2Authentication(req2, null);
 
 		AuthenticationHolderEntity holder2 = new AuthenticationHolderEntity();
@@ -1468,8 +1476,8 @@ public class TestMITREidDataService_1_3 {
 	@Test
 	public void testImportAuthenticationHolders() throws IOException {
 		OAuth2Request req1 = new OAuth2Request(new HashMap<String, String>(), "client1", new ArrayList<GrantedAuthority>(),
-				true, new HashSet<String>(), new HashSet<String>(), "http://foo.com",
-				new HashSet<String>(), null);
+			true, new HashSet<String>(), new HashSet<String>(), "http://foo.com",
+			new HashSet<String>(), null);
 		Authentication mockAuth1 = mock(Authentication.class, withSettings().serializable());
 		OAuth2Authentication auth1 = new OAuth2Authentication(req1, mockAuth1);
 
@@ -1478,8 +1486,8 @@ public class TestMITREidDataService_1_3 {
 		holder1.setAuthentication(auth1);
 
 		OAuth2Request req2 = new OAuth2Request(new HashMap<String, String>(), "client2", new ArrayList<GrantedAuthority>(),
-				true, new HashSet<String>(), new HashSet<String>(), "http://bar.com",
-				new HashSet<String>(), null);
+			true, new HashSet<String>(), new HashSet<String>(), "http://bar.com",
+			new HashSet<String>(), null);
 		Authentication mockAuth2 = mock(Authentication.class, withSettings().serializable());
 		OAuth2Authentication auth2 = new OAuth2Authentication(req2, mockAuth2);
 
@@ -1488,21 +1496,21 @@ public class TestMITREidDataService_1_3 {
 		holder2.setAuthentication(auth2);
 
 		String configJson = "{" +
-				"\"" + MITREidDataService.CLIENTS + "\": [], " +
-				"\"" + MITREidDataService.ACCESSTOKENS + "\": [], " +
-				"\"" + MITREidDataService.REFRESHTOKENS + "\": [], " +
-				"\"" + MITREidDataService.GRANTS + "\": [], " +
-				"\"" + MITREidDataService.WHITELISTEDSITES + "\": [], " +
-				"\"" + MITREidDataService.BLACKLISTEDSITES + "\": [], " +
-				"\"" + MITREidDataService.SYSTEMSCOPES + "\": [], " +
-				"\"" + MITREidDataService.AUTHENTICATIONHOLDERS + "\": [" +
+			"\"" + MITREidDataService.CLIENTS + "\": [], " +
+			"\"" + MITREidDataService.ACCESSTOKENS + "\": [], " +
+			"\"" + MITREidDataService.REFRESHTOKENS + "\": [], " +
+			"\"" + MITREidDataService.GRANTS + "\": [], " +
+			"\"" + MITREidDataService.WHITELISTEDSITES + "\": [], " +
+			"\"" + MITREidDataService.BLACKLISTEDSITES + "\": [], " +
+			"\"" + MITREidDataService.SYSTEMSCOPES + "\": [], " +
+			"\"" + MITREidDataService.AUTHENTICATIONHOLDERS + "\": [" +
 
-				"{\"id\":1,\"clientId\":\"client1\",\"redirectUri\":\"http://foo.com\","
-				+ "\"savedUserAuthentication\":null}," +
-				"{\"id\":2,\"clientId\":\"client2\",\"redirectUri\":\"http://bar.com\","
-				+ "\"savedUserAuthentication\":null}" +
-				"  ]" +
-				"}";
+			"{\"id\":1,\"clientId\":\"client1\",\"redirectUri\":\"http://foo.com\","
+			+ "\"savedUserAuthentication\":null}," +
+			"{\"id\":2,\"clientId\":\"client2\",\"redirectUri\":\"http://bar.com\","
+			+ "\"savedUserAuthentication\":null}" +
+			"  ]" +
+			"}";
 
 		logger.debug(configJson);
 
@@ -1511,10 +1519,11 @@ public class TestMITREidDataService_1_3 {
 		final Map<Long, AuthenticationHolderEntity> fakeDb = new HashMap<>();
 		when(authHolderRepository.save(isA(AuthenticationHolderEntity.class))).thenAnswer(new Answer<AuthenticationHolderEntity>() {
 			Long id = 243L;
+
 			@Override
 			public AuthenticationHolderEntity answer(InvocationOnMock invocation) throws Throwable {
 				AuthenticationHolderEntity _site = (AuthenticationHolderEntity) invocation.getArguments()[0];
-				if(_site.getId() == null) {
+				if (_site.getId() == null) {
 					_site.setId(id++);
 				}
 				fakeDb.put(_site.getId(), _site);
@@ -1669,21 +1678,21 @@ public class TestMITREidDataService_1_3 {
 		scope3.setIcon("road");
 
 		String configJson = "{" +
-				"\"" + MITREidDataService.CLIENTS + "\": [], " +
-				"\"" + MITREidDataService.ACCESSTOKENS + "\": [], " +
-				"\"" + MITREidDataService.REFRESHTOKENS + "\": [], " +
-				"\"" + MITREidDataService.GRANTS + "\": [], " +
-				"\"" + MITREidDataService.WHITELISTEDSITES + "\": [], " +
-				"\"" + MITREidDataService.BLACKLISTEDSITES + "\": [], " +
-				"\"" + MITREidDataService.AUTHENTICATIONHOLDERS + "\": [], " +
-				"\"" + MITREidDataService.SYSTEMSCOPES + "\": [" +
+			"\"" + MITREidDataService.CLIENTS + "\": [], " +
+			"\"" + MITREidDataService.ACCESSTOKENS + "\": [], " +
+			"\"" + MITREidDataService.REFRESHTOKENS + "\": [], " +
+			"\"" + MITREidDataService.GRANTS + "\": [], " +
+			"\"" + MITREidDataService.WHITELISTEDSITES + "\": [], " +
+			"\"" + MITREidDataService.BLACKLISTEDSITES + "\": [], " +
+			"\"" + MITREidDataService.AUTHENTICATIONHOLDERS + "\": [], " +
+			"\"" + MITREidDataService.SYSTEMSCOPES + "\": [" +
 
-				"{\"id\":1,\"description\":\"Scope 1\",\"icon\":\"glass\",\"value\":\"scope1\",\"restricted\":true,\"defaultScope\":false}," +
-				"{\"id\":2,\"description\":\"Scope 2\",\"icon\":\"ball\",\"value\":\"scope2\",\"restricted\":false,\"defaultScope\":false}," +
-				"{\"id\":3,\"description\":\"Scope 3\",\"icon\":\"road\",\"value\":\"scope3\",\"restricted\":false,\"defaultScope\":true}" +
+			"{\"id\":1,\"description\":\"Scope 1\",\"icon\":\"glass\",\"value\":\"scope1\",\"restricted\":true,\"defaultScope\":false}," +
+			"{\"id\":2,\"description\":\"Scope 2\",\"icon\":\"ball\",\"value\":\"scope2\",\"restricted\":false,\"defaultScope\":false}," +
+			"{\"id\":3,\"description\":\"Scope 3\",\"icon\":\"road\",\"value\":\"scope3\",\"restricted\":false,\"defaultScope\":true}" +
 
-				"  ]" +
-				"}";
+			"  ]" +
+			"}";
 
 		logger.debug(configJson);
 
@@ -1724,8 +1733,8 @@ public class TestMITREidDataService_1_3 {
 		when(mockedClient1.getClientId()).thenReturn("mocked_client_1");
 
 		OAuth2Request req1 = new OAuth2Request(new HashMap<String, String>(), "client1", new ArrayList<GrantedAuthority>(),
-				true, new HashSet<String>(), new HashSet<String>(), "http://foo.com",
-				new HashSet<String>(), null);
+			true, new HashSet<String>(), new HashSet<String>(), "http://foo.com",
+			new HashSet<String>(), null);
 		Authentication mockAuth1 = mock(Authentication.class, withSettings().serializable());
 		OAuth2Authentication auth1 = new OAuth2Authentication(req1, mockAuth1);
 
@@ -1747,8 +1756,8 @@ public class TestMITREidDataService_1_3 {
 		when(mockedClient2.getClientId()).thenReturn("mocked_client_2");
 
 		OAuth2Request req2 = new OAuth2Request(new HashMap<String, String>(), "client2", new ArrayList<GrantedAuthority>(),
-				true, new HashSet<String>(), new HashSet<String>(), "http://bar.com",
-				new HashSet<String>(), null);
+			true, new HashSet<String>(), new HashSet<String>(), "http://bar.com",
+			new HashSet<String>(), null);
 		Authentication mockAuth2 = mock(Authentication.class, withSettings().serializable());
 		OAuth2Authentication auth2 = new OAuth2Authentication(req2, mockAuth2);
 
@@ -1764,28 +1773,28 @@ public class TestMITREidDataService_1_3 {
 		token2.setAuthenticationHolder(holder2);
 
 		String configJson = "{" +
-				"\"" + MITREidDataService.SYSTEMSCOPES + "\": [], " +
-				"\"" + MITREidDataService.ACCESSTOKENS + "\": [], " +
-				"\"" + MITREidDataService.CLIENTS + "\": [], " +
-				"\"" + MITREidDataService.GRANTS + "\": [], " +
-				"\"" + MITREidDataService.WHITELISTEDSITES + "\": [], " +
-				"\"" + MITREidDataService.BLACKLISTEDSITES + "\": [], " +
-				"\"" + MITREidDataService.AUTHENTICATIONHOLDERS + "\": [" +
+			"\"" + MITREidDataService.SYSTEMSCOPES + "\": [], " +
+			"\"" + MITREidDataService.ACCESSTOKENS + "\": [], " +
+			"\"" + MITREidDataService.CLIENTS + "\": [], " +
+			"\"" + MITREidDataService.GRANTS + "\": [], " +
+			"\"" + MITREidDataService.WHITELISTEDSITES + "\": [], " +
+			"\"" + MITREidDataService.BLACKLISTEDSITES + "\": [], " +
+			"\"" + MITREidDataService.AUTHENTICATIONHOLDERS + "\": [" +
 
-				"{\"id\":1,\"authentication\":{\"authorizationRequest\":{\"clientId\":\"client1\",\"redirectUri\":\"http://foo.com\"},"
-				+ "\"userAuthentication\":null}}," +
-				"{\"id\":2,\"authentication\":{\"authorizationRequest\":{\"clientId\":\"client2\",\"redirectUri\":\"http://bar.com\"},"
-				+ "\"userAuthentication\":null}}" +
-				"  ]," +
-				"\"" + MITREidDataService.REFRESHTOKENS + "\": [" +
+			"{\"id\":1,\"authentication\":{\"authorizationRequest\":{\"clientId\":\"client1\",\"redirectUri\":\"http://foo.com\"},"
+			+ "\"userAuthentication\":null}}," +
+			"{\"id\":2,\"authentication\":{\"authorizationRequest\":{\"clientId\":\"client2\",\"redirectUri\":\"http://bar.com\"},"
+			+ "\"userAuthentication\":null}}" +
+			"  ]," +
+			"\"" + MITREidDataService.REFRESHTOKENS + "\": [" +
 
-				"{\"id\":1,\"clientId\":\"mocked_client_1\",\"expiration\":\"2014-09-10T22:49:44.090+0000\","
-				+ "\"authenticationHolderId\":1,\"value\":\"eyJhbGciOiJub25lIn0.eyJqdGkiOiJmOTg4OWQyOS0xMTk1LTQ4ODEtODgwZC1lZjVlYzAwY2Y4NDIifQ.\"}," +
-				"{\"id\":2,\"clientId\":\"mocked_client_2\",\"expiration\":\"2015-01-07T18:31:50.079+0000\","
-				+ "\"authenticationHolderId\":2,\"value\":\"eyJhbGciOiJub25lIn0.eyJqdGkiOiJlYmEyYjc3My0xNjAzLTRmNDAtOWQ3MS1hMGIxZDg1OWE2MDAifQ.\"}" +
+			"{\"id\":1,\"clientId\":\"mocked_client_1\",\"expiration\":\"2014-09-10T22:49:44.090+0000\","
+			+ "\"authenticationHolderId\":1,\"value\":\"eyJhbGciOiJub25lIn0.eyJqdGkiOiJmOTg4OWQyOS0xMTk1LTQ4ODEtODgwZC1lZjVlYzAwY2Y4NDIifQ.\"}," +
+			"{\"id\":2,\"clientId\":\"mocked_client_2\",\"expiration\":\"2015-01-07T18:31:50.079+0000\","
+			+ "\"authenticationHolderId\":2,\"value\":\"eyJhbGciOiJub25lIn0.eyJqdGkiOiJlYmEyYjc3My0xNjAzLTRmNDAtOWQ3MS1hMGIxZDg1OWE2MDAifQ.\"}" +
 
-				"  ]" +
-				"}";
+			"  ]" +
+			"}";
 		logger.debug(configJson);
 
 		JsonReader reader = new JsonReader(new StringReader(configJson));
@@ -1793,10 +1802,11 @@ public class TestMITREidDataService_1_3 {
 		final Map<Long, AuthenticationHolderEntity> fakeAuthHolderTable = new HashMap<>();
 		when(tokenRepository.saveRefreshToken(isA(OAuth2RefreshTokenEntity.class))).thenAnswer(new Answer<OAuth2RefreshTokenEntity>() {
 			Long id = 343L;
+
 			@Override
 			public OAuth2RefreshTokenEntity answer(InvocationOnMock invocation) throws Throwable {
 				OAuth2RefreshTokenEntity _token = (OAuth2RefreshTokenEntity) invocation.getArguments()[0];
-				if(_token.getId() == null) {
+				if (_token.getId() == null) {
 					_token.setId(id++);
 				}
 				fakeRefreshTokenTable.put(_token.getId(), _token);
@@ -1821,10 +1831,11 @@ public class TestMITREidDataService_1_3 {
 		});
 		when(authHolderRepository.save(isA(AuthenticationHolderEntity.class))).thenAnswer(new Answer<AuthenticationHolderEntity>() {
 			Long id = 356L;
+
 			@Override
 			public AuthenticationHolderEntity answer(InvocationOnMock invocation) throws Throwable {
 				AuthenticationHolderEntity _holder = (AuthenticationHolderEntity) invocation.getArguments()[0];
-				if(_holder.getId() == null) {
+				if (_holder.getId() == null) {
 					_holder.setId(id++);
 				}
 				fakeAuthHolderTable.put(_holder.getId(), _holder);

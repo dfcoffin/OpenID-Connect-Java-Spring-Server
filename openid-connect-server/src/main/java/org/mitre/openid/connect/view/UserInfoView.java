@@ -130,14 +130,14 @@ public class UserInfoView extends AbstractView {
 
 	/**
 	 * Build a JSON response according to the request object received.
-	 *
+	 * <p>
 	 * Claims requested in requestObj.userinfo.claims are added to any
 	 * claims corresponding to requested scopes, if any.
 	 *
-	 * @param ui the UserInfo to filter
-	 * @param scope the allowed scopes to filter by
+	 * @param ui               the UserInfo to filter
+	 * @param scope            the allowed scopes to filter by
 	 * @param authorizedClaims the claims authorized by the client or user
-	 * @param requestedClaims the claims requested in the RequestObject
+	 * @param requestedClaims  the claims requested in the RequestObject
 	 * @return the filtered JsonObject result
 	 */
 	private JsonObject toJsonFromRequestObj(UserInfo ui, Set<String> scope, JsonObject authorizedClaims, JsonObject requestedClaims) {
@@ -156,7 +156,7 @@ public class UserInfoView extends AbstractView {
 		for (Entry<String, JsonElement> entry : obj.entrySet()) {
 
 			if (allowedByScope.contains(entry.getKey())
-					|| authorizedByClaims.contains(entry.getKey())) {
+				|| authorizedByClaims.contains(entry.getKey())) {
 				// it's allowed either by scope or by the authorized claims (either way is fine with us)
 
 				if (requestedByClaims.isEmpty() || requestedByClaims.contains(entry.getKey())) {
@@ -172,6 +172,7 @@ public class UserInfoView extends AbstractView {
 	/**
 	 * Pull the claims that have been targeted into a set for processing.
 	 * Returns an empty set if the input is null.
+	 *
 	 * @param claims the claims request to process
 	 */
 	private Set<String> extractUserInfoClaimsIntoSet(JsonObject claims) {

@@ -91,7 +91,6 @@ import com.nimbusds.jwt.SignedJWT;
  * OpenID Connect Authentication Filter class
  *
  * @author nemonik, jricher
- *
  */
 public class OIDCAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 
@@ -109,18 +108,18 @@ public class OIDCAuthenticationFilter extends AbstractAuthenticationProcessingFi
 	private int timeSkewAllowance = 300;
 
 	// fetches and caches public keys for servers
-	@Autowired(required=false)
+	@Autowired(required = false)
 	private JWKSetCacheService validationServices;
 
 	// creates JWT signer/validators for symmetric keys
-	@Autowired(required=false)
+	@Autowired(required = false)
 	private SymmetricKeyJWTValidatorCacheService symmetricCacheService;
 
 	// signer based on keypair for this client (for outgoing auth requests)
-	@Autowired(required=false)
+	@Autowired(required = false)
 	private JWTSigningAndValidationService authenticationSignerService;
 
-	@Autowired(required=false)
+	@Autowired(required = false)
 	private HttpClient httpClient;
 
 	/*
@@ -206,12 +205,10 @@ public class OIDCAuthenticationFilter extends AbstractAuthenticationProcessingFi
 	/**
 	 * Initiate an Authorization request
 	 *
-	 * @param request
-	 *            The request from which to extract parameters and perform the
-	 *            authentication
+	 * @param request  The request from which to extract parameters and perform the
+	 *                 authentication
 	 * @param response
-	 * @throws IOException
-	 *             If an input or output exception occurs
+	 * @throws IOException If an input or output exception occurs
 	 */
 	protected void handleAuthorizationRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
@@ -301,11 +298,10 @@ public class OIDCAuthenticationFilter extends AbstractAuthenticationProcessingFi
 	}
 
 	/**
-	 * @param request
-	 *            The request from which to extract parameters and perform the
-	 *            authentication
+	 * @param request The request from which to extract parameters and perform the
+	 *                authentication
 	 * @return The authenticated user token, or null if authentication is
-	 *         incomplete.
+	 * incomplete.
 	 */
 	protected Authentication handleAuthorizationCodeResponse(HttpServletRequest request, HttpServletResponse response) {
 
@@ -344,20 +340,20 @@ public class OIDCAuthenticationFilter extends AbstractAuthenticationProcessingFi
 
 		// Handle Token Endpoint interaction
 
-		if(httpClient == null) {
+		if (httpClient == null) {
 			httpClient = HttpClientBuilder.create()
-					.useSystemProperties()
-					.setDefaultRequestConfig(RequestConfig.custom()
-							.setSocketTimeout(httpSocketTimeout)
-							.build())
-					.build();
+				.useSystemProperties()
+				.setDefaultRequestConfig(RequestConfig.custom()
+					.setSocketTimeout(httpSocketTimeout)
+					.build())
+				.build();
 		}
 
 		HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory(httpClient);
 
 		RestTemplate restTemplate;
 
-		if (SECRET_BASIC.equals(clientConfig.getTokenEndpointAuthMethod())){
+		if (SECRET_BASIC.equals(clientConfig.getTokenEndpointAuthMethod())) {
 			// use BASIC auth if configured to do so
 			restTemplate = new RestTemplate(factory) {
 
@@ -365,9 +361,9 @@ public class OIDCAuthenticationFilter extends AbstractAuthenticationProcessingFi
 				protected ClientHttpRequest createRequest(URI url, HttpMethod method) throws IOException {
 					ClientHttpRequest httpRequest = super.createRequest(url, method);
 					httpRequest.getHeaders().add("Authorization",
-							String.format("Basic %s", Base64.encode(String.format("%s:%s",
-									UriUtils.encodePathSegment(clientConfig.getClientId(), "UTF-8"),
-									UriUtils.encodePathSegment(clientConfig.getClientSecret(), "UTF-8")))));
+						String.format("Basic %s", Base64.encode(String.format("%s:%s",
+							UriUtils.encodePathSegment(clientConfig.getClientId(), "UTF-8"),
+							UriUtils.encodePathSegment(clientConfig.getClientSecret(), "UTF-8")))));
 
 					return httpRequest;
 				}
@@ -384,9 +380,9 @@ public class OIDCAuthenticationFilter extends AbstractAuthenticationProcessingFi
 				JWSAlgorithm alg = clientConfig.getTokenEndpointAuthSigningAlg();
 
 				if (SECRET_JWT.equals(clientConfig.getTokenEndpointAuthMethod()) &&
-						(JWSAlgorithm.HS256.equals(alg)
-								|| JWSAlgorithm.HS384.equals(alg)
-								|| JWSAlgorithm.HS512.equals(alg))) {
+					(JWSAlgorithm.HS256.equals(alg)
+						|| JWSAlgorithm.HS384.equals(alg)
+						|| JWSAlgorithm.HS512.equals(alg))) {
 
 					// generate one based on client secret
 					signer = symmetricCacheService.getSymmetricValidtor(clientConfig.getClient());
@@ -421,8 +417,8 @@ public class OIDCAuthenticationFilter extends AbstractAuthenticationProcessingFi
 				claimsSet.notBeforeTime(now);
 
 				JWSHeader header = new JWSHeader(alg, null, null, null, null, null, null, null, null, null,
-						signer.getDefaultSignerKeyId(),
-						null, null);
+					signer.getDefaultSignerKeyId(),
+					null, null);
 				SignedJWT jwt = new SignedJWT(header, claimsSet.build());
 
 				signer.signJwt(jwt, alg);
@@ -529,11 +525,11 @@ public class OIDCAuthenticationFilter extends AbstractAuthenticationProcessingFi
 					}
 				} else if (idToken instanceof SignedJWT) {
 
-					SignedJWT signedIdToken = (SignedJWT)idToken;
+					SignedJWT signedIdToken = (SignedJWT) idToken;
 
 					if (tokenAlg.equals(JWSAlgorithm.HS256)
-							|| tokenAlg.equals(JWSAlgorithm.HS384)
-							|| tokenAlg.equals(JWSAlgorithm.HS512)) {
+						|| tokenAlg.equals(JWSAlgorithm.HS384)
+						|| tokenAlg.equals(JWSAlgorithm.HS512)) {
 
 						// generate one based on client secret
 						jwtValidator = symmetricCacheService.getSymmetricValidtor(clientConfig.getClient());
@@ -543,7 +539,7 @@ public class OIDCAuthenticationFilter extends AbstractAuthenticationProcessingFi
 					}
 
 					if (jwtValidator != null) {
-						if(!jwtValidator.validateSignature(signedIdToken)) {
+						if (!jwtValidator.validateSignature(signedIdToken)) {
 							throw new AuthenticationServiceException("Signature validation failed");
 						}
 					} else {
@@ -555,7 +551,7 @@ public class OIDCAuthenticationFilter extends AbstractAuthenticationProcessingFi
 				// check the issuer
 				if (idClaims.getIssuer() == null) {
 					throw new AuthenticationServiceException("Id Token Issuer is null");
-				} else if (!idClaims.getIssuer().equals(serverConfig.getIssuer())){
+				} else if (!idClaims.getIssuer().equals(serverConfig.getIssuer())) {
 					throw new AuthenticationServiceException("Issuers do not match, expected " + serverConfig.getIssuer() + " got " + idClaims.getIssuer());
 				}
 
@@ -573,7 +569,7 @@ public class OIDCAuthenticationFilter extends AbstractAuthenticationProcessingFi
 				// check not before
 				if (idClaims.getNotBeforeTime() != null) {
 					Date now = new Date(System.currentTimeMillis() + (timeSkewAllowance * 1000));
-					if (now.before(idClaims.getNotBeforeTime())){
+					if (now.before(idClaims.getNotBeforeTime())) {
 						throw new AuthenticationServiceException("Id Token not valid untill: " + idClaims.getNotBeforeTime());
 					}
 				}
@@ -608,18 +604,18 @@ public class OIDCAuthenticationFilter extends AbstractAuthenticationProcessingFi
 				String storedNonce = getStoredNonce(session);
 				if (!nonce.equals(storedNonce)) {
 					logger.error("Possible replay attack detected! The comparison of the nonce in the returned "
-							+ "ID Token to the session " + NONCE_SESSION_VARIABLE + " failed. Expected " + storedNonce + " got " + nonce + ".");
+						+ "ID Token to the session " + NONCE_SESSION_VARIABLE + " failed. Expected " + storedNonce + " got " + nonce + ".");
 
 					throw new AuthenticationServiceException(
-							"Possible replay attack detected! The comparison of the nonce in the returned "
-									+ "ID Token to the session " + NONCE_SESSION_VARIABLE + " failed. Expected " + storedNonce + " got " + nonce + ".");
+						"Possible replay attack detected! The comparison of the nonce in the returned "
+							+ "ID Token to the session " + NONCE_SESSION_VARIABLE + " failed. Expected " + storedNonce + " got " + nonce + ".");
 				}
 
 				// construct an PendingOIDCAuthenticationToken and return a Authentication object w/the userId and the idToken
 
 				PendingOIDCAuthenticationToken token = new PendingOIDCAuthenticationToken(idClaims.getSubject(), idClaims.getIssuer(),
-						serverConfig,
-						idToken, accessTokenValue, refreshTokenValue);
+					serverConfig,
+					idToken, accessTokenValue, refreshTokenValue);
 
 				Authentication authentication = this.getAuthenticationManager().authenticate(token);
 
@@ -629,20 +625,16 @@ public class OIDCAuthenticationFilter extends AbstractAuthenticationProcessingFi
 			}
 
 
-
 		}
 	}
 
 	/**
 	 * Handle Authorization Endpoint error
 	 *
-	 * @param request
-	 *            The request from which to extract parameters and handle the
-	 *            error
-	 * @param response
-	 *            The response, needed to do a redirect to display the error
-	 * @throws IOException
-	 *             If an input or output exception occurs
+	 * @param request  The request from which to extract parameters and handle the
+	 *                 error
+	 * @param response The response, needed to do a redirect to display the error
+	 * @throws IOException If an input or output exception occurs
 	 */
 	protected void handleError(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
@@ -655,6 +647,7 @@ public class OIDCAuthenticationFilter extends AbstractAuthenticationProcessingFi
 
 	/**
 	 * Get the named stored session variable as a string. Return null if not found or not a string.
+	 *
 	 * @param session
 	 * @param key
 	 * @return
@@ -670,6 +663,7 @@ public class OIDCAuthenticationFilter extends AbstractAuthenticationProcessingFi
 
 	/**
 	 * Create a cryptographically random nonce and store it in the session
+	 *
 	 * @param session
 	 * @return
 	 */
@@ -682,6 +676,7 @@ public class OIDCAuthenticationFilter extends AbstractAuthenticationProcessingFi
 
 	/**
 	 * Get the nonce we stored in the session
+	 *
 	 * @param session
 	 * @return
 	 */
@@ -691,6 +686,7 @@ public class OIDCAuthenticationFilter extends AbstractAuthenticationProcessingFi
 
 	/**
 	 * Create a cryptographically random state and store it in the session
+	 *
 	 * @param session
 	 * @return
 	 */
@@ -703,6 +699,7 @@ public class OIDCAuthenticationFilter extends AbstractAuthenticationProcessingFi
 
 	/**
 	 * Get the state we stored in the session
+	 *
 	 * @param session
 	 * @return
 	 */
@@ -712,6 +709,7 @@ public class OIDCAuthenticationFilter extends AbstractAuthenticationProcessingFi
 
 	/**
 	 * Create a random code challenge and store it in the session
+	 *
 	 * @param session
 	 * @return
 	 */
@@ -723,6 +721,7 @@ public class OIDCAuthenticationFilter extends AbstractAuthenticationProcessingFi
 
 	/**
 	 * Retrieve the stored challenge from our session
+	 *
 	 * @param session
 	 * @return
 	 */
@@ -738,8 +737,6 @@ public class OIDCAuthenticationFilter extends AbstractAuthenticationProcessingFi
 	}
 
 
-
-
 	/**
 	 * Handle a successful authentication event. If the issuer service sets
 	 * a target URL, we'll go to that. Otherwise we'll let the superclass handle
@@ -751,8 +748,8 @@ public class OIDCAuthenticationFilter extends AbstractAuthenticationProcessingFi
 
 		@Override
 		public void onAuthenticationSuccess(HttpServletRequest request,
-				HttpServletResponse response, Authentication authentication)
-						throws IOException, ServletException {
+											HttpServletResponse response, Authentication authentication)
+			throws IOException, ServletException {
 
 			HttpSession session = request.getSession();
 
@@ -887,7 +884,7 @@ public class OIDCAuthenticationFilter extends AbstractAuthenticationProcessingFi
 	}
 
 	public void setTargetLinkURIAuthenticationSuccessHandler(
-			TargetLinkURIAuthenticationSuccessHandler targetSuccessHandler) {
+		TargetLinkURIAuthenticationSuccessHandler targetSuccessHandler) {
 		this.targetSuccessHandler = targetSuccessHandler;
 	}
 

@@ -190,7 +190,6 @@ public interface UserInfo extends Serializable {
 	public Boolean getPhoneNumberVerified();
 
 	/**
-	 *
 	 * @param phoneNumberVerified
 	 */
 	public void setPhoneNumberVerified(Boolean phoneNumberVerified);
@@ -217,13 +216,11 @@ public interface UserInfo extends Serializable {
 
 
 	/**
-	 *
 	 * @return
 	 */
 	public String getBirthdate();
 
 	/**
-	 *
 	 * @param birthdate
 	 */
 	public void setBirthdate(String birthdate);
@@ -237,6 +234,7 @@ public interface UserInfo extends Serializable {
 
 	/**
 	 * The JSON source of this UserInfo (if it was fetched), or null if it's local.
+	 *
 	 * @return
 	 */
 	public JsonObject getSource();

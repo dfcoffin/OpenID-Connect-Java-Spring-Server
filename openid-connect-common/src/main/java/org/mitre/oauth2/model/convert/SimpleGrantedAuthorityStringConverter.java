@@ -23,7 +23,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 /**
  * @author jricher
- *
  */
 @Converter
 public class SimpleGrantedAuthorityStringConverter implements AttributeConverter<SimpleGrantedAuthority, String> {

@@ -38,11 +38,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- *
  * An UMA permission, used in the protection API.
  *
  * @author jricher
- *
  */
 @Entity
 @Table(name = "permission_ticket")
@@ -137,10 +135,10 @@ public class PermissionTicket {
 	 */
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(
-			name = "claim_to_permission_ticket",
-			joinColumns = @JoinColumn(name = "permission_ticket_id"),
-			inverseJoinColumns = @JoinColumn(name = "claim_id")
-			)
+		name = "claim_to_permission_ticket",
+		joinColumns = @JoinColumn(name = "permission_ticket_id"),
+		inverseJoinColumns = @JoinColumn(name = "claim_id")
+	)
 	public Collection<Claim> getClaimsSupplied() {
 		return claimsSupplied;
 	}

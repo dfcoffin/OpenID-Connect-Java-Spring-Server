@@ -20,7 +20,6 @@ import com.nimbusds.jwt.JWT;
 
 /**
  * @author jricher
- *
  */
 public interface AssertionValidator {
 

@@ -24,17 +24,16 @@ import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import com.google.common.collect.ImmutableSet;
 
 /**
- *
  * Utility class to enforce OAuth scopes in authenticated requests.
  *
  * @author jricher
- *
  */
 public abstract class AuthenticationUtilities {
 
 	/**
 	 * Makes sure the authentication contains the given scope, throws an exception otherwise
-	 * @param auth the authentication object to check
+	 *
+	 * @param auth  the authentication object to check
 	 * @param scope the scope to look for
 	 * @throws InsufficientScopeException if the authentication does not contain that scope
 	 */
@@ -43,7 +42,7 @@ public abstract class AuthenticationUtilities {
 		if (auth instanceof OAuth2Authentication) {
 			OAuth2Authentication oAuth2Authentication = (OAuth2Authentication) auth;
 			if (oAuth2Authentication.getOAuth2Request().getScope() == null
-					|| !oAuth2Authentication.getOAuth2Request().getScope().contains(scope)) {
+				|| !oAuth2Authentication.getOAuth2Request().getScope().contains(scope)) {
 				throw new InsufficientScopeException("Insufficient scope", ImmutableSet.of(scope));
 			}
 		}
@@ -51,6 +50,7 @@ public abstract class AuthenticationUtilities {
 
 	/**
 	 * Check to see if the given auth object has ROLE_ADMIN assigned to it or not
+	 *
 	 * @param auth
 	 * @return
 	 */

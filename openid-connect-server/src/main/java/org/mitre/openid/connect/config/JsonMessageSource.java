@@ -82,6 +82,7 @@ public class JsonMessageSource extends AbstractMessageSource {
 
 	/**
 	 * Get a value from the set of maps, taking the first match in order
+	 *
 	 * @param code
 	 * @param langs
 	 * @return
@@ -106,6 +107,7 @@ public class JsonMessageSource extends AbstractMessageSource {
 
 	/**
 	 * Get a value from a single map
+	 *
 	 * @param code
 	 * @param lang
 	 * @return

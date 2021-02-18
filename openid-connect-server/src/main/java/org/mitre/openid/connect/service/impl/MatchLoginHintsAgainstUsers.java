@@ -25,8 +25,8 @@ import com.google.common.base.Strings;
 
 /**
  * Checks the login hint against the User Info collection, only populates it if a user is found.
- * @author jricher
  *
+ * @author jricher
  */
 public class MatchLoginHintsAgainstUsers implements LoginHintExtracter {
 

@@ -46,7 +46,6 @@ import com.google.common.collect.ImmutableSet;
 
 /**
  * @author jricher
- *
  */
 @Controller
 @RequestMapping("/" + UserClaimSearchHelper.URL)

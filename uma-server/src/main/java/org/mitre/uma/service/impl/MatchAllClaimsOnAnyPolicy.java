@@ -32,7 +32,6 @@ import org.springframework.stereotype.Service;
  * value in the supplied set.
  *
  * @author jricher
- *
  */
 @Service("matchAllClaimsOnAnyPolicy")
 public class MatchAllClaimsOnAnyPolicy implements ClaimsProcessingService {
@@ -70,7 +69,7 @@ public class MatchAllClaimsOnAnyPolicy implements ClaimsProcessingService {
 					// it's from the right issuer
 
 					if (required.getName().equals(supplied.getName()) &&
-							required.getValue().equals(supplied.getValue())) {
+						required.getValue().equals(supplied.getValue())) {
 
 						// the claim matched, pull it from the set
 						claimsUnmatched.remove(required);

@@ -34,7 +34,6 @@ import com.nimbusds.jwt.JWTParser;
  * AuthenticationToken for use as a data shuttle from the filter to the auth provider.
  *
  * @author jricher
- *
  */
 public class PendingOIDCAuthenticationToken extends AbstractAuthenticationToken {
 
@@ -51,16 +50,17 @@ public class PendingOIDCAuthenticationToken extends AbstractAuthenticationToken 
 
 	/**
 	 * Constructs OIDCAuthenticationToken for use as a data shuttle from the filter to the auth provider.
-	 *
+	 * <p>
 	 * Set to not-authenticated.
-	 *
+	 * <p>
 	 * Constructs a Principal out of the subject and issuer.
+	 *
 	 * @param sub
 	 * @param idToken
 	 */
-	public PendingOIDCAuthenticationToken (String subject, String issuer,
-			ServerConfiguration serverConfiguration,
-			JWT idToken, String accessTokenValue, String refreshTokenValue) {
+	public PendingOIDCAuthenticationToken(String subject, String issuer,
+										  ServerConfiguration serverConfiguration,
+										  JWT idToken, String accessTokenValue, String refreshTokenValue) {
 
 		super(new ArrayList<GrantedAuthority>(0));
 
@@ -145,11 +145,12 @@ public class PendingOIDCAuthenticationToken extends AbstractAuthenticationToken 
 			out.writeObject(idToken.serialize());
 		}
 	}
+
 	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException, ParseException {
 		in.defaultReadObject();
 		Object o = in.readObject();
 		if (o != null) {
-			idToken = JWTParser.parse((String)o);
+			idToken = JWTParser.parse((String) o);
 		}
 	}
 

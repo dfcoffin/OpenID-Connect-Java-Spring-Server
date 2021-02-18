@@ -37,7 +37,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author jricher
- *
  */
 @Service("defaultDeviceCodeService")
 public class DefaultDeviceCodeService implements DeviceCodeService {
@@ -118,16 +117,15 @@ public class DefaultDeviceCodeService implements DeviceCodeService {
 
 	}
 
-	
-	
+
 	/* (non-Javadoc)
 	 * @see org.mitre.oauth2.service.DeviceCodeService#clearExpiredDeviceCodes()
 	 */
 	@Override
-	@Transactional(value="defaultTransactionManager")
+	@Transactional(value = "defaultTransactionManager")
 	public void clearExpiredDeviceCodes() {
 
-		new AbstractPageOperationTemplate<DeviceCode>("clearExpiredDeviceCodes"){
+		new AbstractPageOperationTemplate<DeviceCode>("clearExpiredDeviceCodes") {
 			@Override
 			public Collection<DeviceCode> fetchPage() {
 				return repository.getExpiredCodes();
@@ -146,7 +144,7 @@ public class DefaultDeviceCodeService implements DeviceCodeService {
 	@Override
 	public void clearDeviceCode(String deviceCode, ClientDetails client) {
 		DeviceCode found = findDeviceCode(deviceCode, client);
-		
+
 		if (found != null) {
 			// make sure it's not used twice
 			repository.remove(found);

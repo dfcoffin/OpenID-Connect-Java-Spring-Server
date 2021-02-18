@@ -28,7 +28,6 @@ import com.nimbusds.jose.jwk.JWKSet;
 
 /**
  * @author jricher
- *
  */
 @Converter
 public class JWKSetStringConverter implements AttributeConverter<JWKSet, String> {

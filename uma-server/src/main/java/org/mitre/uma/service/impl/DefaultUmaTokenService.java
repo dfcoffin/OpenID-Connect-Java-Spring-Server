@@ -46,7 +46,6 @@ import com.nimbusds.jwt.SignedJWT;
 
 /**
  * @author jricher
- *
  */
 @Service("defaultUmaTokenService")
 public class DefaultUmaTokenService implements UmaTokenService {
@@ -104,8 +103,8 @@ public class DefaultUmaTokenService implements UmaTokenService {
 
 		JWSAlgorithm signingAlgorithm = jwtService.getDefaultSigningAlgorithm();
 		JWSHeader header = new JWSHeader(signingAlgorithm, null, null, null, null, null, null, null, null, null,
-				jwtService.getDefaultSignerKeyId(),
-				null, null);
+			jwtService.getDefaultSignerKeyId(),
+			null, null);
 		SignedJWT signed = new SignedJWT(header, claims.build());
 
 		jwtService.signJwt(signed);

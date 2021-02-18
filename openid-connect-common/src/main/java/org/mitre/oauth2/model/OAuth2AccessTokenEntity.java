@@ -1,20 +1,20 @@
-/*******************************************************************************
+/**
  * Copyright 2018 The MIT Internet Trust Consortium
- *
+ * <p>
  * Portions copyright 2011-2013 The MITRE Corporation
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *******************************************************************************/
+ */
 /**
  *
  */
@@ -211,7 +211,7 @@ public class OAuth2AccessTokenEntity implements OAuth2AccessToken {
 
 	@Override
 	@Basic
-	@Column(name="token_type")
+	@Column(name = "token_type")
 	public String getTokenType() {
 		return tokenType;
 	}
@@ -222,7 +222,7 @@ public class OAuth2AccessTokenEntity implements OAuth2AccessToken {
 
 	@Override
 	@ManyToOne
-	@JoinColumn(name="refresh_token_id")
+	@JoinColumn(name = "refresh_token_id")
 	public OAuth2RefreshTokenEntity getRefreshToken() {
 		return refreshToken;
 	}
@@ -236,15 +236,15 @@ public class OAuth2AccessTokenEntity implements OAuth2AccessToken {
 			throw new IllegalArgumentException("Not a storable refresh token entity!");
 		}
 		// force a pass through to the entity version
-		setRefreshToken((OAuth2RefreshTokenEntity)refreshToken);
+		setRefreshToken((OAuth2RefreshTokenEntity) refreshToken);
 	}
 
 	@Override
-	@ElementCollection(fetch=FetchType.EAGER)
+	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(
-			joinColumns=@JoinColumn(name="owner_id"),
-			name="token_scope"
-			)
+		joinColumns = @JoinColumn(name = "owner_id"),
+		name = "token_scope"
+	)
 	public Set<String> getScope() {
 		return scope;
 	}
@@ -263,7 +263,7 @@ public class OAuth2AccessTokenEntity implements OAuth2AccessToken {
 	 * @return the jwtValue
 	 */
 	@Basic
-	@Column(name="token_value")
+	@Column(name = "token_value")
 	@Convert(converter = JWTStringConverter.class)
 	public JWT getJwt() {
 		return jwtValue;
@@ -297,10 +297,10 @@ public class OAuth2AccessTokenEntity implements OAuth2AccessToken {
 	 */
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(
-			name = "access_token_permissions",
-			joinColumns = @JoinColumn(name = "access_token_id"),
-			inverseJoinColumns = @JoinColumn(name = "permission_id")
-			)
+		name = "access_token_permissions",
+		joinColumns = @JoinColumn(name = "access_token_id"),
+		inverseJoinColumns = @JoinColumn(name = "permission_id")
+	)
 	public Set<Permission> getPermissions() {
 		return permissions;
 	}
@@ -313,7 +313,7 @@ public class OAuth2AccessTokenEntity implements OAuth2AccessToken {
 	}
 
 	@ManyToOne
-	@JoinColumn(name="approved_site_id")
+	@JoinColumn(name = "approved_site_id")
 	public ApprovedSite getApprovedSite() {
 		return approvedSite;
 	}

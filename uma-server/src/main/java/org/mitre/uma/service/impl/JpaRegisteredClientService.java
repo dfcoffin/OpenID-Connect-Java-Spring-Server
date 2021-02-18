@@ -32,12 +32,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author jricher
- *
  */
 @Service
-public class JpaRegisteredClientService implements RegisteredClientService, SavedRegisteredClientService{
+public class JpaRegisteredClientService implements RegisteredClientService, SavedRegisteredClientService {
 
-	@PersistenceContext(unitName="defaultPersistenceUnit")
+	@PersistenceContext(unitName = "defaultPersistenceUnit")
 	private EntityManager em;
 
 	/* (non-Javadoc)
@@ -58,7 +57,7 @@ public class JpaRegisteredClientService implements RegisteredClientService, Save
 	 * @see org.mitre.openid.connect.client.service.RegisteredClientService#save(java.lang.String, org.mitre.oauth2.model.RegisteredClient)
 	 */
 	@Override
-	@Transactional(value="defaultTransactionManager")
+	@Transactional(value = "defaultTransactionManager")
 	public void save(String issuer, RegisteredClient client) {
 
 

@@ -48,7 +48,6 @@ import com.google.common.base.Strings;
  * OpenID Connect UserInfo endpoint, as specified in Standard sec 5 and Messages sec 2.4.
  *
  * @author AANGANES
- *
  */
 @Controller
 @RequestMapping("/" + UserInfoEndpoint.URL)
@@ -71,10 +70,10 @@ public class UserInfoEndpoint {
 	 * Get information about the user as specified in the accessToken included in this request
 	 */
 	@PreAuthorize("hasRole('ROLE_USER') and #oauth2.hasScope('" + SystemScopeService.OPENID_SCOPE + "')")
-	@RequestMapping(method= {RequestMethod.GET, RequestMethod.POST}, produces = {MediaType.APPLICATION_JSON_VALUE, UserInfoJWTView.JOSE_MEDIA_TYPE_VALUE})
-	public String getInfo(@RequestParam(value="claims", required=false) String claimsRequestJsonString,
-			@RequestHeader(value=HttpHeaders.ACCEPT, required=false) String acceptHeader,
-			OAuth2Authentication auth, Model model) {
+	@RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, produces = {MediaType.APPLICATION_JSON_VALUE, UserInfoJWTView.JOSE_MEDIA_TYPE_VALUE})
+	public String getInfo(@RequestParam(value = "claims", required = false) String claimsRequestJsonString,
+						  @RequestHeader(value = HttpHeaders.ACCEPT, required = false) String acceptHeader,
+						  OAuth2Authentication auth, Model model) {
 
 		if (auth == null) {
 			logger.error("getInfo failed; no principal. Requester is not authorized.");
@@ -111,8 +110,8 @@ public class UserInfoEndpoint {
 		MediaType.sortBySpecificityAndQuality(mediaTypes);
 
 		if (client.getUserInfoSignedResponseAlg() != null
-				|| client.getUserInfoEncryptedResponseAlg() != null
-				|| client.getUserInfoEncryptedResponseEnc() != null) {
+			|| client.getUserInfoEncryptedResponseAlg() != null
+			|| client.getUserInfoEncryptedResponseEnc() != null) {
 			// client has a preference, see if they ask for plain JSON specifically on this request
 			for (MediaType m : mediaTypes) {
 				if (!m.isWildcardType() && m.isCompatibleWith(UserInfoJWTView.JOSE_MEDIA_TYPE)) {

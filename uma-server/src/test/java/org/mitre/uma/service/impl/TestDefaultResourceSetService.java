@@ -32,7 +32,6 @@ import static org.mockito.Mockito.when;
 
 /**
  * @author jricher
- *
  */
 @RunWith(MockitoJUnitRunner.class)
 public class TestDefaultResourceSetService {

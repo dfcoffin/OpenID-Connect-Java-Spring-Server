@@ -1,20 +1,20 @@
-/*******************************************************************************
+/**
  * Copyright 2018 The MIT Internet Trust Consortium
- *
+ * <p>
  * Portions copyright 2011-2013 The MITRE Corporation
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *******************************************************************************/
+ */
 /**
  *
  */
@@ -63,12 +63,12 @@ public class DefaultOAuth2AuthorizationCodeService implements AuthorizationCodeS
 	 * Generate a random authorization code and create an AuthorizationCodeEntity,
 	 * which will be stored in the repository.
 	 *
-	 * @param authentication 	the authentication of the current user, to be retrieved when the
+	 * @param authentication    the authentication of the current user, to be retrieved when the
 	 * 							code is consumed
-	 * @return 					the authorization code
+	 * @return the authorization code
 	 */
 	@Override
-	@Transactional(value="defaultTransactionManager")
+	@Transactional(value = "defaultTransactionManager")
 	public String createAuthorizationCode(OAuth2Authentication authentication) {
 		String code = generator.generate();
 
@@ -92,9 +92,9 @@ public class DefaultOAuth2AuthorizationCodeService implements AuthorizationCodeS
 	 * the authentication associated with the code. If one is not found, throw an
 	 * InvalidGrantException.
 	 *
-	 * @param code		the authorization code
-	 * @return			the authentication that made the original request
-	 * @throws 			InvalidGrantException, if an AuthorizationCodeEntity is not found with the given value
+	 * @param code        the authorization code
+	 * @return the authentication that made the original request
+	 * @throws InvalidGrantException, if an AuthorizationCodeEntity is not found with the given value
 	 */
 	@Override
 	public OAuth2Authentication consumeAuthorizationCode(String code) throws InvalidGrantException {
@@ -115,10 +115,10 @@ public class DefaultOAuth2AuthorizationCodeService implements AuthorizationCodeS
 	/**
 	 * Find and remove all expired auth codes.
 	 */
-	@Transactional(value="defaultTransactionManager")
+	@Transactional(value = "defaultTransactionManager")
 	public void clearExpiredAuthorizationCodes() {
 
-		new AbstractPageOperationTemplate<AuthorizationCodeEntity>("clearExpiredAuthorizationCodes"){
+		new AbstractPageOperationTemplate<AuthorizationCodeEntity>("clearExpiredAuthorizationCodes") {
 			@Override
 			public Collection<AuthorizationCodeEntity> fetchPage() {
 				return repository.getExpiredCodes();

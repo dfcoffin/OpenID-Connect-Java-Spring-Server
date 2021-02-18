@@ -9,6 +9,6 @@ end_of_line = lf
 insert_final_newline = true
 
 # 4 space - Tab indentation
-[*.{java,xml,js,html}]
+[*.{java, xml, js, html}]
 indent_style = tab
 indent_size = 4

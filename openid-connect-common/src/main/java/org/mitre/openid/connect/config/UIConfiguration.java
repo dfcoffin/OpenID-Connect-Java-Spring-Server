@@ -19,11 +19,9 @@ package org.mitre.openid.connect.config;
 import java.util.Set;
 
 /**
- *
  * Bean for UI (front-end) configuration to be read at start-up.
  *
  * @author jricher
- *
  */
 public class UIConfiguration {
 
@@ -35,6 +33,7 @@ public class UIConfiguration {
 	public Set<String> getJsFiles() {
 		return jsFiles;
 	}
+
 	/**
 	 * @param jsFiles the jsFiles to set
 	 */

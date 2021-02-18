@@ -1,20 +1,20 @@
-/*******************************************************************************
+/**
  * Copyright 2018 The MIT Internet Trust Consortium
- *
+ * <p>
  * Portions copyright 2011-2013 The MITRE Corporation
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *******************************************************************************/
+ */
 /**
  *
  */
@@ -158,7 +158,7 @@ public class DefaultOAuth2ProviderTokenService implements OAuth2TokenEntityServi
 	}
 
 	@Override
-	@Transactional(value="defaultTransactionManager")
+	@Transactional(value = "defaultTransactionManager")
 	public OAuth2AccessTokenEntity createAccessToken(OAuth2Authentication authentication) throws AuthenticationException, InvalidClientException {
 		if (authentication != null && authentication.getOAuth2Request() != null) {
 			// look up our client
@@ -288,9 +288,9 @@ public class DefaultOAuth2ProviderTokenService implements OAuth2TokenEntityServi
 	}
 
 	@Override
-	@Transactional(value="defaultTransactionManager")
+	@Transactional(value = "defaultTransactionManager")
 	public OAuth2AccessTokenEntity refreshAccessToken(String refreshTokenValue, TokenRequest authRequest) throws AuthenticationException {
-		
+
 		if (Strings.isNullOrEmpty(refreshTokenValue)) {
 			// throw an invalid token exception if there's no refresh token value at all
 			throw new InvalidTokenException("Invalid refresh token: " + refreshTokenValue);
@@ -428,8 +428,7 @@ public class DefaultOAuth2ProviderTokenService implements OAuth2TokenEntityServi
 		OAuth2RefreshTokenEntity refreshToken = tokenRepository.getRefreshTokenByValue(refreshTokenValue);
 		if (refreshToken == null) {
 			throw new InvalidTokenException("Refresh token for value " + refreshTokenValue + " was not found");
-		}
-		else {
+		} else {
 			return refreshToken;
 		}
 	}
@@ -438,7 +437,7 @@ public class DefaultOAuth2ProviderTokenService implements OAuth2TokenEntityServi
 	 * Revoke a refresh token and all access tokens issued to it.
 	 */
 	@Override
-	@Transactional(value="defaultTransactionManager")
+	@Transactional(value = "defaultTransactionManager")
 	public void revokeRefreshToken(OAuth2RefreshTokenEntity refreshToken) {
 		tokenRepository.clearAccessTokensForRefreshToken(refreshToken);
 		tokenRepository.removeRefreshToken(refreshToken);
@@ -448,7 +447,7 @@ public class DefaultOAuth2ProviderTokenService implements OAuth2TokenEntityServi
 	 * Revoke an access token.
 	 */
 	@Override
-	@Transactional(value="defaultTransactionManager")
+	@Transactional(value = "defaultTransactionManager")
 	public void revokeAccessToken(OAuth2AccessTokenEntity accessToken) {
 		tokenRepository.removeAccessToken(accessToken);
 	}
@@ -511,7 +510,7 @@ public class DefaultOAuth2ProviderTokenService implements OAuth2TokenEntityServi
 	 * @see org.mitre.oauth2.service.OAuth2TokenEntityService#saveAccessToken(org.mitre.oauth2.model.OAuth2AccessTokenEntity)
 	 */
 	@Override
-	@Transactional(value="defaultTransactionManager")
+	@Transactional(value = "defaultTransactionManager")
 	public OAuth2AccessTokenEntity saveAccessToken(OAuth2AccessTokenEntity accessToken) {
 		OAuth2AccessTokenEntity newToken = tokenRepository.saveAccessToken(accessToken);
 
@@ -527,7 +526,7 @@ public class DefaultOAuth2ProviderTokenService implements OAuth2TokenEntityServi
 	 * @see org.mitre.oauth2.service.OAuth2TokenEntityService#saveRefreshToken(org.mitre.oauth2.model.OAuth2RefreshTokenEntity)
 	 */
 	@Override
-	@Transactional(value="defaultTransactionManager")
+	@Transactional(value = "defaultTransactionManager")
 	public OAuth2RefreshTokenEntity saveRefreshToken(OAuth2RefreshTokenEntity refreshToken) {
 		return tokenRepository.saveRefreshToken(refreshToken);
 	}
@@ -552,7 +551,7 @@ public class DefaultOAuth2ProviderTokenService implements OAuth2TokenEntityServi
 
 		for (OAuth2AccessTokenEntity token : allTokens) {
 			if ((token.getScope().contains(SystemScopeService.REGISTRATION_TOKEN_SCOPE) || token.getScope().contains(SystemScopeService.RESOURCE_TOKEN_SCOPE))
-					&& token.getScope().size() == 1) {
+				&& token.getScope().size() == 1) {
 				// if it only has the registration scope, then it's a registration token
 				return token;
 			}

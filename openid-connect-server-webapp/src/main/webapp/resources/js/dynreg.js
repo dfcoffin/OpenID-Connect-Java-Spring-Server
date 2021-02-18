@@ -72,7 +72,7 @@ var DynRegClient = Backbone.Model.extend({
 		registration_client_uri: null
 	},
 
-	sync: function(method, model, options) {
+	sync: function (method, model, options) {
 		if (model.get('registration_access_token')) {
 			var headers = options.headers ? options.headers : {};
 			headers['Authorization'] = 'Bearer ' + model.get('registration_access_token');
@@ -90,7 +90,7 @@ var DynRegRootView = Backbone.View.extend({
 
 	tagName: 'span',
 
-	initialize: function(options) {
+	initialize: function (options) {
 		this.options = options;
 
 	},
@@ -100,7 +100,7 @@ var DynRegRootView = Backbone.View.extend({
 		"click #editreg": "editReg"
 	},
 
-	load: function(callback) {
+	load: function (callback) {
 		if (this.options.systemScopeList.isFetched) {
 			callback();
 			return;
@@ -110,23 +110,23 @@ var DynRegRootView = Backbone.View.extend({
 		$('#loading').html('<span class="label" id="loading-scopes">' + $.t('common.scopes') + '</span> ');
 
 		$.when(this.options.systemScopeList.fetchIfNeeded({
-			success: function(e) {
+			success: function (e) {
 				$('#loading-scopes').addClass('label-success');
 			},
 			error: app.errorHandlerView.handleError()
-		})).done(function() {
+		})).done(function () {
 			$('#loadingbox').sheet('hide');
 			callback();
 		});
 	},
 
-	render: function() {
+	render: function () {
 		$(this.el).html($('#tmpl-dynreg').html());
 		$(this.el).i18n();
 		return this;
 	},
 
-	newReg: function(e) {
+	newReg: function (e) {
 		e.preventDefault();
 		this.remove();
 		app.navigate('dev/dynreg/new', {
@@ -134,7 +134,7 @@ var DynRegRootView = Backbone.View.extend({
 		});
 	},
 
-	editReg: function(e) {
+	editReg: function (e) {
 		e.preventDefault();
 		var clientId = $('#clientId').val();
 		var token = $('#regtoken').val();
@@ -147,7 +147,7 @@ var DynRegRootView = Backbone.View.extend({
 		var self = this;
 
 		client.fetch({
-			success: function() {
+			success: function () {
 
 				var userInfo = getUserInfo();
 				var contacts = client.get("contacts");
@@ -179,7 +179,7 @@ var DynRegRootView = Backbone.View.extend({
 					systemScopeList: app.systemScopeList
 				});
 
-				view.load(function() {
+				view.load(function () {
 					$('#content').html(view.render().el);
 					view.delegateEvents();
 					setPageTitle($.t('dynreg.edit-dynamically-registered'));
@@ -201,7 +201,7 @@ var DynRegEditView = Backbone.View.extend({
 
 	tagName: 'span',
 
-	initialize: function(options) {
+	initialize: function (options) {
 		this.options = options;
 		if (!this.template) {
 			this.template = _.template($('#tmpl-dynreg-client-form').html());
@@ -218,7 +218,7 @@ var DynRegEditView = Backbone.View.extend({
 		this.listWidgetViews = [];
 	},
 
-	load: function(callback) {
+	load: function (callback) {
 		if (this.options.systemScopeList.isFetched) {
 			callback();
 			return;
@@ -228,11 +228,11 @@ var DynRegEditView = Backbone.View.extend({
 		$('#loading').html('<span class="label" id="loading-scopes">' + $.t('common.scopes') + '</span> ');
 
 		$.when(this.options.systemScopeList.fetchIfNeeded({
-			success: function(e) {
+			success: function (e) {
 				$('#loading-scopes').addClass('label-success');
 			},
 			error: app.errorHandlerView.handleError()
-		})).done(function() {
+		})).done(function () {
 			$('#loadingbox').sheet('hide');
 			callback();
 		});
@@ -247,14 +247,14 @@ var DynRegEditView = Backbone.View.extend({
 		"change #jwkSelector input:radio": "toggleJWKSetType"
 	},
 
-	cancel: function(e) {
+	cancel: function (e) {
 		e.preventDefault();
 		app.navigate('dev/dynreg', {
 			trigger: true
 		});
 	},
 
-	deleteClient: function(e) {
+	deleteClient: function (e) {
 		e.preventDefault();
 
 		if (confirm($.t('client.client-table.confirm'))) {
@@ -263,7 +263,7 @@ var DynRegEditView = Backbone.View.extend({
 			this.model.destroy({
 				dataType: false,
 				processData: false,
-				success: function() {
+				success: function () {
 					self.remove();
 					app.navigate('dev/dynreg', {
 						trigger: true
@@ -279,7 +279,7 @@ var DynRegEditView = Backbone.View.extend({
 		return false;
 	},
 
-	previewLogo: function() {
+	previewLogo: function () {
 		if ($('#logoUri input', this.el).val()) {
 			$('#logoPreview', this.el).empty();
 			$('#logoPreview', this.el).attr('src', $('#logoUri input', this.el).val());
@@ -292,10 +292,10 @@ var DynRegEditView = Backbone.View.extend({
 	/**
 	 * Set up the form based on the current state of the tokenEndpointAuthMethod
 	 * parameter
-	 * 
+	 *
 	 * @param event
 	 */
-	toggleClientCredentials: function() {
+	toggleClientCredentials: function () {
 
 		var tokenEndpointAuthMethod = $('#tokenEndpointAuthMethod input', this.el).filter(':checked').val();
 
@@ -311,7 +311,7 @@ var DynRegEditView = Backbone.View.extend({
 	/**
 	 * Set up the form based on the JWK Set selector
 	 */
-	toggleJWKSetType: function() {
+	toggleJWKSetType: function () {
 		var jwkSelector = $('#jwkSelector input:radio', this.el).filter(':checked').val();
 
 		if (jwkSelector == 'URI') {
@@ -327,12 +327,12 @@ var DynRegEditView = Backbone.View.extend({
 
 	},
 
-	disableUnsupportedJOSEItems: function(serverSupported, query) {
+	disableUnsupportedJOSEItems: function (serverSupported, query) {
 		var supported = ['default'];
 		if (serverSupported) {
 			supported = _.union(supported, serverSupported);
 		}
-		$(query, this.$el).each(function(idx) {
+		$(query, this.$el).each(function (idx) {
 			if (_.contains(supported, $(this).val())) {
 				$(this).prop('disabled', false);
 			} else {
@@ -345,7 +345,7 @@ var DynRegEditView = Backbone.View.extend({
 	// returns "null" if given the value "default" as a string,
 	// otherwise returns input value. useful for parsing the JOSE
 	// algorithm dropdowns
-	defaultToNull: function(value) {
+	defaultToNull: function (value) {
 		if (value == 'default') {
 			return null;
 		} else {
@@ -354,7 +354,7 @@ var DynRegEditView = Backbone.View.extend({
 	},
 
 	// returns "null" if the given value is falsy
-	emptyToNull: function(value) {
+	emptyToNull: function (value) {
 		if (value) {
 			return value;
 		} else {
@@ -384,13 +384,13 @@ var DynRegEditView = Backbone.View.extend({
 		'code-token-idtoken': 'code token id_token'
 	},
 
-	saveClient: function(e) {
+	saveClient: function (e) {
 		e.preventDefault();
 
 		$('.control-group').removeClass('error');
 
 		// sync any leftover collection items
-		_.each(this.listWidgetViews, function(v) {
+		_.each(this.listWidgetViews, function (v) {
 			v.addItem($.Event('click'));
 		});
 
@@ -399,7 +399,7 @@ var DynRegEditView = Backbone.View.extend({
 
 		// build the grant type object
 		var grantTypes = [];
-		$.each(this.grantMap, function(index, type) {
+		$.each(this.grantMap, function (index, type) {
 			if ($('#grantTypes-' + index).is(':checked')) {
 				grantTypes.push(type);
 			}
@@ -407,7 +407,7 @@ var DynRegEditView = Backbone.View.extend({
 
 		// build the response type object
 		var responseTypes = [];
-		$.each(this.responseMap, function(index, type) {
+		$.each(this.responseMap, function (index, type) {
 			if ($('#responseTypes-' + index).is(':checked')) {
 				responseTypes.push(type);
 			}
@@ -495,7 +495,7 @@ var DynRegEditView = Backbone.View.extend({
 		};
 
 		// set all empty strings to nulls
-		for ( var key in attrs) {
+		for (var key in attrs) {
 			if (attrs[key] === "") {
 				attrs[key] = null;
 			}
@@ -503,7 +503,7 @@ var DynRegEditView = Backbone.View.extend({
 
 		var _self = this;
 		this.model.save(attrs, {
-			success: function() {
+			success: function () {
 				// switch to an "edit" view
 				app.navigate('dev/dynreg/edit', {
 					trigger: true
@@ -540,7 +540,7 @@ var DynRegEditView = Backbone.View.extend({
 					systemScopeList: _self.options.systemScopeList
 				});
 
-				view.load(function() {
+				view.load(function () {
 					// reload
 					$('#content').html(view.render().el);
 					view.delegateEvents();
@@ -554,7 +554,7 @@ var DynRegEditView = Backbone.View.extend({
 		return false;
 	},
 
-	render: function() {
+	render: function () {
 		var data = {
 			client: this.model.toJSON(),
 			userInfo: getUserInfo(),
@@ -567,7 +567,7 @@ var DynRegEditView = Backbone.View.extend({
 		var _self = this;
 
 		// build and bind registered redirect URI collection and view
-		_.each(this.model.get("redirect_uris"), function(redirectUri) {
+		_.each(this.model.get("redirect_uris"), function (redirectUri) {
 			_self.redirectUrisCollection.add(new URIModel({
 				item: redirectUri
 			}));
@@ -585,7 +585,7 @@ var DynRegEditView = Backbone.View.extend({
 		// build and bind scopes
 		var scopes = this.model.get("scope");
 		var scopeSet = scopes ? scopes.split(" ") : [];
-		_.each(scopeSet, function(scope) {
+		_.each(scopeSet, function (scope) {
 			_self.scopeCollection.add(new Backbone.Model({
 				item: scope
 			}));
@@ -601,7 +601,7 @@ var DynRegEditView = Backbone.View.extend({
 		this.listWidgetViews.push(scopeView);
 
 		// build and bind contacts
-		_.each(this.model.get('contacts'), function(contact) {
+		_.each(this.model.get('contacts'), function (contact) {
 			_self.contactsCollection.add(new Backbone.Model({
 				item: contact
 			}));
@@ -616,7 +616,7 @@ var DynRegEditView = Backbone.View.extend({
 		this.listWidgetViews.push(contactView);
 
 		// build and bind post-logout redirect URIs
-		_.each(this.model.get('post_logout_redirect_uris'), function(postLogoutRedirectUri) {
+		_.each(this.model.get('post_logout_redirect_uris'), function (postLogoutRedirectUri) {
 			_self.postLogoutRedirectUrisCollection.add(new URIModel({
 				item: postLogoutRedirectUri
 			}));
@@ -632,7 +632,7 @@ var DynRegEditView = Backbone.View.extend({
 		this.listWidgetViews.push(postLogoutRedirectUrisView);
 
 		// build and bind claims redirect URIs
-		_.each(this.model.get('claimsRedirectUris'), function(claimsRedirectUri) {
+		_.each(this.model.get('claimsRedirectUris'), function (claimsRedirectUri) {
 			_self.claimsRedirectUrisCollection.add(new URIModel({
 				item: claimsRedirectUri
 			}));
@@ -648,7 +648,7 @@ var DynRegEditView = Backbone.View.extend({
 		this.listWidgetViews.push(claimsRedirectUrisView);
 
 		// build and bind request URIs
-		_.each(this.model.get('request_uris'), function(requestUri) {
+		_.each(this.model.get('request_uris'), function (requestUri) {
 			_self.requestUrisCollection.add(new URIModel({
 				item: requestUri
 			}));
@@ -664,7 +664,7 @@ var DynRegEditView = Backbone.View.extend({
 		this.listWidgetViews.push(requestUriView);
 
 		// build and bind default ACR values
-		_.each(this.model.get('default_acr_values'), function(defaultAcrValue) {
+		_.each(this.model.get('default_acr_values'), function (defaultAcrValue) {
 			_self.defaultAcrValuesCollection.add(new Backbone.Model({
 				item: defaultAcrValue
 			}));
@@ -708,7 +708,7 @@ var DynRegEditView = Backbone.View.extend({
 ui.routes.push({
 	path: "dev/dynreg",
 	name: "dynReg",
-	callback: function() {
+	callback: function () {
 
 		this.breadCrumbView.collection.reset();
 		this.breadCrumbView.collection.add([{
@@ -725,7 +725,7 @@ ui.routes.push({
 
 		this.updateSidebar('dev/dynreg');
 
-		view.load(function() {
+		view.load(function () {
 			$('#content').html(view.render().el);
 
 			setPageTitle($.t('admin.self-service-client'));
@@ -737,7 +737,7 @@ ui.routes.push({
 ui.routes.push({
 	path: "dev/dynreg/new",
 	name: "newDynReg",
-	callback: function() {
+	callback: function () {
 
 		this.breadCrumbView.collection.reset();
 		this.breadCrumbView.collection.add([{
@@ -759,7 +759,7 @@ ui.routes.push({
 			systemScopeList: this.systemScopeList
 		});
 
-		view.load(function() {
+		view.load(function () {
 
 			var userInfo = getUserInfo();
 			var contacts = [];
@@ -807,7 +807,7 @@ ui.routes.push({
 ui.routes.push({
 	path: "dev/dynreg/edit",
 	name: "editDynReg",
-	callback: function() {
+	callback: function () {
 
 		this.breadCrumbView.collection.reset();
 		this.breadCrumbView.collection.add([{

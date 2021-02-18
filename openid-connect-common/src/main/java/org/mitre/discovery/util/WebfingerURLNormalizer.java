@@ -32,7 +32,6 @@ import com.google.common.base.Strings;
  * Provides utility methods for normalizing and parsing URIs for use with Webfinger Discovery.
  *
  * @author wkim
- *
  */
 public class WebfingerURLNormalizer {
 
@@ -43,18 +42,17 @@ public class WebfingerURLNormalizer {
 
 	// pattern used to parse user input; we can't use the built-in java URI parser
 	private static final Pattern pattern = Pattern.compile("^" +
-			"((https|acct|http|mailto|tel|device):(//)?)?" + // scheme
-			"(" +
-			"(([^@]+)@)?" + // userinfo
-			"(([^\\?#:/]+)" + // host
-			"(:(\\d*))?)" + // port
-			")" +
-			"([^\\?#]+)?" + // path
-			"(\\?([^#]+))?" + // query
-			"(#(.*))?" +  // fragment
-			"$"
-			);
-
+		"((https|acct|http|mailto|tel|device):(//)?)?" + // scheme
+		"(" +
+		"(([^@]+)@)?" + // userinfo
+		"(([^\\?#:/]+)" + // host
+		"(:(\\d*))?)" + // port
+		")" +
+		"([^\\?#]+)?" + // path
+		"(\\?([^#]+))?" + // query
+		"(#(.*))?" +  // fragment
+		"$"
+	);
 
 
 	/**
@@ -66,6 +64,7 @@ public class WebfingerURLNormalizer {
 
 	/**
 	 * Normalize the resource string as per OIDC Discovery.
+	 *
 	 * @param identifier
 	 * @return the normalized string, or null if the string can't be normalized
 	 */
@@ -103,9 +102,9 @@ public class WebfingerURLNormalizer {
 
 			if (Strings.isNullOrEmpty(n.getScheme())) {
 				if (!Strings.isNullOrEmpty(n.getUserInfo())
-						&& Strings.isNullOrEmpty(n.getPath())
-						&& Strings.isNullOrEmpty(n.getQuery())
-						&& n.getPort() < 0) {
+					&& Strings.isNullOrEmpty(n.getPath())
+					&& Strings.isNullOrEmpty(n.getQuery())
+					&& n.getPort() < 0) {
 
 					// scheme empty, userinfo is not empty, path/query/port are empty
 					// set to "acct" (rule 2)
@@ -130,11 +129,11 @@ public class WebfingerURLNormalizer {
 
 	public static String serializeURL(UriComponents uri) {
 		if (uri.getScheme() != null &&
-				(uri.getScheme().equals("acct") ||
-						uri.getScheme().equals("mailto") ||
-						uri.getScheme().equals("tel") ||
-						uri.getScheme().equals("device")
-						)) {
+			(uri.getScheme().equals("acct") ||
+				uri.getScheme().equals("mailto") ||
+				uri.getScheme().equals("tel") ||
+				uri.getScheme().equals("device")
+			)) {
 
 			// serializer copied from HierarchicalUriComponents but with "//" removed
 

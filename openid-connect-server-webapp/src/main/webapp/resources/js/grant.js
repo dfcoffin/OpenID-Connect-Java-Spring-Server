@@ -18,7 +18,7 @@
 var ApprovedSiteModel = Backbone.Model.extend({
 	idAttribute: 'id',
 
-	initialize: function() {
+	initialize: function () {
 	},
 
 	urlRoot: 'api/approved'
@@ -26,7 +26,7 @@ var ApprovedSiteModel = Backbone.Model.extend({
 });
 
 var ApprovedSiteCollection = Backbone.Collection.extend({
-	initialize: function() {
+	initialize: function () {
 	},
 
 	model: ApprovedSiteModel,
@@ -36,11 +36,11 @@ var ApprovedSiteCollection = Backbone.Collection.extend({
 var ApprovedSiteListView = Backbone.View.extend({
 	tagName: 'span',
 
-	initialize: function(options) {
+	initialize: function (options) {
 		this.options = options;
 	},
 
-	load: function(callback) {
+	load: function (callback) {
 		if (this.model.isFetched && this.options.clientList.isFetched && this.options.systemScopeList.isFetched) {
 			callback();
 			return;
@@ -50,21 +50,21 @@ var ApprovedSiteListView = Backbone.View.extend({
 		$('#loading').html('<span class="label" id="loading-grants">' + $.t('grant.grant-table.approved-sites') + '</span> ' + '<span class="label" id="loading-clients">' + $.t('common.clients') + '</span> ' + '<span class="label" id="loading-scopes">' + $.t('common.scopes') + '</span> ');
 
 		$.when(this.model.fetchIfNeeded({
-			success: function(e) {
+			success: function (e) {
 				$('#loading-grants').addClass('label-success');
 			},
 			error: app.errorHandlerView.handleError()
 		}), this.options.clientList.fetchIfNeeded({
-			success: function(e) {
+			success: function (e) {
 				$('#loading-clients').addClass('label-success');
 			},
 			error: app.errorHandlerView.handleError()
 		}), this.options.systemScopeList.fetchIfNeeded({
-			success: function(e) {
+			success: function (e) {
 				$('#loading-scopes').addClass('label-success');
 			},
 			error: app.errorHandlerView.handleError()
-		})).done(function() {
+		})).done(function () {
 			$('#loadingbox').sheet('hide');
 			callback();
 		});
@@ -74,14 +74,14 @@ var ApprovedSiteListView = Backbone.View.extend({
 		"click .refresh-table": "refreshTable"
 	},
 
-	render: function(eventName) {
+	render: function (eventName) {
 		$(this.el).html($('#tmpl-grant-table').html());
 
 		var approvedSiteCount = 0;
 
 		var _self = this;
 
-		_.each(this.model.models, function(approvedSite) {
+		_.each(this.model.models, function (approvedSite) {
 			// look up client
 			var client = this.options.clientList.getByClientId(approvedSite.get('clientId'));
 
@@ -105,7 +105,7 @@ var ApprovedSiteListView = Backbone.View.extend({
 		return this;
 	},
 
-	togglePlaceholder: function() {
+	togglePlaceholder: function () {
 		// count entries
 		if (this.model.length > 0) {
 			$('#grant-table', this.el).show();
@@ -117,28 +117,28 @@ var ApprovedSiteListView = Backbone.View.extend({
 
 	},
 
-	refreshTable: function(e) {
+	refreshTable: function (e) {
 		e.preventDefault();
 		var _self = this;
 		$('#loadingbox').sheet('show');
 		$('#loading').html('<span class="label" id="loading-grants">' + $.t('grant.grant-table.approved-sites') + '</span> ' + '<span class="label" id="loading-clients">' + $.t('common.clients') + '</span> ' + '<span class="label" id="loading-scopes">' + $.t('common.scopes') + '</span> ');
 
 		$.when(this.model.fetch({
-			success: function(e) {
+			success: function (e) {
 				$('#loading-grants').addClass('label-success');
 			},
 			error: app.errorHandlerView.handleError()
 		}), this.options.clientList.fetch({
-			success: function(e) {
+			success: function (e) {
 				$('#loading-clients').addClass('label-success');
 			},
 			error: app.errorHandlerView.handleError()
 		}), this.options.systemScopeList.fetch({
-			success: function(e) {
+			success: function (e) {
 				$('#loading-scopes').addClass('label-success');
 			},
 			error: app.errorHandlerView.handleError()
-		})).done(function() {
+		})).done(function () {
 			$('#loadingbox').sheet('hide');
 			_self.render();
 		});
@@ -149,7 +149,7 @@ var ApprovedSiteListView = Backbone.View.extend({
 var ApprovedSiteView = Backbone.View.extend({
 	tagName: 'tr',
 
-	initialize: function(options) {
+	initialize: function (options) {
 		this.options = options;
 		if (!this.template) {
 			this.template = _.template($('#tmpl-grant').html());
@@ -164,7 +164,7 @@ var ApprovedSiteView = Backbone.View.extend({
 
 	},
 
-	render: function() {
+	render: function () {
 
 		var creationDate = this.model.get("creationDate");
 		var accessDate = this.model.get("accessDate");
@@ -249,7 +249,7 @@ var ApprovedSiteView = Backbone.View.extend({
 		'click .toggleMoreInformation': 'toggleMoreInformation'
 	},
 
-	deleteApprovedSite: function(e) {
+	deleteApprovedSite: function (e) {
 		e.preventDefault();
 		if (confirm("Are you sure you want to revoke access to this site?")) {
 			var self = this;
@@ -257,9 +257,9 @@ var ApprovedSiteView = Backbone.View.extend({
 			this.model.destroy({
 				dataType: false,
 				processData: false,
-				success: function() {
-					self.$el.fadeTo("fast", 0.00, function() { // fade
-						$(this).slideUp("fast", function() { // slide up
+				success: function () {
+					self.$el.fadeTo("fast", 0.00, function () { // fade
+						$(this).slideUp("fast", function () { // slide up
 							$(this).remove(); // then remove from the DOM
 							self.parentView.togglePlaceholder();
 						});
@@ -274,7 +274,7 @@ var ApprovedSiteView = Backbone.View.extend({
 		return false;
 	},
 
-	toggleMoreInformation: function(e) {
+	toggleMoreInformation: function (e) {
 		e.preventDefault();
 		if ($('.moreInformation', this.el).is(':visible')) {
 			// hide it
@@ -290,7 +290,7 @@ var ApprovedSiteView = Backbone.View.extend({
 		}
 	},
 
-	close: function() {
+	close: function () {
 		$(this.el).unbind();
 		$(this.el).empty();
 	}
@@ -301,32 +301,32 @@ ui.routes.push({
 	name: "approvedSites",
 	callback:
 
-	function() {
-		this.breadCrumbView.collection.reset();
-		this.breadCrumbView.collection.add([{
-			text: $.t('admin.home'),
-			href: ""
-		}, {
-			text: $.t('grant.manage-approved-sites'),
-			href: "manage/#user/approve"
-		}]);
+		function () {
+			this.breadCrumbView.collection.reset();
+			this.breadCrumbView.collection.add([{
+				text: $.t('admin.home'),
+				href: ""
+			}, {
+				text: $.t('grant.manage-approved-sites'),
+				href: "manage/#user/approve"
+			}]);
 
-		this.updateSidebar('user/approved');
+			this.updateSidebar('user/approved');
 
-		var view = new ApprovedSiteListView({
-			model: this.approvedSiteList,
-			clientList: this.clientList,
-			systemScopeList: this.systemScopeList
-		});
-		view.load(function(collection, response, options) {
-			$('#content').html(view.render().el);
-			setPageTitle($.t('grant.manage-approved-sites'));
-		});
-	}
+			var view = new ApprovedSiteListView({
+				model: this.approvedSiteList,
+				clientList: this.clientList,
+				systemScopeList: this.systemScopeList
+			});
+			view.load(function (collection, response, options) {
+				$('#content').html(view.render().el);
+				setPageTitle($.t('grant.manage-approved-sites'));
+			});
+		}
 });
 
 ui.templates.push('resources/template/grant.html');
 
-ui.init.push(function(app) {
+ui.init.push(function (app) {
 	app.approvedSiteList = new ApprovedSiteCollection();
 });

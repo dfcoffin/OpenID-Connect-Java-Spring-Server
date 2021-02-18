@@ -59,11 +59,9 @@ import com.nimbusds.jose.Algorithm;
 import com.nimbusds.jose.JWSAlgorithm;
 
 /**
- *
  * Handle OpenID Connect Discovery.
  *
  * @author jricher
- *
  */
 @Controller
 public class DiscoveryEndpoint {
@@ -105,7 +103,7 @@ public class DiscoveryEndpoint {
 		}
 	};
 
-	@RequestMapping(value={"/" + WEBFINGER_URL}, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = {"/" + WEBFINGER_URL}, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String webfinger(@RequestParam("resource") String resource, @RequestParam(value = "rel", required = false) String rel, Model model) {
 
 		if (!Strings.isNullOrEmpty(rel) && !rel.equals("http://openid.net/specs/connect/1.0/issuer")) {
@@ -117,8 +115,8 @@ public class DiscoveryEndpoint {
 
 			UriComponents resourceUri = WebfingerURLNormalizer.normalizeResource(resource);
 			if (resourceUri != null
-					&& resourceUri.getScheme() != null
-					&& resourceUri.getScheme().equals("acct")) {
+				&& resourceUri.getScheme() != null
+				&& resourceUri.getScheme().equals("acct")) {
 				// acct: URI (email address format)
 
 				// check on email addresses first
@@ -133,7 +131,7 @@ public class DiscoveryEndpoint {
 						// username matched, check the host component
 						UriComponents issuerComponents = UriComponentsBuilder.fromHttpUrl(config.getIssuer()).build();
 						if (!Strings.nullToEmpty(issuerComponents.getHost())
-								.equals(Strings.nullToEmpty(resourceUri.getHost()))) {
+							.equals(Strings.nullToEmpty(resourceUri.getHost()))) {
 							logger.info("Host mismatch, expected " + issuerComponents.getHost() + " got " + resourceUri.getHost());
 							model.addAttribute(HttpCodeView.CODE, HttpStatus.NOT_FOUND);
 							return HttpCodeView.VIEWNAME;
@@ -296,15 +294,15 @@ public class DiscoveryEndpoint {
 		signService.getAllSigningAlgsSupported();
 		Lists.newArrayList(JWSAlgorithm.HS256, JWSAlgorithm.HS384, JWSAlgorithm.HS512);
 		Collection<JWSAlgorithm> clientSymmetricAndAsymmetricSigningAlgs = Lists.newArrayList(JWSAlgorithm.HS256, JWSAlgorithm.HS384, JWSAlgorithm.HS512,
-				JWSAlgorithm.RS256, JWSAlgorithm.RS384, JWSAlgorithm.RS512,
-				JWSAlgorithm.ES256, JWSAlgorithm.ES384, JWSAlgorithm.ES512,
-				JWSAlgorithm.PS256, JWSAlgorithm.PS384, JWSAlgorithm.PS512);
+			JWSAlgorithm.RS256, JWSAlgorithm.RS384, JWSAlgorithm.RS512,
+			JWSAlgorithm.ES256, JWSAlgorithm.ES384, JWSAlgorithm.ES512,
+			JWSAlgorithm.PS256, JWSAlgorithm.PS384, JWSAlgorithm.PS512);
 		Collection<Algorithm> clientSymmetricAndAsymmetricSigningAlgsWithNone = Lists.newArrayList(JWSAlgorithm.HS256, JWSAlgorithm.HS384, JWSAlgorithm.HS512,
-				JWSAlgorithm.RS256, JWSAlgorithm.RS384, JWSAlgorithm.RS512,
-				JWSAlgorithm.ES256, JWSAlgorithm.ES384, JWSAlgorithm.ES512,
-				JWSAlgorithm.PS256, JWSAlgorithm.PS384, JWSAlgorithm.PS512,
-				Algorithm.NONE);
-		ArrayList<String> grantTypes = Lists.newArrayList("authorization_code", "implicit", "urn:ietf:params:oauth:grant-type:jwt-bearer", "client_credentials", "urn:ietf:params:oauth:grant_type:redelegate", "urn:ietf:params:oauth:grant-type:device_code","refresh_token");
+			JWSAlgorithm.RS256, JWSAlgorithm.RS384, JWSAlgorithm.RS512,
+			JWSAlgorithm.ES256, JWSAlgorithm.ES384, JWSAlgorithm.ES512,
+			JWSAlgorithm.PS256, JWSAlgorithm.PS384, JWSAlgorithm.PS512,
+			Algorithm.NONE);
+		ArrayList<String> grantTypes = Lists.newArrayList("authorization_code", "implicit", "urn:ietf:params:oauth:grant-type:jwt-bearer", "client_credentials", "urn:ietf:params:oauth:grant_type:redelegate", "urn:ietf:params:oauth:grant-type:device_code", "refresh_token");
 
 		Map<String, Object> m = new HashMap<>();
 		m.put("issuer", config.getIssuer());
@@ -334,27 +332,27 @@ public class DiscoveryEndpoint {
 		//display_types_supported
 		m.put("claim_types_supported", Lists.newArrayList("normal" /*, "aggregated", "distributed"*/));
 		m.put("claims_supported", Lists.newArrayList(
-				"sub",
-				"name",
-				"preferred_username",
-				"given_name",
-				"family_name",
-				"middle_name",
-				"nickname",
-				"profile",
-				"picture",
-				"website",
-				"gender",
-				"zoneinfo",
-				"locale",
-				"updated_at",
-				"birthdate",
-				"email",
-				"email_verified",
-				"phone_number",
-				"phone_number_verified",
-				"address"
-				));
+			"sub",
+			"name",
+			"preferred_username",
+			"given_name",
+			"family_name",
+			"middle_name",
+			"nickname",
+			"profile",
+			"picture",
+			"website",
+			"gender",
+			"zoneinfo",
+			"locale",
+			"updated_at",
+			"birthdate",
+			"email",
+			"email_verified",
+			"phone_number",
+			"phone_number_verified",
+			"address"
+		));
 		m.put("service_documentation", baseUrl + "about");
 		//claims_locales_supported
 		//ui_locales_supported

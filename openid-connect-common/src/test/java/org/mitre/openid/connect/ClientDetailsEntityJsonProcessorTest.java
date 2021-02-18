@@ -1,20 +1,20 @@
-/*******************************************************************************
+/**
  * Copyright 2018 The MIT Internet Trust Consortium
- *
+ * <p>
  * Portions copyright 2011-2013 The MITRE Corporation
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *******************************************************************************/
+ */
 /**
  *
  */
@@ -47,27 +47,27 @@ public class ClientDetailsEntityJsonProcessorTest {
 	@Test
 	public void testParse() {
 		String json = "  {\n" +
-				"   \"application_type\": \"web\",\n" +
-				"   \"redirect_uris\":\n" +
-				"     [\"https://client.example.org/callback\",\n" +
-				"      \"https://client.example.org/callback2\"],\n" +
-				"   \"client_name\": \"My Example\",\n" +
-				"   \"client_name#ja-Jpan-JP\":\n" +
-				"     \"クライアント名\",\n" +
-				"   \"response_types\": [\"code\", \"token\"],\n" +
-				"   \"grant_types\": [\"authorization_code\", \"implicit\"],\n" +
-				"   \"logo_uri\": \"https://client.example.org/logo.png\",\n" +
-				"   \"subject_type\": \"pairwise\",\n" +
-				"   \"sector_identifier_uri\":\n" +
-				"     \"https://other.example.net/file_of_redirect_uris.json\",\n" +
-				"   \"token_endpoint_auth_method\": \"client_secret_basic\",\n" +
-				"   \"jwks_uri\": \"https://client.example.org/my_public_keys.jwks\",\n" +
-				"   \"userinfo_encrypted_response_alg\": \"RSA1_5\",\n" +
-				"   \"userinfo_encrypted_response_enc\": \"A128CBC-HS256\",\n" +
-				"   \"contacts\": [\"ve7jtb@example.org\", \"mary@example.org\"],\n" +
-				"   \"request_uris\":\n" +
-				"     [\"https://client.example.org/rf.txt#qpXaRLh_n93TTR9F252ValdatUQvQiJi5BDub2BeznA\"]\n" +
-				"  }";
+			"   \"application_type\": \"web\",\n" +
+			"   \"redirect_uris\":\n" +
+			"     [\"https://client.example.org/callback\",\n" +
+			"      \"https://client.example.org/callback2\"],\n" +
+			"   \"client_name\": \"My Example\",\n" +
+			"   \"client_name#ja-Jpan-JP\":\n" +
+			"     \"クライアント名\",\n" +
+			"   \"response_types\": [\"code\", \"token\"],\n" +
+			"   \"grant_types\": [\"authorization_code\", \"implicit\"],\n" +
+			"   \"logo_uri\": \"https://client.example.org/logo.png\",\n" +
+			"   \"subject_type\": \"pairwise\",\n" +
+			"   \"sector_identifier_uri\":\n" +
+			"     \"https://other.example.net/file_of_redirect_uris.json\",\n" +
+			"   \"token_endpoint_auth_method\": \"client_secret_basic\",\n" +
+			"   \"jwks_uri\": \"https://client.example.org/my_public_keys.jwks\",\n" +
+			"   \"userinfo_encrypted_response_alg\": \"RSA1_5\",\n" +
+			"   \"userinfo_encrypted_response_enc\": \"A128CBC-HS256\",\n" +
+			"   \"contacts\": [\"ve7jtb@example.org\", \"mary@example.org\"],\n" +
+			"   \"request_uris\":\n" +
+			"     [\"https://client.example.org/rf.txt#qpXaRLh_n93TTR9F252ValdatUQvQiJi5BDub2BeznA\"]\n" +
+			"  }";
 		ClientDetailsEntity c = ClientDetailsEntityJsonProcessor.parse(json);
 
 		assertEquals(ClientDetailsEntity.AppType.WEB, c.getApplicationType());
@@ -93,36 +93,36 @@ public class ClientDetailsEntityJsonProcessorTest {
 	@Test
 	public void testParseRegistered() {
 		String json = "  {\n" +
-				"   \"client_id\": \"s6BhdRkqt3\",\n" +
-				"   \"client_secret\":\n" +
-				"     \"ZJYCqe3GGRvdrudKyZS0XhGv_Z45DuKhCUk0gBR1vZk\",\n" +
-				"   \"client_secret_expires_at\": 1577858400,\n" +
-				"   \"registration_access_token\":\n" +
-				"     \"this.is.an.access.token.value.ffx83\",\n" +
-				"   \"registration_client_uri\":\n" +
-				"     \"https://server.example.com/connect/register?client_id=s6BhdRkqt3\",\n" +
-				"   \"token_endpoint_auth_method\":\n" +
-				"     \"client_secret_basic\",\n" +
-				"   \"application_type\": \"web\",\n" +
-				"   \"redirect_uris\":\n" +
-				"     [\"https://client.example.org/callback\",\n" +
-				"      \"https://client.example.org/callback2\"],\n" +
-				"   \"client_name\": \"My Example\",\n" +
-				"   \"client_name#ja-Jpan-JP\":\n" +
-				"     \"クライアント名\",\n" +
-				"   \"response_types\": [\"code\", \"token\"],\n" +
-				"   \"grant_types\": [\"authorization_code\", \"implicit\"],\n" +
-				"   \"logo_uri\": \"https://client.example.org/logo.png\",\n" +
-				"   \"subject_type\": \"pairwise\",\n" +
-				"   \"sector_identifier_uri\":\n" +
-				"     \"https://other.example.net/file_of_redirect_uris.json\",\n" +
-				"   \"jwks_uri\": \"https://client.example.org/my_public_keys.jwks\",\n" +
-				"   \"userinfo_encrypted_response_alg\": \"RSA1_5\",\n" +
-				"   \"userinfo_encrypted_response_enc\": \"A128CBC-HS256\",\n" +
-				"   \"contacts\": [\"ve7jtb@example.org\", \"mary@example.org\"],\n" +
-				"   \"request_uris\":\n" +
-				"     [\"https://client.example.org/rf.txt#qpXaRLh_n93TTR9F252ValdatUQvQiJi5BDub2BeznA\"]\n" +
-				"  }";
+			"   \"client_id\": \"s6BhdRkqt3\",\n" +
+			"   \"client_secret\":\n" +
+			"     \"ZJYCqe3GGRvdrudKyZS0XhGv_Z45DuKhCUk0gBR1vZk\",\n" +
+			"   \"client_secret_expires_at\": 1577858400,\n" +
+			"   \"registration_access_token\":\n" +
+			"     \"this.is.an.access.token.value.ffx83\",\n" +
+			"   \"registration_client_uri\":\n" +
+			"     \"https://server.example.com/connect/register?client_id=s6BhdRkqt3\",\n" +
+			"   \"token_endpoint_auth_method\":\n" +
+			"     \"client_secret_basic\",\n" +
+			"   \"application_type\": \"web\",\n" +
+			"   \"redirect_uris\":\n" +
+			"     [\"https://client.example.org/callback\",\n" +
+			"      \"https://client.example.org/callback2\"],\n" +
+			"   \"client_name\": \"My Example\",\n" +
+			"   \"client_name#ja-Jpan-JP\":\n" +
+			"     \"クライアント名\",\n" +
+			"   \"response_types\": [\"code\", \"token\"],\n" +
+			"   \"grant_types\": [\"authorization_code\", \"implicit\"],\n" +
+			"   \"logo_uri\": \"https://client.example.org/logo.png\",\n" +
+			"   \"subject_type\": \"pairwise\",\n" +
+			"   \"sector_identifier_uri\":\n" +
+			"     \"https://other.example.net/file_of_redirect_uris.json\",\n" +
+			"   \"jwks_uri\": \"https://client.example.org/my_public_keys.jwks\",\n" +
+			"   \"userinfo_encrypted_response_alg\": \"RSA1_5\",\n" +
+			"   \"userinfo_encrypted_response_enc\": \"A128CBC-HS256\",\n" +
+			"   \"contacts\": [\"ve7jtb@example.org\", \"mary@example.org\"],\n" +
+			"   \"request_uris\":\n" +
+			"     [\"https://client.example.org/rf.txt#qpXaRLh_n93TTR9F252ValdatUQvQiJi5BDub2BeznA\"]\n" +
+			"  }";
 
 		RegisteredClient c = ClientDetailsEntityJsonProcessor.parseRegistered(json);
 

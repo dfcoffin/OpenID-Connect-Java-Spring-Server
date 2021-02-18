@@ -38,7 +38,6 @@ import static org.junit.Assert.assertThat;
 
 /**
  * @author wkim
- *
  */
 @RunWith(MockitoJUnitRunner.class)
 public class TestStaticClientConfigurationService {

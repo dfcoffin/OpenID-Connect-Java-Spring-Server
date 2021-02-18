@@ -49,11 +49,11 @@ import com.google.gson.stream.JsonWriter;
  * Includes all tokens, grants, whitelists, blacklists, and clients.
  *
  * @author jricher
- *
  */
 @Controller
 @RequestMapping("/" + DataAPI.URL)
-@PreAuthorize("hasRole('ROLE_ADMIN')") // you need to be an admin to even think about this -- this is a potentially dangerous API!!
+@PreAuthorize("hasRole('ROLE_ADMIN')")
+// you need to be an admin to even think about this -- this is a potentially dangerous API!!
 public class DataAPI {
 
 	public static final String URL = RootController.API_URL + "/data";
@@ -72,10 +72,10 @@ public class DataAPI {
 	private List<MITREidDataService> importers;
 
 	private List<String> supportedVersions = ImmutableList.of(
-			MITREidDataService.MITREID_CONNECT_1_0,
-			MITREidDataService.MITREID_CONNECT_1_1,
-			MITREidDataService.MITREID_CONNECT_1_2,
-			MITREidDataService.MITREID_CONNECT_1_3);
+		MITREidDataService.MITREID_CONNECT_1_0,
+		MITREidDataService.MITREID_CONNECT_1_1,
+		MITREidDataService.MITREID_CONNECT_1_2,
+		MITREidDataService.MITREID_CONNECT_1_3);
 
 	@Autowired
 	private MITREidDataService_1_3 exporter;

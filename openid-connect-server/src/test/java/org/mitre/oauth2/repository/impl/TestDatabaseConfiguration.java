@@ -68,7 +68,7 @@ public class TestDatabaseConfiguration {
 				String sql;
 				try {
 					sql = new String(Files.readAllBytes(Paths.get("..", "openid-connect-server-webapp", "src", "main",
-							"resources", "db", "hsql", location)), UTF_8);
+						"resources", "db", "hsql", location)), UTF_8);
 				} catch (IOException e) {
 					throw new RuntimeException("Failed to read sql-script " + location, e);
 				}
@@ -76,7 +76,7 @@ public class TestDatabaseConfiguration {
 				return new ByteArrayResource(sql.getBytes(UTF_8));
 			}
 		}).generateUniqueName(true).setScriptEncoding(UTF_8.name()).setType(EmbeddedDatabaseType.HSQL)
-				.addScripts("hsql_database_tables.sql").build();
+			.addScripts("hsql_database_tables.sql").build();
 	}
 
 	@Bean

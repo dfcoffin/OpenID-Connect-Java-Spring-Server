@@ -32,12 +32,11 @@ import org.springframework.stereotype.Repository;
  * JPA UserInfo repository implementation
  *
  * @author Michael Joseph Walsh
- *
  */
 @Repository("jpaUserInfoRepository")
 public class JpaUserInfoRepository implements UserInfoRepository {
 
-	@PersistenceContext(unitName="defaultPersistenceUnit")
+	@PersistenceContext(unitName = "defaultPersistenceUnit")
 	private EntityManager manager;
 
 	/**

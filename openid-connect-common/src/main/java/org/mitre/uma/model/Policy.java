@@ -38,7 +38,6 @@ import javax.persistence.Table;
  * A set of claims required to fulfill a given permission.
  *
  * @author jricher
- *
  */
 @Entity
 @Table(name = "policy")
@@ -87,10 +86,10 @@ public class Policy {
 	 */
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(
-			name = "claim_to_policy",
-			joinColumns = @JoinColumn(name = "policy_id"),
-			inverseJoinColumns = @JoinColumn(name = "claim_id")
-			)
+		name = "claim_to_policy",
+		joinColumns = @JoinColumn(name = "policy_id"),
+		inverseJoinColumns = @JoinColumn(name = "claim_id")
+	)
 	public Collection<Claim> getClaimsRequired() {
 		return claimsRequired;
 	}
@@ -108,9 +107,9 @@ public class Policy {
 	@ElementCollection(fetch = FetchType.EAGER)
 	@Column(name = "scope")
 	@CollectionTable(
-			name = "policy_scope",
-			joinColumns = @JoinColumn(name = "owner_id")
-			)
+		name = "policy_scope",
+		joinColumns = @JoinColumn(name = "owner_id")
+	)
 	public Set<String> getScopes() {
 		return scopes;
 	}

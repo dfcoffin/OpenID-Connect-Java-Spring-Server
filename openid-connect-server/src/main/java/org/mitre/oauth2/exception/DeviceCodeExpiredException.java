@@ -20,7 +20,6 @@ import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
 
 /**
  * @author jricher
- *
  */
 public class DeviceCodeExpiredException extends OAuth2Exception {
 

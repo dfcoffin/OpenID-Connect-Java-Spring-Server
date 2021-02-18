@@ -102,9 +102,9 @@ public class DefaultOAuth2ClientDetailsEntityService implements ClientDetailsEnt
 
 	// map of sector URI -> list of redirect URIs
 	private LoadingCache<String, List<String>> sectorRedirects = CacheBuilder.newBuilder()
-			.expireAfterAccess(1, TimeUnit.HOURS)
-			.maximumSize(100)
-			.build(new SectorIdentifierLoader(HttpClientBuilder.create().useSystemProperties().build()));
+		.expireAfterAccess(1, TimeUnit.HOURS)
+		.maximumSize(100)
+		.build(new SectorIdentifierLoader(HttpClientBuilder.create().useSystemProperties().build()));
 
 	@Override
 	public ClientDetailsEntity saveNewClient(ClientDetailsEntity client) {
@@ -154,6 +154,7 @@ public class DefaultOAuth2ClientDetailsEntityService implements ClientDetailsEnt
 
 	/**
 	 * Make sure the client has only one type of key registered
+	 *
 	 * @param client
 	 */
 	private void ensureKeyConsistency(ClientDetailsEntity client) {
@@ -177,6 +178,7 @@ public class DefaultOAuth2ClientDetailsEntityService implements ClientDetailsEnt
 
 	/**
 	 * Load the sector identifier URI if it exists and check the redirect URIs against it
+	 *
 	 * @param client
 	 */
 	private void checkSectorIdentifierUri(ClientDetailsEntity client) {
@@ -200,11 +202,12 @@ public class DefaultOAuth2ClientDetailsEntityService implements ClientDetailsEnt
 
 	/**
 	 * Make sure the client has the appropriate scope and grant type.
+	 *
 	 * @param client
 	 */
 	private void ensureRefreshTokenConsistency(ClientDetailsEntity client) {
 		if (client.getAuthorizedGrantTypes().contains("refresh_token")
-				|| client.getScope().contains(SystemScopeService.OFFLINE_ACCESS)) {
+			|| client.getScope().contains(SystemScopeService.OFFLINE_ACCESS)) {
 			client.getScope().add(SystemScopeService.OFFLINE_ACCESS);
 			client.getAuthorizedGrantTypes().add("refresh_token");
 		}
@@ -212,11 +215,12 @@ public class DefaultOAuth2ClientDetailsEntityService implements ClientDetailsEnt
 
 	/**
 	 * If HEART mode is enabled, make sure the client meets the requirements:
-	 *  - Only one of authorization_code, implicit, or client_credentials can be used at a time
-	 *  - A redirect_uri must be registered with either authorization_code or implicit
-	 *  - A key must be registered
-	 *  - A client secret must not be generated
-	 *  - authorization_code and client_credentials must use the private_key authorization method
+	 * - Only one of authorization_code, implicit, or client_credentials can be used at a time
+	 * - A redirect_uri must be registered with either authorization_code or implicit
+	 * - A key must be registered
+	 * - A client secret must not be generated
+	 * - authorization_code and client_credentials must use the private_key authorization method
+	 *
 	 * @param client
 	 */
 	private void checkHeartMode(ClientDetailsEntity client) {
@@ -313,7 +317,7 @@ public class DefaultOAuth2ClientDetailsEntityService implements ClientDetailsEnt
 
 				// now we make sure the client has a URI in only one of each of the three categories
 				if (!((localhost ^ remoteHttps ^ customScheme)
-						&& !(localhost && remoteHttps && customScheme))) {
+					&& !(localhost && remoteHttps && customScheme))) {
 					throw new IllegalArgumentException("[HEART mode] Can't have more than one class of redirect URI");
 				}
 			}
@@ -340,8 +344,7 @@ public class DefaultOAuth2ClientDetailsEntityService implements ClientDetailsEnt
 			ClientDetailsEntity client = clientRepository.getClientByClientId(clientId);
 			if (client == null) {
 				throw new InvalidClientException("Client with id " + clientId + " was not found");
-			}
-			else {
+			} else {
 				return client;
 			}
 		}
@@ -387,16 +390,14 @@ public class DefaultOAuth2ClientDetailsEntityService implements ClientDetailsEnt
 	/**
 	 * Update the oldClient with information from the newClient. The
 	 * id from oldClient is retained.
-	 *
+	 * <p>
 	 * Checks to make sure the refresh grant type and
 	 * the scopes are set appropriately.
-	 *
+	 * <p>
 	 * Checks to make sure the redirect URIs aren't blacklisted.
-	 *
+	 * <p>
 	 * Attempts to load the redirect URI (possibly cached) to check the
 	 * sector identifier against the contents there.
-	 *
-	 *
 	 */
 	@Override
 	public ClientDetailsEntity updateClient(ClientDetailsEntity oldClient, ClientDetailsEntity newClient) throws IllegalArgumentException {
@@ -463,7 +464,6 @@ public class DefaultOAuth2ClientDetailsEntityService implements ClientDetailsEnt
 	 * Utility class to load a sector identifier's set of authorized redirect URIs.
 	 *
 	 * @author jricher
-	 *
 	 */
 	private class SectorIdentifierLoader extends CacheLoader<String, List<String>> {
 		private HttpComponentsClientHttpRequestFactory httpFactory;

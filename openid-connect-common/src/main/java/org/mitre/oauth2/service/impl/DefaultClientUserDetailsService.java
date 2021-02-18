@@ -42,7 +42,6 @@ import com.google.common.base.Strings;
  * Shim layer to convert a ClientDetails service into a UserDetails service
  *
  * @author AANGANES
- *
  */
 @Service("clientUserDetailsService")
 public class DefaultClientUserDetailsService implements UserDetailsService {
@@ -56,7 +55,7 @@ public class DefaultClientUserDetailsService implements UserDetailsService {
 	private ConfigurationPropertiesBean config;
 
 	@Override
-	public UserDetails loadUserByUsername(String clientId) throws  UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String clientId) throws UsernameNotFoundException {
 
 		try {
 			ClientDetailsEntity client = clientDetailsService.loadClientByClientId(clientId);
@@ -66,9 +65,9 @@ public class DefaultClientUserDetailsService implements UserDetailsService {
 				String password = Strings.nullToEmpty(client.getClientSecret());
 
 				if (config.isHeartMode() || // if we're running HEART mode turn off all client secrets
-						(client.getTokenEndpointAuthMethod() != null &&
+					(client.getTokenEndpointAuthMethod() != null &&
 						(client.getTokenEndpointAuthMethod().equals(AuthMethod.PRIVATE_KEY) ||
-								client.getTokenEndpointAuthMethod().equals(AuthMethod.SECRET_JWT)))) {
+							client.getTokenEndpointAuthMethod().equals(AuthMethod.SECRET_JWT)))) {
 
 					// Issue a random password each time to prevent password auth from being used (or skipped)
 					// for private key or shared key clients, see #715

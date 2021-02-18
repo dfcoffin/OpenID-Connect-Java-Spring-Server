@@ -20,7 +20,6 @@ import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
 
 /**
  * @author jricher
- *
  */
 public class AuthorizationPendingException extends OAuth2Exception {
 
@@ -43,7 +42,6 @@ public class AuthorizationPendingException extends OAuth2Exception {
 	public String getOAuth2ErrorCode() {
 		return "authorization_pending";
 	}
-
 
 
 }

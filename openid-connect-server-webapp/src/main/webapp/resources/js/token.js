@@ -43,7 +43,7 @@ var AccessTokenView = Backbone.View.extend({
 
 	tagName: 'tr',
 
-	initialize: function(options) {
+	initialize: function (options) {
 		this.options = options;
 
 		if (!this.template) {
@@ -68,7 +68,7 @@ var AccessTokenView = Backbone.View.extend({
 		'click .toggleMoreInformation': 'toggleMoreInformation'
 	},
 
-	render: function(eventName) {
+	render: function (eventName) {
 
 		var expirationDate = this.model.get("expiration");
 
@@ -105,7 +105,7 @@ var AccessTokenView = Backbone.View.extend({
 		return this;
 	},
 
-	deleteToken: function(e) {
+	deleteToken: function (e) {
 		e.preventDefault();
 
 		if (confirm($.t("token.token-table.confirm"))) {
@@ -115,10 +115,10 @@ var AccessTokenView = Backbone.View.extend({
 			this.model.destroy({
 				dataType: false,
 				processData: false,
-				success: function() {
+				success: function () {
 
-					_self.$el.fadeTo("fast", 0.00, function() { // fade
-						$(this).slideUp("fast", function() { // slide up
+					_self.$el.fadeTo("fast", 0.00, function () { // fade
+						$(this).slideUp("fast", function () { // slide up
 							$(this).remove(); // then remove from the DOM
 							// refresh the table in case we removed an id token,
 							// too
@@ -135,7 +135,7 @@ var AccessTokenView = Backbone.View.extend({
 		return false;
 	},
 
-	toggleMoreInformation: function(e) {
+	toggleMoreInformation: function (e) {
 		e.preventDefault();
 		if ($('.moreInformation', this.el).is(':visible')) {
 			// hide it
@@ -151,12 +151,12 @@ var AccessTokenView = Backbone.View.extend({
 		}
 	},
 
-	close: function() {
+	close: function () {
 		$(this.el).unbind();
 		$(this.el).empty();
 	},
 
-	showTokenValue: function(e) {
+	showTokenValue: function (e) {
 		e.preventDefault();
 		$('.token-substring', this.el).hide();
 		$('.token-full', this.el).show();
@@ -191,7 +191,7 @@ var RefreshTokenView = Backbone.View.extend({
 
 	tagName: 'tr',
 
-	initialize: function(options) {
+	initialize: function (options) {
 		this.options = options;
 
 		if (!this.template) {
@@ -216,7 +216,7 @@ var RefreshTokenView = Backbone.View.extend({
 		'click .toggleMoreInformation': 'toggleMoreInformation'
 	},
 
-	render: function(eventName) {
+	render: function (eventName) {
 
 		var expirationDate = this.model.get("expiration");
 
@@ -255,7 +255,7 @@ var RefreshTokenView = Backbone.View.extend({
 
 	},
 
-	deleteToken: function(e) {
+	deleteToken: function (e) {
 		e.preventDefault();
 
 		if (confirm($.t('token.token-table.confirm-refresh'))) {
@@ -265,10 +265,10 @@ var RefreshTokenView = Backbone.View.extend({
 			this.model.destroy({
 				dataType: false,
 				processData: false,
-				success: function() {
+				success: function () {
 
-					_self.$el.fadeTo("fast", 0.00, function() { // fade
-						$(this).slideUp("fast", function() { // slide up
+					_self.$el.fadeTo("fast", 0.00, function () { // fade
+						$(this).slideUp("fast", function () { // slide up
 							$(this).remove(); // then remove from the DOM
 							// refresh the table in case the access tokens have
 							// changed, too
@@ -285,7 +285,7 @@ var RefreshTokenView = Backbone.View.extend({
 		return false;
 	},
 
-	toggleMoreInformation: function(e) {
+	toggleMoreInformation: function (e) {
 		e.preventDefault();
 		if ($('.moreInformation', this.el).is(':visible')) {
 			// hide it
@@ -301,12 +301,12 @@ var RefreshTokenView = Backbone.View.extend({
 
 	},
 
-	close: function() {
+	close: function () {
 		$(this.el).unbind();
 		$(this.el).empty();
 	},
 
-	showTokenValue: function(e) {
+	showTokenValue: function (e) {
 		e.preventDefault();
 		$('.token-substring', this.el).hide();
 		$('.token-full', this.el).show();
@@ -316,7 +316,7 @@ var RefreshTokenView = Backbone.View.extend({
 var TokenListView = Backbone.View.extend({
 	tagName: 'span',
 
-	initialize: function(options) {
+	initialize: function (options) {
 		this.options = options;
 	},
 
@@ -326,7 +326,7 @@ var TokenListView = Backbone.View.extend({
 		'page .paginator-refresh': 'changePageRefresh'
 	},
 
-	load: function(callback) {
+	load: function (callback) {
 		if (this.model.access.isFetched && this.model.refresh.isFetched && this.options.clientList.isFetched && this.options.systemScopeList.isFetched) {
 			callback();
 			return;
@@ -334,41 +334,41 @@ var TokenListView = Backbone.View.extend({
 
 		$('#loadingbox').sheet('show');
 		$('#loading').html(
-				'<span class="label" id="loading-access">' + $.t('token.token-table.access-tokens') + '</span> ' + '<span class="label" id="loading-refresh">' + $.t('token.token-table.refresh-tokens') + '</span> ' + '<span class="label" id="loading-clients">' + $.t('common.clients') + '</span> ' + '<span class="label" id="loading-scopes">'
-						+ $.t('common.scopes') + '</span> ');
+			'<span class="label" id="loading-access">' + $.t('token.token-table.access-tokens') + '</span> ' + '<span class="label" id="loading-refresh">' + $.t('token.token-table.refresh-tokens') + '</span> ' + '<span class="label" id="loading-clients">' + $.t('common.clients') + '</span> ' + '<span class="label" id="loading-scopes">'
+			+ $.t('common.scopes') + '</span> ');
 
 		$.when(this.model.access.fetchIfNeeded({
-			success: function(e) {
+			success: function (e) {
 				$('#loading-access').addClass('label-success');
 			},
 			error: app.errorHandlerView.handleError()
 		}), this.model.refresh.fetchIfNeeded({
-			success: function(e) {
+			success: function (e) {
 				$('#loading-refresh').addClass('label-success');
 			},
 			error: app.errorHandlerView.handleError()
 		}), this.options.clientList.fetchIfNeeded({
-			success: function(e) {
+			success: function (e) {
 				$('#loading-clients').addClass('label-success');
 			},
 			error: app.errorHandlerView.handleError()
 		}), this.options.systemScopeList.fetchIfNeeded({
-			success: function(e) {
+			success: function (e) {
 				$('#loading-scopes').addClass('label-success');
 			},
 			error: app.errorHandlerView.handleError()
-		})).done(function() {
+		})).done(function () {
 			$('#loadingbox').sheet('hide');
 			callback();
 		});
 
 	},
 
-	changePageAccess: function(event, num) {
+	changePageAccess: function (event, num) {
 		$('.paginator-access', this.el).bootpag({
 			page: num
 		});
-		$('#access-token-table tbody tr', this.el).each(function(index, element) {
+		$('#access-token-table tbody tr', this.el).each(function (index, element) {
 			if (Math.ceil((index + 1) / 10) != num) {
 				$(element).hide();
 			} else {
@@ -377,11 +377,11 @@ var TokenListView = Backbone.View.extend({
 		});
 	},
 
-	changePageRefresh: function(event, num) {
+	changePageRefresh: function (event, num) {
 		$('.paginator-refresh', this.el).bootpag({
 			page: num
 		});
-		$('#refresh-token-table tbody tr', this.el).each(function(index, element) {
+		$('#refresh-token-table tbody tr', this.el).each(function (index, element) {
 			if (Math.ceil((index + 1) / 10) != num) {
 				$(element).hide();
 			} else {
@@ -390,39 +390,39 @@ var TokenListView = Backbone.View.extend({
 		});
 	},
 
-	refreshTable: function(e) {
+	refreshTable: function (e) {
 		$('#loadingbox').sheet('show');
 		$('#loading').html(
-				'<span class="label" id="loading-access">' + $.t('token.token-table.access-tokens') + '</span> ' + '<span class="label" id="loading-refresh">' + $.t('token.token-table.refresh-tokens') + '</span> ' + '<span class="label" id="loading-clients">' + $.t('common.clients') + '</span> ' + '<span class="label" id="loading-scopes">'
-						+ $.t('common.scopes') + '</span> ');
+			'<span class="label" id="loading-access">' + $.t('token.token-table.access-tokens') + '</span> ' + '<span class="label" id="loading-refresh">' + $.t('token.token-table.refresh-tokens') + '</span> ' + '<span class="label" id="loading-clients">' + $.t('common.clients') + '</span> ' + '<span class="label" id="loading-scopes">'
+			+ $.t('common.scopes') + '</span> ');
 		var _self = this;
 		$.when(this.model.access.fetch({
-			success: function(e) {
+			success: function (e) {
 				$('#loading-access').addClass('label-success');
 			},
 			error: app.errorHandlerView.handleError()
 		}), this.model.refresh.fetch({
-			success: function(e) {
+			success: function (e) {
 				$('#loading-refresh').addClass('label-success');
 			},
 			error: app.errorHandlerView.handleError()
 		}), this.options.clientList.fetch({
-			success: function(e) {
+			success: function (e) {
 				$('#loading-clients').addClass('label-success');
 			},
 			error: app.errorHandlerView.handleError()
 		}), this.options.systemScopeList.fetch({
-			success: function(e) {
+			success: function (e) {
 				$('#loading-scopes').addClass('label-success');
 			},
 			error: app.errorHandlerView.handleError()
-		})).done(function() {
+		})).done(function () {
 			_self.render();
 			$('#loadingbox').sheet('hide');
 		});
 	},
 
-	togglePlaceholder: function() {
+	togglePlaceholder: function () {
 		if (this.model.access.length > 0) {
 			$('#access-token-table', this.el).show();
 			$('#access-token-table-empty', this.el).hide();
@@ -442,7 +442,7 @@ var TokenListView = Backbone.View.extend({
 		$('#refresh-token-count', this.el).html(this.model.refresh.length);
 	},
 
-	render: function(eventName) {
+	render: function (eventName) {
 
 		// append and render the table structure
 		$(this.el).html($('#tmpl-token-table').html());
@@ -464,7 +464,7 @@ var TokenListView = Backbone.View.extend({
 		// count up refresh tokens
 		var refreshCount = {};
 
-		_.each(this.model.access.models, function(token, index) {
+		_.each(this.model.access.models, function (token, index) {
 			// look up client
 			var client = _self.options.clientList.getByClientId(token.get('clientId'));
 			var view = new AccessTokenView({
@@ -506,7 +506,7 @@ var TokenListView = Backbone.View.extend({
 			$('.paginator-refresh', this.el).hide();
 		}
 
-		_.each(this.model.refresh.models, function(token, index) {
+		_.each(this.model.refresh.models, function (token, index) {
 			// look up client
 			var client = _self.options.clientList.getByClientId(token.get('clientId'));
 			var view = new RefreshTokenView({
@@ -539,7 +539,7 @@ var TokenListView = Backbone.View.extend({
 ui.routes.push({
 	path: "user/tokens",
 	name: "tokens",
-	callback: function() {
+	callback: function () {
 		this.breadCrumbView.collection.reset();
 		this.breadCrumbView.collection.add([{
 			text: $.t('admin.home'),
@@ -560,7 +560,7 @@ ui.routes.push({
 			systemScopeList: this.systemScopeList
 		});
 
-		view.load(function(collection, response, options) {
+		view.load(function (collection, response, options) {
 			$('#content').html(view.render().el);
 			setPageTitle($.t('token.manage'));
 		});
@@ -570,7 +570,7 @@ ui.routes.push({
 
 ui.templates.push('resources/template/token.html');
 
-ui.init.push(function(app) {
+ui.init.push(function (app) {
 	app.accessTokensList = new AccessTokenCollection();
 	app.refreshTokensList = new RefreshTokenCollection();
 });

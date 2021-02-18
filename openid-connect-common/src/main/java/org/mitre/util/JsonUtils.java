@@ -1,20 +1,20 @@
-/*******************************************************************************
+/**
  * Copyright 2018 The MIT Internet Trust Consortium
- *
+ * <p>
  * Portions copyright 2011-2013 The MITRE Corporation
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *******************************************************************************/
+ */
 /**
  *
  */
@@ -84,7 +84,8 @@ public class JsonUtils {
 			// if we're not preserving empty arrays and the value is empty, return null
 			return JsonNull.INSTANCE;
 		} else {
-			return gson.toJsonTree(value, new TypeToken<Set<String>>(){}.getType());
+			return gson.toJsonTree(value, new TypeToken<Set<String>>() {
+			}.getType());
 		}
 	}
 
@@ -209,7 +210,8 @@ public class JsonUtils {
 	public static Set<String> getAsStringSet(JsonObject o, String member) throws JsonSyntaxException {
 		if (o.has(member)) {
 			if (o.get(member).isJsonArray()) {
-				return gson.fromJson(o.get(member), new TypeToken<Set<String>>(){}.getType());
+				return gson.fromJson(o.get(member), new TypeToken<Set<String>>() {
+				}.getType());
 			} else {
 				return Sets.newHashSet(o.get(member).getAsString());
 			}
@@ -224,7 +226,8 @@ public class JsonUtils {
 	public static List<String> getAsStringList(JsonObject o, String member) throws JsonSyntaxException {
 		if (o.has(member)) {
 			if (o.get(member).isJsonArray()) {
-				return gson.fromJson(o.get(member), new TypeToken<List<String>>(){}.getType());
+				return gson.fromJson(o.get(member), new TypeToken<List<String>>() {
+				}.getType());
 			} else {
 				return Lists.newArrayList(o.get(member).getAsString());
 			}
@@ -284,10 +287,10 @@ public class JsonUtils {
 	public static Map readMap(JsonReader reader) throws IOException {
 		Map map = new HashMap<>();
 		reader.beginObject();
-		while(reader.hasNext()) {
+		while (reader.hasNext()) {
 			String name = reader.nextName();
 			Object value = null;
-			switch(reader.peek()) {
+			switch (reader.peek()) {
 				case STRING:
 					value = reader.nextString();
 					break;

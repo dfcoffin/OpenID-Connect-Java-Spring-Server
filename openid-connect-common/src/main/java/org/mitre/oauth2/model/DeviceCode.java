@@ -39,7 +39,6 @@ import javax.persistence.Temporal;
 
 /**
  * @author jricher
- *
  */
 @Entity
 @Table(name = "device_code")
@@ -134,10 +133,10 @@ public class DeviceCode {
 	 */
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(
-			name="device_code_scope",
-			joinColumns=@JoinColumn(name="owner_id")
-			)
-	@Column(name="scope")
+		name = "device_code_scope",
+		joinColumns = @JoinColumn(name = "owner_id")
+	)
+	@Column(name = "scope")
 	public Set<String> getScope() {
 		return scope;
 	}
@@ -181,11 +180,11 @@ public class DeviceCode {
 	 */
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(
-			name="device_code_request_parameter",
-			joinColumns=@JoinColumn(name="owner_id")
-			)
-	@Column(name="val")
-	@MapKeyColumn(name="param")
+		name = "device_code_request_parameter",
+		joinColumns = @JoinColumn(name = "owner_id")
+	)
+	@Column(name = "val")
+	@MapKeyColumn(name = "param")
 	public Map<String, String> getRequestParameters() {
 		return requestParameters;
 	}
@@ -215,6 +214,7 @@ public class DeviceCode {
 
 	/**
 	 * The authentication in place when this token was created.
+	 *
 	 * @return the authentication
 	 */
 	@ManyToOne

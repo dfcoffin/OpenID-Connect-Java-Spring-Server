@@ -22,7 +22,6 @@ import org.mitre.oauth2.model.DeviceCode;
 
 /**
  * @author jricher
- *
  */
 public interface DeviceCodeRepository {
 

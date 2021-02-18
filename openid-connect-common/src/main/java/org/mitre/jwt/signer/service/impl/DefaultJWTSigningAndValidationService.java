@@ -72,13 +72,9 @@ public class DefaultJWTSigningAndValidationService implements JWTSigningAndValid
 	 * Build this service based on the keys given. All public keys will be used
 	 * to make verifiers, all private keys will be used to make signers.
 	 *
-	 * @param keys
-	 *            A map of key identifier to key
-	 *
-	 * @throws InvalidKeySpecException
-	 *             If the keys in the JWKs are not valid
-	 * @throws NoSuchAlgorithmException
-	 *             If there is no appropriate algorithm to tie the keys to.
+	 * @param keys A map of key identifier to key
+	 * @throws InvalidKeySpecException  If the keys in the JWKs are not valid
+	 * @throws NoSuchAlgorithmException If there is no appropriate algorithm to tie the keys to.
 	 */
 	public DefaultJWTSigningAndValidationService(Map<String, JWK> keys) throws NoSuchAlgorithmException, InvalidKeySpecException {
 		this.keys = keys;
@@ -89,17 +85,13 @@ public class DefaultJWTSigningAndValidationService implements JWTSigningAndValid
 	 * Build this service based on the given keystore. All keys must have a key
 	 * id ({@code kid}) field in order to be used.
 	 *
-	 * @param keyStore
-	 *            the keystore to load all keys from
-	 *
-	 * @throws InvalidKeySpecException
-	 *             If the keys in the JWKs are not valid
-	 * @throws NoSuchAlgorithmException
-	 *             If there is no appropriate algorithm to tie the keys to.
+	 * @param keyStore the keystore to load all keys from
+	 * @throws InvalidKeySpecException  If the keys in the JWKs are not valid
+	 * @throws NoSuchAlgorithmException If there is no appropriate algorithm to tie the keys to.
 	 */
 	public DefaultJWTSigningAndValidationService(JWKSetKeyStore keyStore) throws NoSuchAlgorithmException, InvalidKeySpecException {
 		// convert all keys in the keystore to a map based on key id
-		if (keyStore!= null && keyStore.getJwkSet() != null) {
+		if (keyStore != null && keyStore.getJwkSet() != null) {
 			for (JWK key : keyStore.getKeys()) {
 				if (!Strings.isNullOrEmpty(key.getKeyID())) {
 					// use the key ID that's built into the key itself
@@ -152,7 +144,8 @@ public class DefaultJWTSigningAndValidationService implements JWTSigningAndValid
 
 	/**
 	 * Build all of the signers and verifiers for this based on the key map.
-	 * @throws InvalidKeySpecException If the keys in the JWKs are not valid
+	 *
+	 * @throws InvalidKeySpecException  If the keys in the JWKs are not valid
 	 * @throws NoSuchAlgorithmException If there is no appropriate algorithm to tie the keys to.
 	 */
 	private void buildSignersAndVerifiers() throws NoSuchAlgorithmException, InvalidKeySpecException {

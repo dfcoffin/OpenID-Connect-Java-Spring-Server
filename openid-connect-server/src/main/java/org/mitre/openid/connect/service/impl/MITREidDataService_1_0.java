@@ -72,8 +72,8 @@ import com.nimbusds.jose.EncryptionMethod;
 import com.nimbusds.jose.JWEAlgorithm;
 import com.nimbusds.jose.JWSAlgorithm;
 import com.nimbusds.jwt.JWTParser;
+
 /**
- *
  * Data service to import MITREid 1.0 configuration.
  *
  * @author jricher
@@ -175,7 +175,8 @@ public class MITREidDataService_1_0 extends MITREidDataServiceSupport implements
 				default:
 					logger.debug("Found unexpected entry");
 					reader.skipValue();
-					continue;			}
+					continue;
+			}
 		}
 		fixObjectReferences();
 		for (MITREidDataServiceExtension extension : extensions) {
@@ -320,6 +321,7 @@ public class MITREidDataService_1_0 extends MITREidDataServiceSupport implements
 		reader.endArray();
 		logger.info("Done reading access tokens");
 	}
+
 	/**
 	 * @param reader
 	 * @throws IOException
@@ -468,7 +470,7 @@ public class MITREidDataService_1_0 extends MITREidDataServiceSupport implements
 		reader.beginObject();
 
 		while (reader.hasNext()) {
-			switch(reader.peek()) {
+			switch (reader.peek()) {
 				case END_OBJECT:
 					continue;
 				case NAME:
@@ -572,6 +574,7 @@ public class MITREidDataService_1_0 extends MITREidDataServiceSupport implements
 		reader.endArray();
 		logger.info("Done reading grants");
 	}
+
 	/**
 	 * @param reader
 	 * @throws IOException
@@ -892,7 +895,7 @@ public class MITREidDataService_1_0 extends MITREidDataServiceSupport implements
 			Long newGrantId = maps.getGrantOldToNewIdMap().get(oldGrantId);
 			ApprovedSite site = approvedSiteRepository.getById(newGrantId);
 
-			for(Long oldTokenId : oldAccessTokenIds) {
+			for (Long oldTokenId : oldAccessTokenIds) {
 				Long newTokenId = maps.getAccessTokenOldToNewIdMap().get(oldTokenId);
 				OAuth2AccessTokenEntity token = tokenRepository.getAccessTokenById(newTokenId);
 				token.setApprovedSite(site);

@@ -25,7 +25,6 @@ import org.mitre.openid.connect.model.WhitelistedSite;
  * Interface for WhitelistedSite service
  *
  * @author Michael Joseph Walsh, aanganes
- *
  */
 public interface WhitelistedSiteService {
 
@@ -39,8 +38,7 @@ public interface WhitelistedSiteService {
 	/**
 	 * Returns the WhitelistedSite for the given id
 	 *
-	 * @param id
-	 *            id the id of the WhitelistedSite
+	 * @param id id the id of the WhitelistedSite
 	 * @return a valid WhitelistedSite if it exists, null otherwise
 	 */
 	public WhitelistedSite getById(Long id);
@@ -48,26 +46,23 @@ public interface WhitelistedSiteService {
 	/**
 	 * Find a WhitelistedSite by its associated ClientDetails reference
 	 *
-	 * @param client	the Relying Party
-	 * @return			the corresponding WhitelistedSite if one exists for the RP, or null
+	 * @param client the Relying Party
+	 * @return the corresponding WhitelistedSite if one exists for the RP, or null
 	 */
 	public WhitelistedSite getByClientId(String clientId);
-
 
 
 	/**
 	 * Removes the given WhitelistedSite from the repository
 	 *
-	 * @param address
-	 *            the WhitelistedSite object to remove
+	 * @param address the WhitelistedSite object to remove
 	 */
 	public void remove(WhitelistedSite whitelistedSite);
 
 	/**
 	 * Persists a new WhitelistedSite
 	 *
-	 * @param whitelistedSite
-	 *            the WhitelistedSite to be saved
+	 * @param whitelistedSite the WhitelistedSite to be saved
 	 * @return
 	 */
 	public WhitelistedSite saveNew(WhitelistedSite whitelistedSite);

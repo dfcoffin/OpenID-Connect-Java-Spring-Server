@@ -103,12 +103,12 @@ public class ConnectOAuth2RequestFactory extends DefaultOAuth2RequestFactory {
 	public AuthorizationRequest createAuthorizationRequest(Map<String, String> inputParams) {
 
 
-		AuthorizationRequest request = new AuthorizationRequest(inputParams, Collections.<String, String> emptyMap(),
-				inputParams.get(OAuth2Utils.CLIENT_ID),
-				OAuth2Utils.parseParameterList(inputParams.get(OAuth2Utils.SCOPE)), null,
-				null, false, inputParams.get(OAuth2Utils.STATE),
-				inputParams.get(OAuth2Utils.REDIRECT_URI),
-				OAuth2Utils.parseParameterList(inputParams.get(OAuth2Utils.RESPONSE_TYPE)));
+		AuthorizationRequest request = new AuthorizationRequest(inputParams, Collections.<String, String>emptyMap(),
+			inputParams.get(OAuth2Utils.CLIENT_ID),
+			OAuth2Utils.parseParameterList(inputParams.get(OAuth2Utils.SCOPE)), null,
+			null, false, inputParams.get(OAuth2Utils.STATE),
+			inputParams.get(OAuth2Utils.REDIRECT_URI),
+			OAuth2Utils.parseParameterList(inputParams.get(OAuth2Utils.RESPONSE_TYPE)));
 
 		//Add extension parameters to the 'extensions' map
 
@@ -175,7 +175,6 @@ public class ConnectOAuth2RequestFactory extends DefaultOAuth2RequestFactory {
 	}
 
 	/**
-	 *
 	 * @param jwtString
 	 * @param request
 	 */
@@ -188,7 +187,7 @@ public class ConnectOAuth2RequestFactory extends DefaultOAuth2RequestFactory {
 			if (jwt instanceof SignedJWT) {
 				// it's a signed JWT, check the signature
 
-				SignedJWT signedJwt = (SignedJWT)jwt;
+				SignedJWT signedJwt = (SignedJWT) jwt;
 
 				// need to check clientId first so that we can load the client to check other fields
 				if (request.getClientId() == null) {
@@ -205,7 +204,7 @@ public class ConnectOAuth2RequestFactory extends DefaultOAuth2RequestFactory {
 				JWSAlgorithm alg = signedJwt.getHeader().getAlgorithm();
 
 				if (client.getRequestObjectSigningAlg() == null ||
-						!client.getRequestObjectSigningAlg().equals(alg)) {
+					!client.getRequestObjectSigningAlg().equals(alg)) {
 					throw new InvalidClientException("Client's registered request object signing algorithm (" + client.getRequestObjectSigningAlg() + ") does not match request object's actual algorithm (" + alg.getName() + ")");
 				}
 
@@ -220,7 +219,7 @@ public class ConnectOAuth2RequestFactory extends DefaultOAuth2RequestFactory {
 				}
 
 			} else if (jwt instanceof PlainJWT) {
-				PlainJWT plainJwt = (PlainJWT)jwt;
+				PlainJWT plainJwt = (PlainJWT) jwt;
 
 				// need to check clientId first so that we can load the client to check other fields
 				if (request.getClientId() == null) {
@@ -236,14 +235,14 @@ public class ConnectOAuth2RequestFactory extends DefaultOAuth2RequestFactory {
 				if (client.getRequestObjectSigningAlg() == null) {
 					throw new InvalidClientException("Client is not registered for unsigned request objects (no request_object_signing_alg registered)");
 				} else if (!client.getRequestObjectSigningAlg().equals(Algorithm.NONE)) {
-					throw new InvalidClientException("Client is not registered for unsigned request objects (request_object_signing_alg is " + client.getRequestObjectSigningAlg() +")");
+					throw new InvalidClientException("Client is not registered for unsigned request objects (request_object_signing_alg is " + client.getRequestObjectSigningAlg() + ")");
 				}
 
 				// if we got here, we're OK, keep processing
 
 			} else if (jwt instanceof EncryptedJWT) {
 
-				EncryptedJWT encryptedJWT = (EncryptedJWT)jwt;
+				EncryptedJWT encryptedJWT = (EncryptedJWT) jwt;
 
 				// decrypt the jwt if we can
 
@@ -295,7 +294,7 @@ public class ConnectOAuth2RequestFactory extends DefaultOAuth2RequestFactory {
 			}
 
 			String state = claims.getStringClaim(STATE);
-			if(state != null) {
+			if (state != null) {
 				if (!state.equals(request.getState())) {
 					logger.info("Mismatch between request object and regular parameter for state, using request object");
 				}
@@ -303,7 +302,7 @@ public class ConnectOAuth2RequestFactory extends DefaultOAuth2RequestFactory {
 			}
 
 			String nonce = claims.getStringClaim(NONCE);
-			if(nonce != null) {
+			if (nonce != null) {
 				if (!nonce.equals(request.getExtensions().get(NONCE))) {
 					logger.info("Mismatch between request object and regular parameter for nonce, using request object");
 				}

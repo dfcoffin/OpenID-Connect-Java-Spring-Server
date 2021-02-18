@@ -35,7 +35,6 @@ import static org.junit.Assert.fail;
 
 /**
  * @author wkim
- *
  */
 @RunWith(MockitoJUnitRunner.class)
 public class TestDefaultWhitelistedSiteService {

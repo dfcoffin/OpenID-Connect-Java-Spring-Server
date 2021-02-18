@@ -16,13 +16,13 @@
  * limitations under the License.
  *******************************************************************************/
 
-Backbone.Model.prototype.fetchIfNeeded = function(options) {
+Backbone.Model.prototype.fetchIfNeeded = function (options) {
 	var _self = this;
 	if (!options) {
 		options = {};
 	}
 	var success = options.success;
-	options.success = function(c, r) {
+	options.success = function (c, r) {
 		_self.isFetched = true;
 		if (success) {
 			success(c, r);
@@ -35,13 +35,13 @@ Backbone.Model.prototype.fetchIfNeeded = function(options) {
 	}
 };
 
-Backbone.Collection.prototype.fetchIfNeeded = function(options) {
+Backbone.Collection.prototype.fetchIfNeeded = function (options) {
 	var _self = this;
 	if (!options) {
 		options = {};
 	}
 	var success = options.success;
-	options.success = function(c, r) {
+	options.success = function (c, r) {
 		_self.isFetched = true;
 		if (success) {
 			success(c, r);
@@ -55,19 +55,19 @@ Backbone.Collection.prototype.fetchIfNeeded = function(options) {
 };
 
 var URIModel = Backbone.Model
-		.extend({
+	.extend({
 
-			validate: function(attrs) {
+		validate: function (attrs) {
 
-				var expression = /^(?:([a-z0-9+.-]+:\/\/)((?:(?:[a-z0-9-._~!$&'()*+,;=:]|%[0-9A-F]{2})*)@)?((?:[a-z0-9-._~!$&'()*+,;=]|%[0-9A-F]{2})*)(:(?:\d*))?(\/(?:[a-z0-9-._~!$&'()*+,;=:@\/]|%[0-9A-F]{2})*)?|([a-z0-9+.-]+:)(\/?(?:[a-z0-9-._~!$&'()*+,;=:@]|%[0-9A-F]{2})+(?:[a-z0-9-._~!$&'()*+,;=:@\/]|%[0-9A-F]{2})*)?)(\?(?:[a-z0-9-._~!$&'()*+,;=:\/?@]|%[0-9A-F]{2})*)?(#(?:[a-z0-9-._~!$&'()*+,;=:\/?@]|%[0-9A-F]{2})*)?$/i;
-				var regex = new RegExp(expression);
+			var expression = /^(?:([a-z0-9+.-]+:\/\/)((?:(?:[a-z0-9-._~!$&'()*+,;=:]|%[0-9A-F]{2})*)@)?((?:[a-z0-9-._~!$&'()*+,;=]|%[0-9A-F]{2})*)(:(?:\d*))?(\/(?:[a-z0-9-._~!$&'()*+,;=:@\/]|%[0-9A-F]{2})*)?|([a-z0-9+.-]+:)(\/?(?:[a-z0-9-._~!$&'()*+,;=:@]|%[0-9A-F]{2})+(?:[a-z0-9-._~!$&'()*+,;=:@\/]|%[0-9A-F]{2})*)?)(\?(?:[a-z0-9-._~!$&'()*+,;=:\/?@]|%[0-9A-F]{2})*)?(#(?:[a-z0-9-._~!$&'()*+,;=:\/?@]|%[0-9A-F]{2})*)?$/i;
+			var regex = new RegExp(expression);
 
-				if (attrs.item == null || !attrs.item.match(regex)) {
-					return "Invalid URI";
-				}
+			if (attrs.item == null || !attrs.item.match(regex)) {
+				return "Invalid URI";
 			}
+		}
 
-		});
+	});
 
 /*
  * Backbone JS Reusable ListWidget Options { collection: Backbone JS Collection
@@ -84,7 +84,7 @@ var ListWidgetChildView = Backbone.View.extend({
 		"change .checkbox-list-item": 'toggleCheckbox'
 	},
 
-	deleteItem: function(e) {
+	deleteItem: function (e) {
 		e.preventDefault();
 		e.stopImmediatePropagation();
 		// this.$el.tooltip('delete');
@@ -97,7 +97,7 @@ var ListWidgetChildView = Backbone.View.extend({
 
 	},
 
-	toggleCheckbox: function(e) {
+	toggleCheckbox: function (e) {
 		e.preventDefault();
 		e.stopImmediatePropagation();
 		if ($(e.target).is(':checked')) {
@@ -108,7 +108,7 @@ var ListWidgetChildView = Backbone.View.extend({
 
 	},
 
-	initialize: function(options) {
+	initialize: function (options) {
 		this.options = {
 			toggle: false,
 			checked: false
@@ -119,7 +119,7 @@ var ListWidgetChildView = Backbone.View.extend({
 		}
 	},
 
-	render: function() {
+	render: function () {
 
 		var data = {
 			model: this.model.toJSON(),
@@ -138,7 +138,7 @@ var ListWidgetChildView = Backbone.View.extend({
 			var _self = this;
 
 			// added span to enable checkbox also
-			$(this.el).find('span').click(function(event) {
+			$(this.el).find('span').click(function (event) {
 				event.preventDefault();
 				$('.item-short', _self.el).hide();
 				$('.item-full', _self.el).show();
@@ -157,7 +157,7 @@ var ListWidgetView = Backbone.View.extend({
 
 	events: {
 		"click .btn-add-list-item": "addItem",
-		"keypress": function(e) {
+		"keypress": function (e) {
 			// trap the enter key
 			if (e.which == 13) {
 				e.preventDefault();
@@ -167,7 +167,7 @@ var ListWidgetView = Backbone.View.extend({
 		}
 	},
 
-	initialize: function(options) {
+	initialize: function (options) {
 		this.options = options;
 
 		if (!this.template) {
@@ -178,7 +178,7 @@ var ListWidgetView = Backbone.View.extend({
 		this.collection.bind('remove', this.render, this);
 	},
 
-	addItem: function(e) {
+	addItem: function (e) {
 		e.preventDefault();
 
 		var input_value = $("input", this.el).val().trim();
@@ -197,7 +197,7 @@ var ListWidgetView = Backbone.View.extend({
 			model = new Backbone.Model({
 				item: input_value
 			});
-			model.validate = function(attrs) {
+			model.validate = function (attrs) {
 				if (!attrs.item) {
 					return "value can't be null";
 				}
@@ -215,7 +215,7 @@ var ListWidgetView = Backbone.View.extend({
 		}
 	},
 
-	render: function(eventName) {
+	render: function (eventName) {
 
 		this.$el.html(this.template({
 			placeholder: this.options.placeholder,
@@ -234,8 +234,8 @@ var ListWidgetView = Backbone.View.extend({
 			// look through our autocomplete values (if we have them) and render
 			// them all as checkboxes
 			if (this.options.autocomplete) {
-				_.each(this.options.autocomplete, function(option) {
-					var found = _.find(values.models, function(element) {
+				_.each(this.options.autocomplete, function (option) {
+					var found = _.find(values.models, function (element) {
 						return element.get('item') == option;
 					});
 
@@ -270,7 +270,7 @@ var ListWidgetView = Backbone.View.extend({
 			}
 
 			// now render everything not in the autocomplete list
-			_.each(values.models, function(model) {
+			_.each(values.models, function (model) {
 				var el = new ListWidgetChildView({
 					model: model,
 					collection: _self.collection
@@ -289,7 +289,7 @@ var BreadCrumbView = Backbone.View.extend({
 
 	tagName: 'ul',
 
-	initialize: function(options) {
+	initialize: function (options) {
 		this.options = options;
 
 		if (!this.template) {
@@ -301,13 +301,13 @@ var BreadCrumbView = Backbone.View.extend({
 		this.collection.bind('add', this.render, this);
 	},
 
-	render: function() {
+	render: function () {
 
 		this.$el.empty();
 		var parent = this;
 
 		// go through each of the breadcrumb models
-		_.each(this.collection.models, function(crumb, index) {
+		_.each(this.collection.models, function (crumb, index) {
 
 			// if it's the last index in the crumbs then render the link
 			// inactive
@@ -338,20 +338,20 @@ var BreadCrumbView = Backbone.View.extend({
 var UserProfileView = Backbone.View.extend({
 	tagName: 'span',
 
-	initialize: function(options) {
+	initialize: function (options) {
 		this.options = options;
 		if (!this.template) {
 			this.template = _.template($('#tmpl-user-profile-element').html());
 		}
 	},
 
-	render: function() {
+	render: function () {
 
 		$(this.el).html($('#tmpl-user-profile').html());
 
 		var t = this.template;
 
-		_.each(this.model, function(value, key) {
+		_.each(this.model, function (value, key) {
 			if (key && value) {
 
 				if (typeof (value) === 'object') {
@@ -359,7 +359,7 @@ var UserProfileView = Backbone.View.extend({
 					var el = this.el;
 					var k = key;
 
-					_.each(value, function(value, key) {
+					_.each(value, function (value, key) {
 						$('dl', el).append(t({
 							key: key,
 							value: value,
@@ -385,7 +385,7 @@ var UserProfileView = Backbone.View.extend({
 // error handler
 var ErrorHandlerView = Backbone.View.extend({
 
-	initialize: function(options) {
+	initialize: function (options) {
 		this.options = options;
 		if (!this.template) {
 			this.template = _.template($('#tmpl-error-box').html());
@@ -395,12 +395,12 @@ var ErrorHandlerView = Backbone.View.extend({
 		}
 	},
 
-	reloadPage: function(event) {
+	reloadPage: function (event) {
 		event.preventDefault();
 		window.location.reload(true);
 	},
 
-	handleError: function(message) {
+	handleError: function (message) {
 
 		if (!message) {
 			message = {};
@@ -408,7 +408,7 @@ var ErrorHandlerView = Backbone.View.extend({
 
 		var _self = this;
 
-		return function(model, response, options) {
+		return function (model, response, options) {
 
 			if (message.log) {
 				console.log(message.log);
@@ -431,7 +431,7 @@ var ErrorHandlerView = Backbone.View.extend({
 		}
 	},
 
-	showErrorMessage: function(header, message) {
+	showErrorMessage: function (header, message) {
 		// hide the sheet if it's visible
 		$('#loadingbox').sheet('hide');
 
@@ -457,7 +457,7 @@ var AppRouter = Backbone.Router.extend({
 
 	},
 
-	root: function() {
+	root: function () {
 		if (isAdmin()) {
 			this.navigate('admin/clients', {
 				trigger: true
@@ -469,7 +469,7 @@ var AppRouter = Backbone.Router.extend({
 		}
 	},
 
-	initialize: function() {
+	initialize: function () {
 
 		this.breadCrumbView = new BreadCrumbView({
 			collection: new Backbone.Collection()
@@ -481,13 +481,13 @@ var AppRouter = Backbone.Router.extend({
 
 		// call all the extra initialization functions
 		var app = this;
-		_.each(ui.init, function(fn) {
+		_.each(ui.init, function (fn) {
 			fn(app);
 		});
 
 	},
 
-	notImplemented: function() {
+	notImplemented: function () {
 		this.breadCrumbView.collection.reset();
 		this.breadCrumbView.collection.add([{
 			text: $.t('admin.home'),
@@ -499,7 +499,7 @@ var AppRouter = Backbone.Router.extend({
 		$('#content').html("<h2>Not implemented yet.</h2>");
 	},
 
-	updateSidebar: function(item) {
+	updateSidebar: function (item) {
 		$('.sidebar-nav li.active').removeClass('active');
 
 		$('.sidebar-nav li a[href^="manage/#' + item + '"]').parent().addClass('active');
@@ -511,29 +511,29 @@ var AppRouter = Backbone.Router.extend({
 var app = null;
 
 // main
-$(function() {
+$(function () {
 
-	var loader = function(source) {
-		return $.get(source, function(templates) {
+	var loader = function (source) {
+		return $.get(source, function (templates) {
 			console.log('Loading file: ' + source);
 			$('#templates').append(templates);
 		});
 	};
 
 	// load templates and append them to the body
-	$.when.apply(null, ui.templates.map(loader)).done(function() {
+	$.when.apply(null, ui.templates.map(loader)).done(function () {
 		console.log('done');
 		$.ajaxSetup({
 			cache: false
 		});
 		app = new AppRouter();
 
-		_.each(ui.routes.reverse(), function(route) {
+		_.each(ui.routes.reverse(), function (route) {
 			console.log("Adding route: " + route.name);
 			app.route(route.path, route.name, route.callback);
 		});
 
-		app.on('route', function(name, args) {
+		app.on('route', function (name, args) {
 			// scroll to top of page on new route selection
 			$("html, body").animate({
 				scrollTop: 0
@@ -541,7 +541,7 @@ $(function() {
 		});
 
 		// grab all hashed URLs and send them through the app router instead
-		$(document).on('click', 'a[href^="manage/#"]', function(event) {
+		$(document).on('click', 'a[href^="manage/#"]', function (event) {
 			event.preventDefault();
 			app.navigate(this.hash.slice(1), {
 				trigger: true
@@ -552,7 +552,7 @@ $(function() {
 		if (base.substr(-1) !== '/') {
 			base += '/';
 		}
-		$.getJSON(base + '.well-known/openid-configuration', function(data) {
+		$.getJSON(base + '.well-known/openid-configuration', function (data) {
 			app.serverConfiguration = data;
 			var baseUrl = $.url(app.serverConfiguration.issuer);
 			Backbone.history.start({
@@ -562,18 +562,18 @@ $(function() {
 		});
 	});
 
-	window.onerror = function(message, filename, lineno, colno, error) {
+	window.onerror = function (message, filename, lineno, colno, error) {
 		console.log(message);
 		// Display an alert with an error message
 		$('#modalAlert div.modal-header').html($.t('error.title'));
 		$('#modalAlert div.modal-body').html($.t('error.message') + message + ' <br /> ' + [filename, lineno, colno, error]);
 
 		$("#modalAlert").modal({ // wire up the actual modal functionality
-									// and show the dialog
+			// and show the dialog
 			"backdrop": "static",
 			"keyboard": true,
 			"show": true
-		// ensure the modal is shown immediately
+			// ensure the modal is shown immediately
 		});
 
 	}

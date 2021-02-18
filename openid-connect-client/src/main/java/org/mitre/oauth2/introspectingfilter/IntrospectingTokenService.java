@@ -61,8 +61,8 @@ import com.nimbusds.jose.util.Base64;
  * This ResourceServerTokenServices implementation introspects incoming tokens at a
  * server's introspection endpoint URL and passes an Authentication object along
  * based on the response from the introspection endpoint.
- * @author jricher
  *
+ * @author jricher
  */
 public class IntrospectingTokenService implements ResourceServerTokenServices {
 
@@ -143,6 +143,7 @@ public class IntrospectingTokenService implements ResourceServerTokenServices {
 
 	/**
 	 * get the default cache expire time in milliseconds
+	 *
 	 * @return
 	 */
 	public int getDefaultExpireTime() {
@@ -151,6 +152,7 @@ public class IntrospectingTokenService implements ResourceServerTokenServices {
 
 	/**
 	 * set the default cache expire time in milliseconds
+	 *
 	 * @param defaultExpireTime
 	 */
 	public void setDefaultExpireTime(int defaultExpireTime) {
@@ -159,6 +161,7 @@ public class IntrospectingTokenService implements ResourceServerTokenServices {
 
 	/**
 	 * check if forcing a cache expire time maximum value
+	 *
 	 * @return the forceCacheExpireTime setting
 	 */
 	public boolean isForceCacheExpireTime() {
@@ -167,6 +170,7 @@ public class IntrospectingTokenService implements ResourceServerTokenServices {
 
 	/**
 	 * set forcing a cache expire time maximum value
+	 *
 	 * @param forceCacheExpireTime
 	 */
 	public void setForceCacheExpireTime(boolean forceCacheExpireTime) {
@@ -175,6 +179,7 @@ public class IntrospectingTokenService implements ResourceServerTokenServices {
 
 	/**
 	 * Are non-expiring tokens cached using the default cache time
+	 *
 	 * @return state of cacheNonExpiringTokens
 	 */
 	public boolean isCacheNonExpiringTokens() {
@@ -183,6 +188,7 @@ public class IntrospectingTokenService implements ResourceServerTokenServices {
 
 	/**
 	 * should non-expiring tokens be cached using the default cache timeout
+	 *
 	 * @param cacheNonExpiringTokens
 	 */
 	public void setCacheNonExpiringTokens(boolean cacheNonExpiringTokens) {
@@ -191,6 +197,7 @@ public class IntrospectingTokenService implements ResourceServerTokenServices {
 
 	/**
 	 * Is the service caching tokens, or is it hitting the introspection end point every time
+	 *
 	 * @return true is caching tokens locally, false hits the introspection end point every time
 	 */
 	public boolean isCacheTokens() {
@@ -199,6 +206,7 @@ public class IntrospectingTokenService implements ResourceServerTokenServices {
 
 	/**
 	 * Configure if the client should cache tokens locally or not
+	 *
 	 * @param cacheTokens
 	 */
 	public void setCacheTokens(boolean cacheTokens) {
@@ -211,6 +219,7 @@ public class IntrospectingTokenService implements ResourceServerTokenServices {
 	 * the cache expire time on the TokenCacheObject. If a cached value has been found but is
 	 * expired, either by default expire times or the token's own expire time, then the token is
 	 * removed from the cache and null is returned.
+	 *
 	 * @param key is the token to check
 	 * @return the cached TokenCacheObject or null
 	 */
@@ -243,7 +252,7 @@ public class IntrospectingTokenService implements ResourceServerTokenServices {
 
 	private Authentication createUserAuthentication(JsonObject token) {
 		JsonElement userId = token.get("user_id");
-		if(userId == null) {
+		if (userId == null) {
 			userId = token.get("sub");
 			if (userId == null) {
 				return null;
@@ -287,7 +296,7 @@ public class IntrospectingTokenService implements ResourceServerTokenServices {
 		final String clientId = client.getClientId();
 		final String clientSecret = client.getClientSecret();
 
-		if (SECRET_BASIC.equals(client.getTokenEndpointAuthMethod())){
+		if (SECRET_BASIC.equals(client.getTokenEndpointAuthMethod())) {
 			// use BASIC auth if configured to do so
 			restTemplate = new RestTemplate(factory) {
 
@@ -295,7 +304,7 @@ public class IntrospectingTokenService implements ResourceServerTokenServices {
 				protected ClientHttpRequest createRequest(URI url, HttpMethod method) throws IOException {
 					ClientHttpRequest httpRequest = super.createRequest(url, method);
 					httpRequest.getHeaders().add("Authorization",
-							String.format("Basic %s", Base64.encode(String.format("%s:%s", clientId, clientSecret)) ));
+						String.format("Basic %s", Base64.encode(String.format("%s:%s", clientId, clientSecret))));
 					return httpRequest;
 				}
 			};

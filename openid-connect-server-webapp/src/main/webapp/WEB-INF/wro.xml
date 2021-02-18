@@ -13,11 +13,11 @@
     See the License for the specific language governing permissions and
     limitations under the License.
  -->
-<groups xmlns="http://www.isdc.ro/wro">	
-  <group name="bootstrap">
-    <css>/less/bootstrap.less</css>
-  </group>
-  <group name="bootstrap-responsive">
-    <css>/less/bootstrap-responsive.less</css>
-  </group>
+<groups xmlns="http://www.isdc.ro/wro">
+	<group name="bootstrap">
+		<css>/less/bootstrap.less</css>
+	</group>
+	<group name="bootstrap-responsive">
+		<css>/less/bootstrap-responsive.less</css>
+	</group>
 </groups>

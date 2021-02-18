@@ -23,15 +23,13 @@ import org.mitre.openid.connect.model.Address;
  * Address repository interface
  *
  * @author Michael Joseph Walsh
- *
  */
 public interface AddressRepository {
 
 	/**
 	 * Returns the Address for the given id
 	 *
-	 * @param id
-	 *            id the id of the Address
+	 * @param id id the id of the Address
 	 * @return a valid Address if it exists, null otherwise
 	 */
 	public Address getById(Long id);

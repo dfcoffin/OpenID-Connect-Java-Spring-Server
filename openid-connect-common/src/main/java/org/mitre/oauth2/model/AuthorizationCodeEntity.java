@@ -36,7 +36,6 @@ import javax.persistence.Temporal;
  * Entity class for authorization codes
  *
  * @author aanganes
- *
  */
 @Entity
 @Table(name = "authorization_code")
@@ -69,8 +68,8 @@ public class AuthorizationCodeEntity {
 	/**
 	 * Create a new AuthorizationCodeEntity with the given code and AuthorizationRequestHolder.
 	 *
-	 * @param code 			the authorization code
-	 * @param authRequest	the AuthoriztionRequestHolder associated with the original code request
+	 * @param code        the authorization code
+	 * @param authRequest the AuthoriztionRequestHolder associated with the original code request
 	 */
 	public AuthorizationCodeEntity(String code, AuthenticationHolderEntity authenticationHolder, Date expiration) {
 		this.code = code;
@@ -113,6 +112,7 @@ public class AuthorizationCodeEntity {
 
 	/**
 	 * The authentication in place when this token was created.
+	 *
 	 * @return the authentication
 	 */
 	@ManyToOne

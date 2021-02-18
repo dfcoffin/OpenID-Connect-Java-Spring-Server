@@ -51,12 +51,12 @@ import org.springframework.security.oauth2.provider.OAuth2Request;
 
 @Entity
 @Table(name = "authentication_holder")
-@NamedQueries ({
+@NamedQueries({
 	@NamedQuery(name = AuthenticationHolderEntity.QUERY_ALL, query = "select a from AuthenticationHolderEntity a"),
 	@NamedQuery(name = AuthenticationHolderEntity.QUERY_GET_UNUSED, query = "select a from AuthenticationHolderEntity a where " +
-			"a.id not in (select t.authenticationHolder.id from OAuth2AccessTokenEntity t) and " +
-			"a.id not in (select r.authenticationHolder.id from OAuth2RefreshTokenEntity r) and " +
-			"a.id not in (select c.authenticationHolder.id from AuthorizationCodeEntity c)")
+		"a.id not in (select t.authenticationHolder.id from OAuth2AccessTokenEntity t) and " +
+		"a.id not in (select r.authenticationHolder.id from OAuth2RefreshTokenEntity r) and " +
+		"a.id not in (select c.authenticationHolder.id from AuthorizationCodeEntity c)")
 })
 public class AuthenticationHolderEntity {
 
@@ -137,7 +137,7 @@ public class AuthenticationHolderEntity {
 	/**
 	 * @return the userAuth
 	 */
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_auth_id")
 	public SavedUserAuthentication getUserAuth() {
 		return userAuth;
@@ -155,11 +155,11 @@ public class AuthenticationHolderEntity {
 	 */
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(
-			name="authentication_holder_authority",
-			joinColumns=@JoinColumn(name="owner_id")
-			)
+		name = "authentication_holder_authority",
+		joinColumns = @JoinColumn(name = "owner_id")
+	)
 	@Convert(converter = SimpleGrantedAuthorityStringConverter.class)
-	@Column(name="authority")
+	@Column(name = "authority")
 	public Collection<GrantedAuthority> getAuthorities() {
 		return authorities;
 	}
@@ -176,10 +176,10 @@ public class AuthenticationHolderEntity {
 	 */
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(
-			name="authentication_holder_resource_id",
-			joinColumns=@JoinColumn(name="owner_id")
-			)
-	@Column(name="resource_id")
+		name = "authentication_holder_resource_id",
+		joinColumns = @JoinColumn(name = "owner_id")
+	)
+	@Column(name = "resource_id")
 	public Set<String> getResourceIds() {
 		return resourceIds;
 	}
@@ -195,7 +195,7 @@ public class AuthenticationHolderEntity {
 	 * @return the approved
 	 */
 	@Basic
-	@Column(name="approved")
+	@Column(name = "approved")
 	public boolean isApproved() {
 		return approved;
 	}
@@ -211,7 +211,7 @@ public class AuthenticationHolderEntity {
 	 * @return the redirectUri
 	 */
 	@Basic
-	@Column(name="redirect_uri")
+	@Column(name = "redirect_uri")
 	public String getRedirectUri() {
 		return redirectUri;
 	}
@@ -228,10 +228,10 @@ public class AuthenticationHolderEntity {
 	 */
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(
-			name="authentication_holder_response_type",
-			joinColumns=@JoinColumn(name="owner_id")
-			)
-	@Column(name="response_type")
+		name = "authentication_holder_response_type",
+		joinColumns = @JoinColumn(name = "owner_id")
+	)
+	@Column(name = "response_type")
 	public Set<String> getResponseTypes() {
 		return responseTypes;
 	}
@@ -248,12 +248,12 @@ public class AuthenticationHolderEntity {
 	 */
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(
-			name="authentication_holder_extension",
-			joinColumns=@JoinColumn(name="owner_id")
-			)
-	@Column(name="val")
-	@MapKeyColumn(name="extension")
-	@Convert(converter=SerializableStringConverter.class)
+		name = "authentication_holder_extension",
+		joinColumns = @JoinColumn(name = "owner_id")
+	)
+	@Column(name = "val")
+	@MapKeyColumn(name = "extension")
+	@Convert(converter = SerializableStringConverter.class)
 	public Map<String, Serializable> getExtensions() {
 		return extensions;
 	}
@@ -269,7 +269,7 @@ public class AuthenticationHolderEntity {
 	 * @return the clientId
 	 */
 	@Basic
-	@Column(name="client_id")
+	@Column(name = "client_id")
 	public String getClientId() {
 		return clientId;
 	}
@@ -286,10 +286,10 @@ public class AuthenticationHolderEntity {
 	 */
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(
-			name="authentication_holder_scope",
-			joinColumns=@JoinColumn(name="owner_id")
-			)
-	@Column(name="scope")
+		name = "authentication_holder_scope",
+		joinColumns = @JoinColumn(name = "owner_id")
+	)
+	@Column(name = "scope")
 	public Set<String> getScope() {
 		return scope;
 	}
@@ -306,11 +306,11 @@ public class AuthenticationHolderEntity {
 	 */
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(
-			name="authentication_holder_request_parameter",
-			joinColumns=@JoinColumn(name="owner_id")
-			)
-	@Column(name="val")
-	@MapKeyColumn(name="param")
+		name = "authentication_holder_request_parameter",
+		joinColumns = @JoinColumn(name = "owner_id")
+	)
+	@Column(name = "val")
+	@MapKeyColumn(name = "param")
 	public Map<String, String> getRequestParameters() {
 		return requestParameters;
 	}
@@ -321,7 +321,6 @@ public class AuthenticationHolderEntity {
 	public void setRequestParameters(Map<String, String> requestParameters) {
 		this.requestParameters = requestParameters;
 	}
-
 
 
 }

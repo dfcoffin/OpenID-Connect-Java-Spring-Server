@@ -31,7 +31,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
- * @author  jricher
+ * @author jricher
  */
 @Entity
 @Table(name = "permission")
@@ -80,9 +80,9 @@ public class Permission {
 	@ElementCollection(fetch = FetchType.EAGER)
 	@Column(name = "scope")
 	@CollectionTable(
-			name = "permission_scope",
-			joinColumns = @JoinColumn(name = "owner_id")
-			)
+		name = "permission_scope",
+		joinColumns = @JoinColumn(name = "owner_id")
+	)
 	public Set<String> getScopes() {
 		return scopes;
 	}

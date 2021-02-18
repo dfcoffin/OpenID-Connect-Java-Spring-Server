@@ -30,7 +30,6 @@ import org.springframework.security.oauth2.provider.ClientDetails;
  * Interface for ApprovedSite service
  *
  * @author Michael Joseph Walsh, aanganes
- *
  */
 public interface ApprovedSiteService {
 
@@ -57,16 +56,14 @@ public interface ApprovedSiteService {
 	/**
 	 * Save an ApprovedSite
 	 *
-	 * @param approvedSite
-	 *            the ApprovedSite to be saved
+	 * @param approvedSite the ApprovedSite to be saved
 	 */
 	public ApprovedSite save(ApprovedSite approvedSite);
 
 	/**
 	 * Get ApprovedSite for id
 	 *
-	 * @param id
-	 *            id for ApprovedSite
+	 * @param id id for ApprovedSite
 	 * @return ApprovedSite for id, or null
 	 */
 	public ApprovedSite getById(Long id);
@@ -74,13 +71,13 @@ public interface ApprovedSiteService {
 	/**
 	 * Remove the ApprovedSite
 	 *
-	 * @param approvedSite
-	 *            the ApprovedSite to remove
+	 * @param approvedSite the ApprovedSite to remove
 	 */
 	public void remove(ApprovedSite approvedSite);
 
 	/**
 	 * Get all sites approved by this user
+	 *
 	 * @param userId
 	 * @return
 	 */
@@ -88,6 +85,7 @@ public interface ApprovedSiteService {
 
 	/**
 	 * Get all sites associated with this client
+	 *
 	 * @param clientId
 	 * @return
 	 */
@@ -95,18 +93,21 @@ public interface ApprovedSiteService {
 
 	/**
 	 * Clear out any approved sites for a given client.
+	 *
 	 * @param client
 	 */
 	public void clearApprovedSitesForClient(ClientDetails client);
 
 	/**
 	 * Remove all expired approved sites fromt he data store.
+	 *
 	 * @return
 	 */
 	public void clearExpiredSites();
 
 	/**
 	 * Return all approved access tokens for the site.
+	 *
 	 * @return
 	 */
 	public List<OAuth2AccessTokenEntity> getApprovedAccessTokens(ApprovedSite approvedSite);

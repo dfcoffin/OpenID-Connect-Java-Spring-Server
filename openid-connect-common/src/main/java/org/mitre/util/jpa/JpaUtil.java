@@ -26,12 +26,12 @@ import org.mitre.data.PageCriteria;
 
 /**
  * @author mfranklin
- *         Date: 4/28/11
- *         Time: 2:13 PM
+ * Date: 4/28/11
+ * Time: 2:13 PM
  */
 public class JpaUtil {
 	public static <T> T getSingleResult(List<T> list) {
-		switch(list.size()) {
+		switch (list.size()) {
 			case 0:
 				return null;
 			case 1:
@@ -48,14 +48,14 @@ public class JpaUtil {
 	 * results. The PageCriteria will override any size or
 	 * offset already specified on the query.
 	 *
-	 * @param <T>  the type parameter
-	 * @param query the query
+	 * @param <T>          the type parameter
+	 * @param query        the query
 	 * @param pageCriteria the page criteria
 	 * @return the list
 	 */
-	public static <T> List<T> getResultPage(TypedQuery<T> query, PageCriteria pageCriteria){
+	public static <T> List<T> getResultPage(TypedQuery<T> query, PageCriteria pageCriteria) {
 		query.setMaxResults(pageCriteria.getPageSize());
-		query.setFirstResult(pageCriteria.getPageNumber()*pageCriteria.getPageSize());
+		query.setFirstResult(pageCriteria.getPageNumber() * pageCriteria.getPageSize());
 
 		return query.getResultList();
 	}

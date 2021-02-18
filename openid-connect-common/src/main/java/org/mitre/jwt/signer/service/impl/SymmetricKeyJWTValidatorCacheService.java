@@ -42,7 +42,6 @@ import com.nimbusds.jose.util.Base64URL;
  * Creates and caches symmetrical validators for clients based on client secrets.
  *
  * @author jricher
- *
  */
 @Service
 public class SymmetricKeyJWTValidatorCacheService {
@@ -57,9 +56,9 @@ public class SymmetricKeyJWTValidatorCacheService {
 
 	public SymmetricKeyJWTValidatorCacheService() {
 		validators = CacheBuilder.newBuilder()
-				.expireAfterAccess(24, TimeUnit.HOURS)
-				.maximumSize(100)
-				.build(new SymmetricValidatorBuilder());
+			.expireAfterAccess(24, TimeUnit.HOURS)
+			.maximumSize(100)
+			.build(new SymmetricValidatorBuilder());
 	}
 
 

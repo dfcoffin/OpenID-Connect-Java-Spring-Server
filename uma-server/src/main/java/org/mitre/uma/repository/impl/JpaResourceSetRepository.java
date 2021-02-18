@@ -32,17 +32,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author jricher
- *
  */
 @Repository
 public class JpaResourceSetRepository implements ResourceSetRepository {
 
-	@PersistenceContext(unitName="defaultPersistenceUnit")
+	@PersistenceContext(unitName = "defaultPersistenceUnit")
 	private EntityManager em;
 	private static Logger logger = LoggerFactory.getLogger(JpaResourceSetRepository.class);
 
 	@Override
-	@Transactional(value="defaultTransactionManager")
+	@Transactional(value = "defaultTransactionManager")
 	public ResourceSet save(ResourceSet rs) {
 		return JpaUtil.saveOrUpdate(rs.getId(), em, rs);
 	}
@@ -53,7 +52,7 @@ public class JpaResourceSetRepository implements ResourceSetRepository {
 	}
 
 	@Override
-	@Transactional(value="defaultTransactionManager")
+	@Transactional(value = "defaultTransactionManager")
 	public void remove(ResourceSet rs) {
 		ResourceSet found = getById(rs.getId());
 		if (found != null) {

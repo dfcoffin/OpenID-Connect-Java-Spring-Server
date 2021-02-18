@@ -34,29 +34,28 @@ import org.springframework.transaction.annotation.Transactional;
  * JPA ApprovedSite repository implementation
  *
  * @author Michael Joseph Walsh, aanganes
- *
  */
 @Repository
 public class JpaApprovedSiteRepository implements ApprovedSiteRepository {
 
-	@PersistenceContext(unitName="defaultPersistenceUnit")
+	@PersistenceContext(unitName = "defaultPersistenceUnit")
 	private EntityManager manager;
 
 	@Override
-	@Transactional(value="defaultTransactionManager")
+	@Transactional(value = "defaultTransactionManager")
 	public Collection<ApprovedSite> getAll() {
 		TypedQuery<ApprovedSite> query = manager.createNamedQuery(ApprovedSite.QUERY_ALL, ApprovedSite.class);
 		return query.getResultList();
 	}
 
 	@Override
-	@Transactional(value="defaultTransactionManager")
+	@Transactional(value = "defaultTransactionManager")
 	public ApprovedSite getById(Long id) {
 		return manager.find(ApprovedSite.class, id);
 	}
 
 	@Override
-	@Transactional(value="defaultTransactionManager")
+	@Transactional(value = "defaultTransactionManager")
 	public void remove(ApprovedSite approvedSite) {
 		ApprovedSite found = manager.find(ApprovedSite.class, approvedSite.getId());
 
@@ -68,7 +67,7 @@ public class JpaApprovedSiteRepository implements ApprovedSiteRepository {
 	}
 
 	@Override
-	@Transactional(value="defaultTransactionManager")
+	@Transactional(value = "defaultTransactionManager")
 	public ApprovedSite save(ApprovedSite approvedSite) {
 		return saveOrUpdate(approvedSite.getId(), manager, approvedSite);
 	}
@@ -84,7 +83,7 @@ public class JpaApprovedSiteRepository implements ApprovedSiteRepository {
 	}
 
 	@Override
-	@Transactional(value="defaultTransactionManager")
+	@Transactional(value = "defaultTransactionManager")
 	public Collection<ApprovedSite> getByUserId(String userId) {
 		TypedQuery<ApprovedSite> query = manager.createNamedQuery(ApprovedSite.QUERY_BY_USER_ID, ApprovedSite.class);
 		query.setParameter(ApprovedSite.PARAM_USER_ID, userId);
@@ -94,7 +93,7 @@ public class JpaApprovedSiteRepository implements ApprovedSiteRepository {
 	}
 
 	@Override
-	@Transactional(value="defaultTransactionManager")
+	@Transactional(value = "defaultTransactionManager")
 	public Collection<ApprovedSite> getByClientId(String clientId) {
 		TypedQuery<ApprovedSite> query = manager.createNamedQuery(ApprovedSite.QUERY_BY_CLIENT_ID, ApprovedSite.class);
 		query.setParameter(ApprovedSite.PARAM_CLIENT_ID, clientId);

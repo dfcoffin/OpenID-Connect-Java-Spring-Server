@@ -18,7 +18,6 @@ package org.mitre.openid.connect.model;
 
 /**
  * @author jricher
- *
  */
 public class ClientStat {
 

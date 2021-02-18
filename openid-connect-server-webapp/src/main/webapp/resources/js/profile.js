@@ -16,7 +16,7 @@
 ui.routes.push({
 	path: "user/profile",
 	name: "profile",
-	callback: function() {
+	callback: function () {
 
 		this.breadCrumbView.collection.reset();
 		this.breadCrumbView.collection.add([{

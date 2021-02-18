@@ -34,7 +34,6 @@ import static org.junit.Assert.assertThat;
 
 /**
  * @author wkim
- *
  */
 public class TestThirdPartyIssuerService {
 

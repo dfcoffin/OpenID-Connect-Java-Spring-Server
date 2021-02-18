@@ -37,10 +37,8 @@ import org.springframework.stereotype.Component;
 /**
  * Implements https://tools.ietf.org/html/draft-ietf-oauth-device-flow
  *
- * @see DeviceEndpoint
- *
  * @author jricher
- *
+ * @see DeviceEndpoint
  */
 @Component("deviceTokenGranter")
 public class DeviceTokenGranter extends AbstractTokenGranter {
@@ -75,9 +73,9 @@ public class DeviceTokenGranter extends AbstractTokenGranter {
 
 			// make sure the code hasn't expired yet
 			if (dc.getExpiration() != null && dc.getExpiration().before(new Date())) {
-				
+
 				deviceCodeService.clearDeviceCode(deviceCode, client);
-				
+
 				throw new DeviceCodeExpiredException("Device code has expired " + deviceCode);
 
 			} else if (!dc.isApproved()) {
@@ -92,7 +90,7 @@ public class DeviceTokenGranter extends AbstractTokenGranter {
 				OAuth2Authentication auth = new OAuth2Authentication(getRequestFactory().createOAuth2Request(client, tokenRequest), dc.getAuthenticationHolder().getUserAuth());
 
 				deviceCodeService.clearDeviceCode(deviceCode, client);
-				
+
 				return auth;
 			}
 		} else {
@@ -100,8 +98,6 @@ public class DeviceTokenGranter extends AbstractTokenGranter {
 		}
 
 	}
-
-
 
 
 }

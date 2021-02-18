@@ -35,9 +35,7 @@ import com.nimbusds.jwt.JWTParser;
 import static org.junit.Assert.assertEquals;
 
 /**
- *
  * @author wkim
- *
  */
 @RunWith(MockitoJUnitRunner.class)
 public class TestIdTokenHashUtils {

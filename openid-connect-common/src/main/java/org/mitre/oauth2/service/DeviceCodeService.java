@@ -27,7 +27,6 @@ import org.springframework.security.oauth2.provider.OAuth2Authentication;
 
 /**
  * @author jricher
- *
  */
 public interface DeviceCodeService {
 
@@ -52,12 +51,11 @@ public interface DeviceCodeService {
 
 
 	/**
-	 * 
 	 * @param deviceCode
 	 * @param client
 	 */
 	public void clearDeviceCode(String deviceCode, ClientDetails client);
-	
+
 	/**
 	 * @param deviceCode
 	 * @param userCode

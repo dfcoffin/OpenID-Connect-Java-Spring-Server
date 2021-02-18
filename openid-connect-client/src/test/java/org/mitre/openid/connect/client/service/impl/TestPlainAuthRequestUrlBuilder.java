@@ -35,7 +35,6 @@ import static org.junit.Assert.assertThat;
 
 /**
  * @author wkim
- *
  */
 public class TestPlainAuthRequestUrlBuilder {
 
@@ -60,13 +59,13 @@ public class TestPlainAuthRequestUrlBuilder {
 	public void buildAuthRequestUrl() {
 
 		String expectedUrl = "https://server.example.com/authorize?" +
-				"response_type=code" +
-				"&client_id=s6BhdRkqt3" +
-				"&scope=openid+profile" + // plus sign used for space per application/x-www-form-encoded standard
-				"&redirect_uri=https%3A%2F%2Fclient.example.org%2F" +
-				"&nonce=34fasf3ds" +
-				"&state=af0ifjsldkj" +
-				"&foo=bar";
+			"response_type=code" +
+			"&client_id=s6BhdRkqt3" +
+			"&scope=openid+profile" + // plus sign used for space per application/x-www-form-encoded standard
+			"&redirect_uri=https%3A%2F%2Fclient.example.org%2F" +
+			"&nonce=34fasf3ds" +
+			"&state=af0ifjsldkj" +
+			"&foo=bar";
 
 		Map<String, String> options = ImmutableMap.of("foo", "bar");
 
@@ -79,14 +78,14 @@ public class TestPlainAuthRequestUrlBuilder {
 	public void buildAuthRequestUrl_withLoginHint() {
 
 		String expectedUrl = "https://server.example.com/authorize?" +
-				"response_type=code" +
-				"&client_id=s6BhdRkqt3" +
-				"&scope=openid+profile" + // plus sign used for space per application/x-www-form-encoded standard
-				"&redirect_uri=https%3A%2F%2Fclient.example.org%2F" +
-				"&nonce=34fasf3ds" +
-				"&state=af0ifjsldkj" +
-				"&foo=bar" +
-				"&login_hint=bob";
+			"response_type=code" +
+			"&client_id=s6BhdRkqt3" +
+			"&scope=openid+profile" + // plus sign used for space per application/x-www-form-encoded standard
+			"&redirect_uri=https%3A%2F%2Fclient.example.org%2F" +
+			"&nonce=34fasf3ds" +
+			"&state=af0ifjsldkj" +
+			"&foo=bar" +
+			"&login_hint=bob";
 
 		Map<String, String> options = ImmutableMap.of("foo", "bar");
 

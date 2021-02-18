@@ -26,7 +26,6 @@ import org.mitre.oauth2.model.AuthorizationCodeEntity;
  * Interface for saving and consuming OAuth2 authorization codes as AuthorizationCodeEntitys.
  *
  * @author aanganes
- *
  */
 public interface AuthorizationCodeRepository {
 
@@ -34,15 +33,15 @@ public interface AuthorizationCodeRepository {
 	 * Save an AuthorizationCodeEntity to the repository
 	 *
 	 * @param authorizationCode the AuthorizationCodeEntity to save
-	 * @return					the saved AuthorizationCodeEntity
+	 * @return the saved AuthorizationCodeEntity
 	 */
 	public AuthorizationCodeEntity save(AuthorizationCodeEntity authorizationCode);
 
 	/**
 	 * Get an authorization code from the repository by value.
 	 *
-	 * @param code						the authorization code value
-	 * @return							the authentication associated with the code
+	 * @param code the authorization code value
+	 * @return the authentication associated with the code
 	 */
 	public AuthorizationCodeEntity getByCode(String code);
 

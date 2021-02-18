@@ -40,11 +40,10 @@ import com.google.common.base.Strings;
 
 /**
  * Loads client details based on URI encoding as passed in from basic auth.
- *
- *  Should only get called if non-encoded provider fails.
+ * <p>
+ * Should only get called if non-encoded provider fails.
  *
  * @author AANGANES
- *
  */
 @Service("uriEncodedClientUserDetailsService")
 public class UriEncodedClientUserDetailsService implements UserDetailsService {
@@ -58,7 +57,7 @@ public class UriEncodedClientUserDetailsService implements UserDetailsService {
 	private ConfigurationPropertiesBean config;
 
 	@Override
-	public UserDetails loadUserByUsername(String clientId) throws  UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String clientId) throws UsernameNotFoundException {
 
 		try {
 			String decodedClientId = UriUtils.decode(clientId, "UTF-8");
@@ -70,9 +69,9 @@ public class UriEncodedClientUserDetailsService implements UserDetailsService {
 				String encodedPassword = UriUtils.encodePathSegment(Strings.nullToEmpty(client.getClientSecret()), "UTF-8");
 
 				if (config.isHeartMode() || // if we're running HEART mode turn off all client secrets
-						(client.getTokenEndpointAuthMethod() != null &&
-							(client.getTokenEndpointAuthMethod().equals(AuthMethod.PRIVATE_KEY) ||
-								client.getTokenEndpointAuthMethod().equals(AuthMethod.SECRET_JWT)))) {
+					(client.getTokenEndpointAuthMethod() != null &&
+						(client.getTokenEndpointAuthMethod().equals(AuthMethod.PRIVATE_KEY) ||
+							client.getTokenEndpointAuthMethod().equals(AuthMethod.SECRET_JWT)))) {
 
 					// Issue a random password each time to prevent password auth from being used (or skipped)
 					// for private key or shared key clients, see #715

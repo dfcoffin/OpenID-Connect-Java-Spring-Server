@@ -22,7 +22,6 @@ import java.util.Collection;
  * Data shuttle to return results of the claims processing service.
  *
  * @author jricher
- *
  */
 public class ClaimProcessingResult {
 
@@ -32,6 +31,7 @@ public class ClaimProcessingResult {
 
 	/**
 	 * Create an unmatched result. isSatisfied is false.
+	 *
 	 * @param unmatched
 	 */
 	public ClaimProcessingResult(Collection<Claim> unmatched) {
@@ -42,6 +42,7 @@ public class ClaimProcessingResult {
 
 	/**
 	 * Create a matched result. isSatisfied is true.
+	 *
 	 * @param matched
 	 */
 	public ClaimProcessingResult(Policy matched) {
